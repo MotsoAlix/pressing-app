@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <title>Diagramme de cas d'utilisation - ManohPressing</title>
+  
+  <!-- Styles -->
+  <defs>
+    <style>
+      .actor { fill: #e1f5fe; stroke: #01579b; stroke-width: 2; }
+      .usecase { fill: #f3e5f5; stroke: #4a148c; stroke-width: 1.5; rx: 20; }
+      .system { fill: #fff3e0; stroke: #e65100; stroke-width: 2; }
+      .text { font-family: Arial, sans-serif; font-size: 12px; text-anchor: middle; }
+      .title { font-size: 16px; font-weight: bold; }
+      .line { stroke: #333; stroke-width: 1.5; fill: none; }
+      .include { stroke: #666; stroke-width: 1; stroke-dasharray: 5,5; }
+    </style>
+  </defs>
+  
+  <!-- Titre -->
+  <text x="600" y="30" class="text title">Diagramme de cas d'utilisation - ManohPressing</text>
+  
+  <!-- Acteurs -->
+  <g id="actors">
+    <!-- Client -->
+    <rect x="50" y="100" width="80" height="60" class="actor"/>
+    <text x="90" y="135" class="text">👤 Client</text>
+    
+    <!-- Gérant -->
+    <rect x="50" y="300" width="80" height="60" class="actor"/>
+    <text x="90" y="335" class="text">👔 Gérant</text>
+    
+    <!-- Admin -->
+    <rect x="50" y="500" width="80" height="60" class="actor"/>
+    <text x="90" y="535" class="text">👨‍💼 Admin</text>
+    
+    <!-- Système -->
+    <rect x="1050" y="300" width="80" height="60" class="system"/>
+    <text x="1090" y="335" class="text">🤖 Système</text>
+  </g>
+  
+  <!-- Cas d'utilisation Client -->
+  <g id="client-usecases">
+    <ellipse cx="300" cy="130" rx="80" ry="25" class="usecase"/>
+    <text x="300" y="135" class="text">Consulter commandes</text>
+    
+    <ellipse cx="450" cy="130" rx="70" ry="25" class="usecase"/>
+    <text x="450" y="135" class="text">Payer facture</text>
+    
+    <ellipse cx="600" cy="130" rx="80" ry="25" class="usecase"/>
+    <text x="600" y="135" class="text">Paiement mobile</text>
+    
+    <ellipse cx="300" cy="180" rx="80" ry="25" class="usecase"/>
+    <text x="300" y="185" class="text">Consulter reçus</text>
+    
+    <ellipse cx="450" cy="180" rx="70" ry="25" class="usecase"/>
+    <text x="450" y="185" class="text">Chat gérant</text>
+  </g>
+  
+  <!-- Cas d'utilisation Gérant -->
+  <g id="manager-usecases">
+    <ellipse cx="300" cy="330" rx="80" ry="25" class="usecase"/>
+    <text x="300" y="335" class="text">Créer commande</text>
+    
+    <ellipse cx="450" cy="330" rx="80" ry="25" class="usecase"/>
+    <text x="450" y="335" class="text">Gérer statuts</text>
+    
+    <ellipse cx="600" cy="330" rx="70" ry="25" class="usecase"/>
+    <text x="600" y="335" class="text">Créer client</text>
+    
+    <ellipse cx="300" cy="380" rx="80" ry="25" class="usecase"/>
+    <text x="300" y="385" class="text">Valider reçus</text>
+    
+    <ellipse cx="450" cy="380" rx="80" ry="25" class="usecase"/>
+    <text x="450" y="385" class="text">Gérer paiements</text>
+    
+    <ellipse cx="600" cy="380" rx="70" ry="25" class="usecase"/>
+    <text x="600" y="385" class="text">Gérer stock</text>
+  </g>
+  
+  <!-- Cas d'utilisation Admin -->
+  <g id="admin-usecases">
+    <ellipse cx="300" cy="530" rx="80" ry="25" class="usecase"/>
+    <text x="300" y="535" class="text">Gérer utilisateurs</text>
+    
+    <ellipse cx="450" cy="530" rx="70" ry="25" class="usecase"/>
+    <text x="450" y="535" class="text">Gérer sites</text>
+    
+    <ellipse cx="600" cy="530" rx="80" ry="25" class="usecase"/>
+    <text x="600" y="535" class="text">Statistiques globales</text>
+  </g>
+  
+  <!-- Cas d'utilisation Système -->
+  <g id="system-usecases">
+    <ellipse cx="850" cy="300" rx="80" ry="25" class="usecase"/>
+    <text x="850" y="305" class="text">Générer reçus</text>
+    
+    <ellipse cx="850" cy="350" rx="80" ry="25" class="usecase"/>
+    <text x="850" y="355" class="text">Traiter paiements</text>
+    
+    <ellipse cx="850" cy="400" rx="80" ry="25" class="usecase"/>
+    <text x="850" y="405" class="text">Notifications auto</text>
+  </g>
+  
+  <!-- Relations -->
+  <g id="relations">
+    <!-- Client vers ses cas d'utilisation -->
+    <line x1="130" y1="130" x2="220" y2="130" class="line"/>
+    <line x1="130" y1="130" x2="380" y2="130" class="line"/>
+    <line x1="130" y1="130" x2="520" y2="130" class="line"/>
+    <line x1="130" y1="140" x2="220" y2="180" class="line"/>
+    <line x1="130" y1="140" x2="380" y2="180" class="line"/>
+    
+    <!-- Gérant vers ses cas d'utilisation -->
+    <line x1="130" y1="330" x2="220" y2="330" class="line"/>
+    <line x1="130" y1="330" x2="370" y2="330" class="line"/>
+    <line x1="130" y1="330" x2="530" y2="330" class="line"/>
+    <line x1="130" y1="340" x2="220" y2="380" class="line"/>
+    <line x1="130" y1="340" x2="370" y2="380" class="line"/>
+    <line x1="130" y1="340" x2="530" y2="380" class="line"/>
+    
+    <!-- Admin vers ses cas d'utilisation -->
+    <line x1="130" y1="530" x2="220" y2="530" class="line"/>
+    <line x1="130" y1="530" x2="380" y2="530" class="line"/>
+    <line x1="130" y1="530" x2="520" y2="530" class="line"/>
+    
+    <!-- Système vers ses cas d'utilisation -->
+    <line x1="1050" y1="330" x2="930" y2="300" class="line"/>
+    <line x1="1050" y1="330" x2="930" y2="350" class="line"/>
+    <line x1="1050" y1="330" x2="930" y2="400" class="line"/>
+    
+    <!-- Relations include/extend -->
+    <line x1="520" y1="130" x2="530" y2="130" class="include"/>
+    <text x="525" y="125" class="text" style="font-size: 10px;">includes</text>
+    
+    <line x1="530" y1="330" x2="770" y2="300" class="include"/>
+    <text x="650" y="310" class="text" style="font-size: 10px;">triggers</text>
+  </g>
+  
+  <!-- Légende -->
+  <g id="legend">
+    <rect x="50" y="650" width="300" height="120" fill="none" stroke="#ccc" stroke-width="1"/>
+    <text x="60" y="670" class="text" style="font-weight: bold;">Légende:</text>
+    
+    <rect x="60" y="680" width="40" height="20" class="actor"/>
+    <text x="110" y="695" class="text" style="font-size: 11px;">Acteurs</text>
+    
+    <ellipse cx="80" cy="720" rx="30" ry="10" class="usecase"/>
+    <text x="130" y="725" class="text" style="font-size: 11px;">Cas d'utilisation</text>
+    
+    <line x1="60" y1="740" x2="100" y2="740" class="line"/>
+    <text x="110" y="745" class="text" style="font-size: 11px;">Association</text>
+    
+    <line x1="60" y1="755" x2="100" y2="755" class="include"/>
+    <text x="110" y="760" class="text" style="font-size: 11px;">Include/Extend</text>
+  </g>
+</svg>

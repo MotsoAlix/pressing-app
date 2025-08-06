@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cas d'utilisation détaillés - ManohPressing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .use-case-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .use-case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .use-case-card h2 {
+            color: #4a5568;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .use-case-card .icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .use-case-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .use-case-details {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .use-case-details h4 {
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .use-case-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .use-case-details li {
+            padding: 0.25rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .use-case-details li::before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn:hover {
+            background: #5a67d8;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-success {
+            background: #10b981;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            background: rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border: 2px solid white;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .use-cases-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Cas d'utilisation détaillés</h1>
+            <p>ManohPressing - Spécifications complètes des fonctionnalités</p>
+        </div>
+
+        <div class="use-cases-grid">
+            <!-- Cas d'utilisation : Passer une commande -->
+            <div class="use-case-card">
+                <h2>
+                    <span class="icon">📦</span>
+                    Passer une commande
+                </h2>
+                <p>
+                    Processus complet de création d'une commande par le gérant, depuis la sélection du client 
+                    jusqu'à l'enregistrement final avec génération du numéro de commande.
+                </p>
+                
+                <div class="use-case-details">
+                    <h4>Détails clés</h4>
+                    <ul>
+                        <li><strong>Acteur principal :</strong> Gérant</li>
+                        <li><strong>Fréquence :</strong> Très élevée (10-50/jour)</li>
+                        <li><strong>Priorité :</strong> Critique</li>
+                        <li><strong>Complexité :</strong> Moyenne</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-details">
+                    <h4>Fonctionnalités incluses</h4>
+                    <ul>
+                        <li>Gestion des clients (nouveau/existant)</li>
+                        <li>Sélection multiple de services</li>
+                        <li>Calcul automatique du total</li>
+                        <li>Génération numéro unique</li>
+                        <li>Gestion des exceptions</li>
+                    </ul>
+                </div>
+
+                <a href="use-case-passer-commande.html" class="btn">📋 Voir le tableau détaillé</a>
+                <a href="use-case-passer-commande.md" class="btn btn-outline">📄 Version Markdown</a>
+            </div>
+
+            <!-- Cas d'utilisation : Effectuer un paiement mobile -->
+            <div class="use-case-card">
+                <h2>
+                    <span class="icon">💳</span>
+                    Effectuer un paiement mobile
+                </h2>
+                <p>
+                    Processus de paiement via Orange Money ou MTN Money, avec validation des numéros, 
+                    calcul des frais, et gestion des transactions en temps réel.
+                </p>
+                
+                <div class="use-case-details">
+                    <h4>Détails clés</h4>
+                    <ul>
+                        <li><strong>Acteur principal :</strong> Client</li>
+                        <li><strong>Fréquence :</strong> Élevée (50-80% des paiements)</li>
+                        <li><strong>Priorité :</strong> Élevée</li>
+                        <li><strong>Complexité :</strong> Élevée</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-details">
+                    <h4>Fonctionnalités incluses</h4>
+                    <ul>
+                        <li>Support Orange Money & MTN Money</li>
+                        <li>Validation format numéros</li>
+                        <li>Calcul automatique des frais</li>
+                        <li>Simulation opérateur (85% succès)</li>
+                        <li>Notifications automatiques</li>
+                    </ul>
+                </div>
+
+                <a href="use-case-paiement-mobile.html" class="btn btn-success">💳 Voir le tableau détaillé</a>
+            </div>
+
+            <!-- Cas d'utilisation : Générer un reçu de dépôt -->
+            <div class="use-case-card">
+                <h2>
+                    <span class="icon">🎫</span>
+                    Générer un reçu de dépôt
+                </h2>
+                <p>
+                    Génération automatique d'un reçu de dépôt après livraison d'une commande, 
+                    avec code unique et processus de validation par le gérant.
+                </p>
+                
+                <div class="use-case-details">
+                    <h4>Détails clés</h4>
+                    <ul>
+                        <li><strong>Acteur principal :</strong> Système (automatique)</li>
+                        <li><strong>Fréquence :</strong> Élevée (à chaque livraison)</li>
+                        <li><strong>Priorité :</strong> Élevée</li>
+                        <li><strong>Complexité :</strong> Moyenne</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-details">
+                    <h4>Fonctionnalités incluses</h4>
+                    <ul>
+                        <li>Génération code unique (DEP123456)</li>
+                        <li>Validation par le gérant</li>
+                        <li>Expiration automatique (90 jours)</li>
+                        <li>Traçabilité complète</li>
+                        <li>Notifications client</li>
+                    </ul>
+                </div>
+
+                <a href="#" class="btn" style="opacity: 0.6; cursor: not-allowed;">🎫 Bientôt disponible</a>
+            </div>
+
+            <!-- Cas d'utilisation : Suivre une commande -->
+            <div class="use-case-card">
+                <h2>
+                    <span class="icon">📊</span>
+                    Suivre une commande
+                </h2>
+                <p>
+                    Consultation en temps réel du statut d'une commande par le client, 
+                    avec historique des étapes et notifications de progression.
+                </p>
+                
+                <div class="use-case-details">
+                    <h4>Détails clés</h4>
+                    <ul>
+                        <li><strong>Acteur principal :</strong> Client</li>
+                        <li><strong>Fréquence :</strong> Élevée (consultation fréquente)</li>
+                        <li><strong>Priorité :</strong> Moyenne</li>
+                        <li><strong>Complexité :</strong> Faible</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-details">
+                    <h4>Fonctionnalités incluses</h4>
+                    <ul>
+                        <li>Statuts en temps réel</li>
+                        <li>Timeline de progression</li>
+                        <li>Notifications automatiques</li>
+                        <li>Estimation de livraison</li>
+                        <li>Historique complet</li>
+                    </ul>
+                </div>
+
+                <a href="#" class="btn" style="opacity: 0.6; cursor: not-allowed;">📊 Bientôt disponible</a>
+            </div>
+
+            <!-- Cas d'utilisation : Gérer les clients -->
+            <div class="use-case-card">
+                <h2>
+                    <span class="icon">👥</span>
+                    Gérer les clients
+                </h2>
+                <p>
+                    Création, modification et consultation des profils clients avec historique 
+                    des commandes et gestion des informations de contact.
+                </p>
+                
+                <div class="use-case-details">
+                    <h4>Détails clés</h4>
+                    <ul>
+                        <li><strong>Acteur principal :</strong> Gérant</li>
+                        <li><strong>Fréquence :</strong> Moyenne (gestion quotidienne)</li>
+                        <li><strong>Priorité :</strong> Moyenne</li>
+                        <li><strong>Complexité :</strong> Faible</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-details">
+                    <h4>Fonctionnalités incluses</h4>
+                    <ul>
+                        <li>CRUD complet des clients</li>
+                        <li>Recherche avancée</li>
+                        <li>Historique des commandes</li>
+                        <li>Points de fidélité</li>
+                        <li>Export des données</li>
+                    </ul>
+                </div>
+
+                <a href="#" class="btn" style="opacity: 0.6; cursor: not-allowed;">👥 Bientôt disponible</a>
+            </div>
+
+            <!-- Cas d'utilisation : Administrer le système -->
+            <div class="use-case-card">
+                <h2>
+                    <span class="icon">⚙️</span>
+                    Administrer le système
+                </h2>
+                <p>
+                    Gestion complète du système par l'administrateur : utilisateurs, sites, 
+                    configuration, statistiques globales et maintenance.
+                </p>
+                
+                <div class="use-case-details">
+                    <h4>Détails clés</h4>
+                    <ul>
+                        <li><strong>Acteur principal :</strong> Administrateur</li>
+                        <li><strong>Fréquence :</strong> Faible (maintenance)</li>
+                        <li><strong>Priorité :</strong> Critique</li>
+                        <li><strong>Complexité :</strong> Élevée</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-details">
+                    <h4>Fonctionnalités incluses</h4>
+                    <ul>
+                        <li>Gestion des utilisateurs</li>
+                        <li>Configuration des sites</li>
+                        <li>Statistiques globales</li>
+                        <li>Sauvegarde/restauration</li>
+                        <li>Logs et monitoring</li>
+                    </ul>
+                </div>
+
+                <a href="#" class="btn" style="opacity: 0.6; cursor: not-allowed;">⚙️ Bientôt disponible</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>🔗 Navigation</h3>
+            <a href="index.html">🏠 Diagrammes UML</a>
+            <a href="documentation.html">📚 Documentation</a>
+            <a href="../../index.html">🚀 Application</a>
+            <p style="margin-top: 1rem; opacity: 0.8;">
+                ManohPressing - Spécifications détaillées des cas d'utilisation
+            </p>
+        </div>
+    </div>
+</body>
+</html>

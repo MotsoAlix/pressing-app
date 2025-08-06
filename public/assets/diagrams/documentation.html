@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Technique - ManohPressing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-tabs {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0 2rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .nav-tabs ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-tabs li {
+            margin-right: 2rem;
+        }
+
+        .nav-tabs a {
+            display: block;
+            padding: 1rem 0;
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs a:hover,
+        .nav-tabs a.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .content {
+            background: white;
+            margin: 2rem auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            color: #1e293b;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section h3 {
+            color: #334155;
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .section h4 {
+            color: #475569;
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .table tr:hover {
+            background: #f8fafc;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            margin: 0.25rem;
+        }
+
+        .btn:hover {
+            background: #5a67d8;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .card h4 {
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            background: #1e293b;
+            color: #e2e8f0;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .search-box {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            z-index: 100;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-tabs {
+                padding: 0 1rem;
+            }
+            
+            .tab-content {
+                padding: 1rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>📚 Documentation Technique</h1>
+            <p>ManohPressing - Guide Complet du Système</p>
+        </div>
+    </div>
+
+    <div class="search-box">
+        <div class="container">
+            <input type="text" class="search-input" placeholder="🔍 Rechercher dans la documentation..." id="searchInput">
+        </div>
+    </div>
+
+    <nav class="nav-tabs">
+        <div class="container">
+            <ul>
+                <li><a href="#overview" class="tab-link active">Vue d'ensemble</a></li>
+                <li><a href="#architecture" class="tab-link">Architecture</a></li>
+                <li><a href="#modules" class="tab-link">Modules</a></li>
+                <li><a href="#usage" class="tab-link">Utilisation</a></li>
+                <li><a href="#api" class="tab-link">API & Données</a></li>
+                <li><a href="#security" class="tab-link">Sécurité</a></li>
+                <li><a href="#maintenance" class="tab-link">Maintenance</a></li>
+                <li><a href="#troubleshooting" class="tab-link">Dépannage</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="content">
+            <!-- Vue d'ensemble -->
+            <div id="overview" class="tab-content active">
+                <div class="section">
+                    <h2>🎯 Vue d'ensemble du Système</h2>
+                    <p>ManohPressing est une application web moderne de gestion de pressing qui révolutionne la façon dont les pressings gèrent leurs opérations quotidiennes.</p>
+                    
+                    <div class="info-box">
+                        <strong>🚀 Fonctionnalités Clés :</strong>
+                        <ul style="margin-top: 0.5rem;">
+                            <li>Gestion complète des commandes avec workflow automatisé</li>
+                            <li>Système de reçus de dépôt avec codes uniques</li>
+                            <li>Paiements mobiles Orange Money et MTN Money</li>
+                            <li>Communication temps réel client-gérant</li>
+                            <li>Dashboard analytique avec statistiques</li>
+                        </ul>
+                    </div>
+
+                    <h3>👥 Acteurs du Système</h3>
+                    <div class="grid">
+                        <div class="card">
+                            <h4>🔐 Administrateur</h4>
+                            <p>Supervision complète, gestion des utilisateurs, configuration système, statistiques globales.</p>
+                        </div>
+                        <div class="card">
+                            <h4>👔 Gérant</h4>
+                            <p>Gestion opérationnelle, commandes, clients, validation des reçus, traitement des paiements.</p>
+                        </div>
+                        <div class="card">
+                            <h4>👤 Client</h4>
+                            <p>Consultation des commandes, paiement des factures, gestion des reçus de dépôt, communication.</p>
+                        </div>
+                        <div class="card">
+                            <h4>🤖 Système</h4>
+                            <p>Automatisation, génération de reçus, expiration, notifications, traitement des paiements.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🏗️ Architecture Générale</h2>
+                    <div class="code-block">
+┌─────────────────────────────────────────────────────────────┐
+│                    MANOHPRESSING SYSTEM                     │
+├─────────────────────────────────────────────────────────────┤
+│  Frontend (Client-Side)          │  Backend (Simulation)    │
+│  ├── HTML5 Semantic              │  ├── LocalStorage DB     │
+│  ├── CSS3 + Variables            │  ├── JavaScript Modules  │
+│  ├── JavaScript ES6+             │  ├── API Simulation      │
+│  ├── Responsive Design           │  └── Real-time Updates   │
+│  └── Progressive Web App         │                           │
+├─────────────────────────────────────────────────────────────┤
+│                    CORE MODULES                             │
+│  ├── User Management             │  ├── Payment Processing  │
+│  ├── Order Management            │  ├── Notification System │
+│  ├── Deposit Coupon System       │  ├── Communication Hub   │
+│  └── Stock Management            │  └── Analytics Engine    │
+└─────────────────────────────────────────────────────────────┘
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🚀 Démarrage Rapide</h2>
+                    <div class="success-box">
+                        <strong>✅ Prêt à utiliser !</strong> L'application est déjà configurée et prête à fonctionner.
+                    </div>
+
+                    <h3>Comptes de Test</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Rôle</th>
+                                <th>Username</th>
+                                <th>Password</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>👨‍💼 Admin</td>
+                                <td><code>admin</code></td>
+                                <td><code>admin123</code></td>
+                                <td><a href="../../index.html" class="btn btn-outline">Connexion</a></td>
+                            </tr>
+                            <tr>
+                                <td>👔 Gérant</td>
+                                <td><code>manager1</code></td>
+                                <td><code>manager123</code></td>
+                                <td><a href="../../manager-dashboard.html" class="btn btn-outline">Dashboard</a></td>
+                            </tr>
+                            <tr>
+                                <td>👤 Client</td>
+                                <td><code>client1</code></td>
+                                <td><code>client123</code></td>
+                                <td><a href="../../client-dashboard.html" class="btn btn-outline">Dashboard</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Architecture -->
+            <div id="architecture" class="tab-content">
+                <div class="section">
+                    <h2>🏗️ Architecture Technique</h2>
+                    <p>Le système utilise une architecture moderne basée sur des patterns éprouvés.</p>
+
+                    <h3>Pattern MVC Implémenté</h3>
+                    <div class="code-block">
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│      MODEL      │    │   CONTROLLER    │    │      VIEW       │
+│                 │    │                 │    │                 │
+│ ├─ User         │◄──►│ ├─ UserManager  │◄──►│ ├─ Dashboard    │
+│ ├─ Order        │    │ ├─ OrderManager │    │ ├─ Modals       │
+│ ├─ Payment      │    │ ├─ PaymentMgr   │    │ ├─ Forms        │
+│ ├─ Coupon       │    │ ├─ CouponMgr    │    │ ├─ Tables       │
+│ └─ Notification │    │ └─ NotifMgr     │    │ └─ Charts       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                    </div>
+
+                    <h3>Modules JavaScript</h3>
+                    <div class="grid">
+                        <div class="card">
+                            <h4>data-manager.js</h4>
+                            <p>Gestionnaire principal des données CRUD</p>
+                        </div>
+                        <div class="card">
+                            <h4>mobile-payment.js</h4>
+                            <p>Traitement des paiements Orange/MTN</p>
+                        </div>
+                        <div class="card">
+                            <h4>coupon-manager.js</h4>
+                            <p>Gestion des reçus de dépôt</p>
+                        </div>
+                        <div class="card">
+                            <h4>notifications.js</h4>
+                            <p>Système de notifications temps réel</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Autres onglets seront ajoutés dynamiquement -->
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p><strong>ManohPressing</strong> - Documentation Technique v1.0</p>
+            <p>Dernière mise à jour : 15 janvier 2025</p>
+            <div style="margin-top: 1rem;">
+                <a href="index.html" class="btn">🏠 Diagrammes UML</a>
+                <a href="../../index.html" class="btn">🚀 Application</a>
+                <a href="../../../README.md" class="btn">📖 README</a>
+                <a href="../../../TESTS.md" class="btn">🧪 Tests</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gestion des onglets
+        document.querySelectorAll('.tab-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Retirer la classe active de tous les liens et contenus
+                document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Ajouter la classe active au lien cliqué
+                link.classList.add('active');
+                
+                // Afficher le contenu correspondant
+                const targetId = link.getAttribute('href').substring(1);
+                const targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
+        });
+
+        // Fonction de recherche
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const sections = document.querySelectorAll('.section');
+            
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(searchTerm) || searchTerm === '') {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+
+        // Chargement dynamique du contenu depuis documentation.md
+        async function loadDocumentationContent() {
+            try {
+                const response = await fetch('documentation.md');
+                const markdown = await response.text();
+                
+                // Ici on pourrait parser le markdown et l'injecter dans les onglets
+                // Pour l'instant, on utilise le contenu statique
+                console.log('Documentation markdown chargée');
+            } catch (error) {
+                console.warn('Impossible de charger documentation.md:', error);
+            }
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDocumentationContent();
+        });
+    </script>
+</body>
+</html>

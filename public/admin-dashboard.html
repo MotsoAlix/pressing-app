@@ -1,0 +1,2683 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Administrateur - ManohPressing</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chat Styles -->
+    <link rel="stylesheet" href="assets/css/messenger-chat.css">
+
+    <!-- Performance Styles -->
+    <link rel="stylesheet" href="assets/css/performance.css">
+
+    <style>
+        :root {
+            --primary-color: #dc2626;
+            --primary-light: #fef2f2;
+            --primary-dark: #b91c1c;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --background-color: #f8fafc;
+            --surface-color: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --gradient-primary: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--surface-color);
+            border-right: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-header p {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .sidebar-nav {
+            padding: 1.5rem 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-link i {
+            width: 20px;
+            margin-right: 0.75rem;
+            font-size: 1.125rem;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: var(--surface-color);
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .header-title h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .header-title p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            position: relative;
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--background-color);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--error-color);
+            color: white;
+            border-radius: 50%;
+            min-width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            padding: 0 4px;
+            box-sizing: border-box;
+            white-space: nowrap;
+            z-index: 10;
+            border: 2px solid var(--surface-color);
+        }
+
+        .header-actions .btn {
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .stat-icon.red { background: var(--primary-color); }
+        .stat-icon.green { background: var(--success-color); }
+        .stat-icon.yellow { background: var(--warning-color); }
+        .stat-icon.blue { background: #2563eb; }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .stat-change {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .stat-change.positive {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .stat-change.negative {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table th {
+            background: var(--background-color);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+
+        .table td {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge.warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.error {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--background-color);
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .form-help {
+            display: block;
+            margin-top: 0.25rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            background: var(--surface-color);
+            cursor: pointer;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .data-table {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .table-body {
+            padding: 0;
+        }
+
+        .managers-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .managers-table thead {
+            background: var(--primary-light);
+        }
+
+        .managers-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border-color);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .managers-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            vertical-align: middle;
+        }
+
+        .managers-table tr:hover {
+            background: var(--hover-color);
+        }
+
+        .managers-table .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .managers-table .btn-sm {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .table-row:hover {
+            background: var(--background-color);
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .cell-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .cell-value {
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-badge.active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-badge.inactive {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .empty-state p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Styles pour les demandes de réapprovisionnement */
+        .restock-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .restock-table th,
+        .restock-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .restock-table th {
+            background: var(--background-color);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .restock-row.pending {
+            background: #fefbf3;
+        }
+
+        .restock-row.approved {
+            background: #f0fdf4;
+        }
+
+        .restock-row.rejected {
+            background: #fef2f2;
+        }
+
+        .quantity-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .quantity-badge.low {
+            background: #fef2f2;
+            color: var(--error-color);
+        }
+
+        .quantity-badge.requested {
+            background: #f0fdf4;
+            color: var(--success-color);
+        }
+
+        .urgency-badge,
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-crown"></i> Admin</h1>
+                <p>Gestion Multi-Sites</p>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item">
+                    <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-chart-line"></i>
+                        Vue d'ensemble
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#sites" class="nav-link" data-section="sites">
+                        <i class="fas fa-building"></i>
+                        Gestion des Sites
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#managers" class="nav-link" data-section="managers">
+                        <i class="fas fa-users-cog"></i>
+                        Gérants
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#analytics" class="nav-link" data-section="analytics">
+                        <i class="fas fa-chart-bar"></i>
+                        Analytics Globaux
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#reports" class="nav-link" data-section="reports">
+                        <i class="fas fa-file-alt"></i>
+                        Rapports
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#settings" class="nav-link" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        Paramètres
+                    </a>
+                </div>
+                <div class="nav-item" style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+                    <a href="/" class="nav-link" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Déconnexion
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-title">
+                    <h1>Dashboard Administrateur</h1>
+                    <p>Gestion globale de tous les sites ManohPressing</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="showNotificationsPanel()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notification-count">3</span>
+                    </button>
+                    <button class="btn btn-outline" onclick="resetAllData()" style="margin-right: 0.5rem;">
+                        <i class="fas fa-refresh"></i>
+                        Réinitialiser Données
+                    </button>
+                    <button class="btn btn-primary" onclick="showCreateSiteModal()">
+                        <i class="fas fa-plus"></i>
+                        Nouveau Site
+                    </button>
+                    <div class="user-menu">
+                        <div class="user-avatar" onclick="showUserMenu()">A</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div id="dashboard-content" class="content-section active">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="total-sites">8</div>
+                                <div class="stat-label">Sites Actifs</div>
+                            </div>
+                            <div class="stat-icon red">
+                                <i class="fas fa-building"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">+2 ce mois</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="total-managers">12</div>
+                                <div class="stat-label">Gérants</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">+1 cette semaine</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="global-revenue">€45,280</div>
+                                <div class="stat-label">CA Global</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-euro-sign"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">+12% vs mois dernier</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="total-orders">1,247</div>
+                                <div class="stat-label">Commandes Totales</div>
+                            </div>
+                            <div class="stat-icon yellow">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">+8% cette semaine</div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="content-grid">
+                    <!-- Sites Overview -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Sites de Pressing</h3>
+                            <button class="btn btn-primary btn-sm" onclick="showCreateSiteModal()">
+                                <i class="fas fa-plus"></i> Ajouter
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table class="table" id="sites-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Site</th>
+                                            <th>Gérant</th>
+                                            <th>Statut</th>
+                                            <th>CA Mensuel</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sites-table-body">
+                                        <!-- Les données seront chargées dynamiquement -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Actions Rapides</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-actions">
+                                <button class="btn btn-primary btn-block" onclick="showCreateManagerModal()">
+                                    <i class="fas fa-user-plus"></i>
+                                    Ajouter un Gérant
+                                </button>
+                                <button class="btn btn-secondary btn-block" onclick="generateGlobalReport()">
+                                    <i class="fas fa-chart-line"></i>
+                                    Rapport Global
+                                </button>
+                                <button class="btn btn-outline btn-block" onclick="showNotificationsPanel()">
+                                    <i class="fas fa-bell"></i>
+                                    Notifications
+                                </button>
+                                <button class="btn btn-outline btn-block" onclick="exportData()">
+                                    <i class="fas fa-download"></i>
+                                    Exporter Données
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sites Management Section -->
+            <div id="sites-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-building"></i>
+                        Gestion des Sites
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline" onclick="exportSitesData()">
+                            <i class="fas fa-download"></i> Exporter
+                        </button>
+                        <button class="btn btn-primary" onclick="showCreateSiteModal()">
+                            <i class="fas fa-plus"></i> Nouveau Site
+                        </button>
+                    </div>
+                </div>
+
+                <div class="data-table">
+                    <div class="table-header">
+                        <h3 class="table-title">Liste des Sites de Pressing</h3>
+                        <div class="table-actions">
+                            <input type="text" placeholder="Rechercher..." class="form-input" style="width: 200px;" onkeyup="filterSites(this.value)">
+                        </div>
+                    </div>
+                    <div class="table-body" id="sites-table-content">
+                        <!-- Contenu généré dynamiquement -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Managers Management Section -->
+            <div id="managers-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-users-cog"></i>
+                        Gestion des Gérants
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline" onclick="exportManagersData()">
+                            <i class="fas fa-download"></i> Exporter
+                        </button>
+                        <button class="btn btn-primary" onclick="showCreateManagerModal()">
+                            <i class="fas fa-user-plus"></i> Nouveau Gérant
+                        </button>
+                    </div>
+                </div>
+
+                <div class="data-table">
+                    <div class="table-header">
+                        <h3 class="table-title">Liste des Gérants</h3>
+                        <div class="table-actions">
+                            <input type="text" placeholder="Rechercher..." class="form-input" style="width: 200px;" onkeyup="filterManagers(this.value)">
+                        </div>
+                    </div>
+                    <div class="table-body" id="managers-table-content">
+                        <!-- Contenu généré dynamiquement -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div id="analytics-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Analytics Globaux
+                    </h2>
+                    <div class="section-actions">
+                        <select class="form-select" onchange="updateAnalyticsPeriod(this.value)">
+                            <option value="week">Cette semaine</option>
+                            <option value="month" selected>Ce mois</option>
+                            <option value="quarter">Ce trimestre</option>
+                            <option value="year">Cette année</option>
+                        </select>
+                        <button class="btn btn-outline" onclick="exportAnalytics()">
+                            <i class="fas fa-download"></i> Exporter
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Analytics Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="analytics-revenue">€45,280</div>
+                                <div class="stat-label">Chiffre d'Affaires</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-euro-sign"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">+12% vs période précédente</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="analytics-orders">1,247</div>
+                                <div class="stat-label">Commandes Totales</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">+8% vs période précédente</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="analytics-clients">342</div>
+                                <div class="stat-label">Clients Actifs</div>
+                            </div>
+                            <div class="stat-icon purple">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">+15% vs période précédente</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="analytics-avg-order">€36.30</div>
+                                <div class="stat-label">Panier Moyen</div>
+                            </div>
+                            <div class="stat-icon yellow">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">+5% vs période précédente</div>
+                    </div>
+                </div>
+
+                <!-- Charts Container -->
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Évolution du Chiffre d'Affaires</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="revenue-chart" style="height: 300px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">
+                                <div>
+                                    <i class="fas fa-chart-line" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                                    <p>Graphique du chiffre d'affaires</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Performance par Site</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="sites-performance" style="height: 300px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">
+                                <div>
+                                    <i class="fas fa-chart-pie" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                                    <p>Graphique de performance par site</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Section -->
+            <div id="reports-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-file-alt"></i>
+                        Rapports
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" onclick="generateCustomReport()">
+                            <i class="fas fa-plus"></i> Nouveau Rapport
+                        </button>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Rapports Prédéfinis</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <button class="btn btn-outline btn-block" onclick="generateReport('daily')">
+                                    <i class="fas fa-calendar-day"></i>
+                                    Rapport Journalier
+                                </button>
+                                <button class="btn btn-outline btn-block" onclick="generateReport('weekly')">
+                                    <i class="fas fa-calendar-week"></i>
+                                    Rapport Hebdomadaire
+                                </button>
+                                <button class="btn btn-outline btn-block" onclick="generateReport('monthly')">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    Rapport Mensuel
+                                </button>
+                                <button class="btn btn-outline btn-block" onclick="generateReport('yearly')">
+                                    <i class="fas fa-calendar"></i>
+                                    Rapport Annuel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Rapports Récents</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="recent-reports">
+                                <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                                    <i class="fas fa-file-alt" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                                    <p>Aucun rapport généré récemment</p>
+                                    <button class="btn btn-primary" onclick="generateReport('daily')" style="margin-top: 1rem;">
+                                        Générer un rapport
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-cog"></i>
+                        Paramètres
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-success" onclick="saveSettings()">
+                            <i class="fas fa-save"></i> Sauvegarder
+                        </button>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Paramètres Généraux</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="general-settings-form">
+                                <div class="form-group">
+                                    <label class="form-label">Nom de l'Entreprise</label>
+                                    <input type="text" class="form-input" name="companyName" value="ManohPressing" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email de Contact</label>
+                                    <input type="email" class="form-input" name="contactEmail" value="contact@manohpressing.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Téléphone de Contact</label>
+                                    <input type="tel" class="form-input" name="contactPhone" value="01 23 45 67 89" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Devise</label>
+                                    <select class="form-select" name="currency">
+                                        <option value="EUR" selected>Euro (€)</option>
+                                        <option value="USD">Dollar ($)</option>
+                                        <option value="GBP">Livre (£)</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Paramètres de Notification</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="notification-settings-form">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" name="emailNotifications" checked>
+                                        Notifications par email
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" name="smsNotifications">
+                                        Notifications par SMS
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" name="pushNotifications" checked>
+                                        Notifications push
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Fréquence des rapports automatiques</label>
+                                    <select class="form-select" name="reportFrequency">
+                                        <option value="daily">Quotidien</option>
+                                        <option value="weekly" selected>Hebdomadaire</option>
+                                        <option value="monthly">Mensuel</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <h3 class="card-title">Gestion des Données</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <button class="btn btn-outline" onclick="exportAllData()">
+                                <i class="fas fa-download"></i>
+                                Exporter toutes les données
+                            </button>
+                            <button class="btn btn-outline" onclick="importData()">
+                                <i class="fas fa-upload"></i>
+                                Importer des données
+                            </button>
+                            <button class="btn btn-warning" onclick="resetData()">
+                                <i class="fas fa-refresh"></i>
+                                Réinitialiser les données
+                            </button>
+                            <button class="btn btn-secondary" onclick="backupData()">
+                                <i class="fas fa-shield-alt"></i>
+                                Sauvegarder
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demandes de réapprovisionnement -->
+                <div class="card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <h3 class="card-title">Demandes de réapprovisionnement</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-outline" onclick="restockManager.refreshDisplay()">
+                                <i class="fas fa-refresh"></i> Actualiser
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="admin-restock-requests-table">
+                            <!-- Les demandes seront chargées dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal pour créer un site -->
+    <div id="createSiteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nouveau Site de Pressing</h3>
+                <button class="modal-close" onclick="closeModal('createSiteModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createSiteForm">
+                    <div class="form-group">
+                        <label class="form-label">Nom du Site</label>
+                        <input type="text" class="form-input" name="siteName" required placeholder="Ex: ManohPressing Centre">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Adresse</label>
+                        <input type="text" class="form-input" name="address" required placeholder="123 Rue de la Paix, Paris">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Téléphone</label>
+                        <input type="tel" class="form-input" name="phone" required placeholder="01 23 45 67 89">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Gérant Assigné</label>
+                        <select class="form-select" name="managerId" required>
+                            <option value="">Sélectionner un gérant</option>
+                            <option value="1">Jean Dupont</option>
+                            <option value="2">Marie Martin</option>
+                            <option value="3">Pierre Durand</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('createSiteModal')">Annuler</button>
+                <button class="btn btn-primary" onclick="createSite()">
+                    <i class="fas fa-plus"></i> Créer le Site
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour modifier un site -->
+    <div id="editSiteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Modifier le Site</h3>
+                <button class="modal-close" onclick="closeModal('editSiteModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editSiteForm">
+                    <input type="hidden" id="editSiteId" name="siteId">
+                    <div class="form-group">
+                        <label class="form-label">Nom du Site</label>
+                        <input type="text" class="form-input" id="editSiteName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Adresse</label>
+                        <input type="text" class="form-input" id="editSiteAddress" name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Téléphone</label>
+                        <input type="tel" class="form-input" id="editSitePhone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="editSiteEmail" name="email">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('editSiteModal')">Annuler</button>
+                <button class="btn btn-primary" onclick="updateSite()">
+                    <i class="fas fa-save"></i> Modifier le site
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour créer un gérant -->
+    <div id="createManagerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nouveau Gérant</h3>
+                <button class="modal-close" onclick="closeModal('createManagerModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createManagerForm">
+                    <div class="form-group">
+                        <label class="form-label">Prénom</label>
+                        <input type="text" class="form-input" name="firstName" required placeholder="Jean-Baptiste">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nom</label>
+                        <input type="text" class="form-input" name="lastName" required placeholder="Mbarga">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" name="email" required placeholder="jean.mbarga@manohpressing.cm" onchange="generateUsername()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nom d'utilisateur</label>
+                        <input type="text" class="form-input" name="username" required placeholder="jean.mbarga" readonly style="background: #f5f5f5;">
+                        <small class="form-help">Généré automatiquement depuis l'email</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Téléphone</label>
+                        <input type="tel" class="form-input" name="phone" required placeholder="677 12 34 56">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Mot de passe temporaire</label>
+                        <input type="password" class="form-input" name="password" required placeholder="manager123" value="manager123">
+                        <small class="form-help">Le gérant pourra changer ce mot de passe après connexion</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('createManagerModal')">Annuler</button>
+                <button class="btn btn-primary" onclick="createManager()">
+                    <i class="fas fa-user-plus"></i> Créer le Gérant
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour modifier un gérant -->
+    <div id="editManagerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Modifier le Gérant</h3>
+                <button class="modal-close" onclick="closeModal('editManagerModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editManagerForm">
+                    <input type="hidden" id="editManagerId" name="managerId">
+                    <div class="form-group">
+                        <label class="form-label">Prénom</label>
+                        <input type="text" class="form-input" id="editManagerFirstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nom</label>
+                        <input type="text" class="form-input" id="editManagerLastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="editManagerEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nom d'utilisateur</label>
+                        <input type="text" class="form-input" id="editManagerUsername" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Téléphone</label>
+                        <input type="tel" class="form-input" id="editManagerPhone" name="phone" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('editManagerModal')">Annuler</button>
+                <button class="btn btn-primary" onclick="updateManager()">
+                    <i class="fas fa-save"></i> Modifier le gérant
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/modules/data-init.js"></script>
+    <script src="assets/js/modules/data-manager.js"></script>
+    <script src="assets/js/modules/toast-notifications.js"></script>
+    <script src="assets/js/modules/details-display.js"></script>
+    <script src="assets/js/modules/notifications.js"></script>
+    <script src="assets/js/modules/analytics.js"></script>
+    <script src="assets/js/modules/pdf-generator.js"></script>
+    <script src="assets/js/modules/admin-notifications.js"></script>
+    <script src="assets/js/modules/restock-manager.js"></script>
+    <script src="assets/js/modules/reports-manager.js"></script>
+    <script src="assets/js/modules/chat.js"></script>
+    <script src="assets/js/modules/performance-optimizer.js"></script>
+    <script>
+        // Variables globales
+        let currentUser = null;
+        let sitesData = [];
+        let managersData = [];
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            setupEventListeners();
+            loadDashboardData();
+        });
+
+        function initializeApp() {
+            // Vérifier l'authentification
+            const userData = localStorage.getItem('user');
+            if (!userData) {
+                window.location.href = '/';
+                return;
+            }
+            
+            currentUser = JSON.parse(userData);
+            if (currentUser.role !== 'admin') {
+                window.location.href = '/';
+                return;
+            }
+
+            // Mettre à jour l'avatar utilisateur
+            const userAvatar = document.querySelector('.user-avatar');
+            if (userAvatar && currentUser.firstName) {
+                userAvatar.textContent = currentUser.firstName.charAt(0).toUpperCase();
+            }
+        }
+
+        function setupEventListeners() {
+            // Navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.dataset.section;
+                    if (section) {
+                        switchSection(section);
+                    }
+                });
+            });
+
+            // Fermeture des modals en cliquant à l'extérieur
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        async function loadDashboardData() {
+            try {
+                // Charger les données depuis les APIs
+                await Promise.all([
+                    loadSitesData(),
+                    loadManagersData(),
+                    updateStatistics()
+                ]);
+            } catch (error) {
+                console.error('Erreur lors du chargement des données:', error);
+                showToast('Erreur lors du chargement des données', 'error');
+            }
+        }
+
+        async function loadSitesData() {
+            try {
+                const result = await dataManager.read('sites');
+                if (result.success) {
+                    sitesData = result.data;
+                } else {
+                    console.error('Erreur lors du chargement des sites:', result.error);
+                    sitesData = [];
+                }
+                renderSitesTable();
+            } catch (error) {
+                console.error('Erreur lors du chargement des sites:', error);
+                sitesData = [];
+                renderSitesTable();
+            }
+        }
+
+        async function loadManagersData() {
+            try {
+                const result = await dataManager.getUserByRole('manager');
+                if (result.success) {
+                    managersData = result.data;
+                } else {
+                    console.error('Erreur lors du chargement des gérants:', result.error);
+                    managersData = [];
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des gérants:', error);
+                managersData = [];
+            }
+        }
+
+        function renderSitesTable() {
+            const tbody = document.getElementById('sites-table-body');
+            if (!tbody) return;
+
+            // Recharger les données depuis localStorage pour s'assurer qu'elles sont à jour
+            const sites = JSON.parse(localStorage.getItem('manohpressing_sites') || '[]');
+            sitesData = sites;
+            console.log('🔄 Sites rechargés depuis localStorage:', sites.length, 'sites');
+
+            tbody.innerHTML = sitesData.map(site => `
+                <tr>
+                    <td>
+                        <div>
+                            <strong>${site.name}</strong>
+                            <br><small style="color: var(--text-secondary);">${site.address}</small>
+                        </div>
+                    </td>
+                    <td>${site.managerName}</td>
+                    <td><span class="badge ${site.status === 'active' ? 'success' : 'error'}">${site.status === 'active' ? 'Actif' : 'Inactif'}</span></td>
+                    <td><strong>€${site.monthlyRevenue.toLocaleString()}</strong></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline" onclick="editSite(${site.id})" title="Modifier">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline" onclick="viewSiteDetails(${site.id})" title="Détails" style="margin-left: 0.5rem;">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline" onclick="deleteSite(${site.id})" title="Supprimer" style="margin-left: 0.5rem; color: var(--error-color); border-color: var(--error-color);">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function updateStatistics() {
+            try {
+                const statsResult = await dataManager.getStatistics();
+                if (statsResult.success) {
+                    const stats = statsResult.data;
+
+                    document.getElementById('total-sites').textContent = stats.sites.total;
+                    document.getElementById('total-managers').textContent = stats.users.managers;
+                    document.getElementById('global-revenue').textContent = `€${stats.sites.totalRevenue.toLocaleString()}`;
+                    document.getElementById('total-orders').textContent = stats.orders.total.toLocaleString();
+                } else {
+                    console.error('Erreur lors du calcul des statistiques:', statsResult.error);
+                }
+            } catch (error) {
+                console.error('Erreur lors de la mise à jour des statistiques:', error);
+            }
+        }
+
+        function switchSection(section) {
+            // Mettre à jour la navigation active
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${section}"]`).classList.add('active');
+
+            // Masquer toutes les sections
+            document.querySelectorAll('.content-section').forEach(contentSection => {
+                contentSection.classList.remove('active');
+            });
+
+            // Afficher la section demandée
+            const targetSection = document.getElementById(`${section}-content`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+
+                // Charger le contenu spécifique selon la section
+                switch(section) {
+                    case 'dashboard':
+                        loadDashboardData();
+                        break;
+                    case 'sites':
+                        loadSitesSection();
+                        break;
+                    case 'managers':
+                        loadManagersSection();
+                        break;
+                    case 'analytics':
+                        loadAnalyticsSection();
+                        break;
+                    case 'reports':
+                        loadReportsSection();
+                        break;
+                    case 'settings':
+                        loadSettingsSection();
+                        break;
+                }
+            }
+
+            console.log('Switched to section:', section);
+        }
+
+        // Fonctions pour charger le contenu des sections
+        async function loadSitesSection() {
+            const container = document.getElementById('sites-table-content');
+            if (!container) return;
+
+            try {
+                const result = await dataManager.read('sites');
+                if (result.success && result.data.length > 0) {
+                    container.innerHTML = result.data.map(site => `
+                        <div class="table-row">
+                            <div class="table-cell">
+                                <div class="cell-label">Site</div>
+                                <div class="cell-value">${site.name}</div>
+                            </div>
+                            <div class="table-cell">
+                                <div class="cell-label">Adresse</div>
+                                <div class="cell-value">${site.address}</div>
+                            </div>
+                            <div class="table-cell">
+                                <div class="cell-label">Gérant</div>
+                                <div class="cell-value">${site.managerName || 'Non assigné'}</div>
+                            </div>
+                            <div class="table-cell">
+                                <div class="cell-label">Statut</div>
+                                <div class="cell-value">
+                                    <span class="status-badge ${site.status}">${site.status === 'active' ? 'Actif' : 'Inactif'}</span>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <div class="cell-label">CA Mensuel</div>
+                                <div class="cell-value">€${site.monthlyRevenue.toLocaleString()}</div>
+                            </div>
+                            <div class="table-cell">
+                                <div class="cell-label">Actions</div>
+                                <div class="action-buttons">
+                                    <button class="btn btn-outline btn-sm" onclick="editSite(${site.id})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline btn-sm" onclick="viewSiteDetails(${site.id})">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-building"></i>
+                            <h3>Aucun site trouvé</h3>
+                            <p>Commencez par créer votre premier site de pressing</p>
+                            <button class="btn btn-primary" onclick="showCreateSiteModal()">
+                                <i class="fas fa-plus"></i> Créer un site
+                            </button>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des sites:', error);
+                container.innerHTML = '<div class="empty-state"><p>Erreur lors du chargement</p></div>';
+            }
+        }
+
+        async function loadManagersSection() {
+            const container = document.getElementById('managers-table-content');
+            if (!container) return;
+
+            try {
+                const result = await dataManager.getUserByRole('manager');
+                if (result.success && result.data.length > 0) {
+                    container.innerHTML = `
+                        <table class="managers-table">
+                            <thead>
+                                <tr>
+                                    <th>NOM</th>
+                                    <th>EMAIL</th>
+                                    <th>TÉLÉPHONE</th>
+                                    <th>SITE ASSIGNÉ</th>
+                                    <th>STATUT</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${result.data.map(manager => `
+                                    <tr class="table-row">
+                                        <td>${manager.firstName} ${manager.lastName}</td>
+                                        <td>${manager.email}</td>
+                                        <td>${manager.phone || 'Non renseigné'}</td>
+                                        <td>${manager.siteId ? 'Site #' + manager.siteId : 'Non assigné'}</td>
+                                        <td>
+                                            <span class="status-badge ${manager.isActive ? 'active' : 'inactive'}">
+                                                ${manager.isActive ? 'Actif' : 'Inactif'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-outline btn-sm" onclick="viewManagerDetails(${manager.id})" title="Voir détails">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-outline btn-sm" onclick="editManager(${manager.id})" title="Modifier">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-outline btn-sm" onclick="assignSite(${manager.id})" title="Assigner site">
+                                                    <i class="fas fa-building"></i>
+                                                </button>
+                                                <button class="btn btn-outline btn-sm" onclick="deleteManager(${manager.id})" title="Supprimer" style="color: var(--error-color); border-color: var(--error-color);">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-users-cog"></i>
+                            <h3>Aucun gérant trouvé</h3>
+                            <p>Ajoutez des gérants pour gérer vos sites</p>
+                            <button class="btn btn-primary" onclick="showCreateManagerModal()">
+                                <i class="fas fa-user-plus"></i> Ajouter un gérant
+                            </button>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des gérants:', error);
+                container.innerHTML = '<div class="empty-state"><p>Erreur lors du chargement</p></div>';
+            }
+        }
+
+        async function loadAnalyticsSection() {
+            try {
+                const statsResult = await dataManager.getStatistics();
+                if (statsResult.success) {
+                    const stats = statsResult.data;
+
+                    // Mettre à jour les statistiques analytics
+                    document.getElementById('analytics-revenue').textContent = `€${stats.sites.totalRevenue.toLocaleString()}`;
+                    document.getElementById('analytics-orders').textContent = stats.orders.total.toLocaleString();
+                    document.getElementById('analytics-clients').textContent = stats.users.clients.toLocaleString();
+
+                    // Calculer le panier moyen
+                    const avgOrder = stats.orders.total > 0 ? (stats.revenue.total / stats.orders.total) : 0;
+                    document.getElementById('analytics-avg-order').textContent = `€${avgOrder.toFixed(2)}`;
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des analytics:', error);
+            }
+        }
+
+        function loadReportsSection() {
+            // Charger la liste des rapports récents
+            const recentReports = JSON.parse(localStorage.getItem('manohpressing_recent_reports') || '[]');
+            const container = document.getElementById('recent-reports');
+
+            if (recentReports.length > 0) {
+                container.innerHTML = recentReports.map(report => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 0.5rem;">
+                        <div>
+                            <div style="font-weight: 600;">${report.name}</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">${report.date}</div>
+                        </div>
+                        <div>
+                            <button class="btn btn-outline btn-sm" onclick="downloadReport('${report.id}')">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function loadSettingsSection() {
+            // Charger les paramètres sauvegardés
+            const settings = JSON.parse(localStorage.getItem('manohpressing_settings') || '{}');
+
+            // Charger les demandes de réapprovisionnement
+            restockManager.renderRequestsTable('admin-restock-requests-table', true);
+
+            // Remplir les formulaires avec les valeurs sauvegardées
+            if (settings.general) {
+                Object.keys(settings.general).forEach(key => {
+                    const input = document.querySelector(`[name="${key}"]`);
+                    if (input) {
+                        if (input.type === 'checkbox') {
+                            input.checked = settings.general[key];
+                        } else {
+                            input.value = settings.general[key];
+                        }
+                    }
+                });
+            }
+        }
+
+        // Fonctions pour les modals
+        function showCreateSiteModal() {
+            document.getElementById('createSiteModal').classList.add('active');
+        }
+
+        function showCreateManagerModal() {
+            document.getElementById('createManagerModal').classList.add('active');
+        }
+
+        function generateUsername() {
+            const emailInput = document.querySelector('#createManagerForm input[name="email"]');
+            const usernameInput = document.querySelector('#createManagerForm input[name="username"]');
+
+            if (emailInput.value) {
+                const username = emailInput.value.split('@')[0];
+                usernameInput.value = username;
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        async function createSite() {
+            const form = document.getElementById('createSiteForm');
+            const formData = new FormData(form);
+
+            const siteData = {
+                name: formData.get('siteName'),
+                address: formData.get('address'),
+                phone: formData.get('phone'),
+                email: formData.get('email') || `${formData.get('siteName').toLowerCase().replace(/\s+/g, '')}@manohpressing.com`,
+                managerId: parseInt(formData.get('managerId')),
+                status: 'active',
+                monthlyRevenue: 0,
+                openingHours: {
+                    monday: '8:00-18:00',
+                    tuesday: '8:00-18:00',
+                    wednesday: '8:00-18:00',
+                    thursday: '8:00-18:00',
+                    friday: '8:00-18:00',
+                    saturday: '9:00-17:00',
+                    sunday: 'Fermé'
+                }
+            };
+
+            try {
+                const result = await dataManager.create('sites', siteData);
+                console.log('🏢 Résultat création site:', result);
+
+                if (result.success) {
+                    // Ajouter le nom du gérant
+                    const manager = managersData.find(m => m.id === siteData.managerId);
+                    if (manager) {
+                        result.data.managerName = `${manager.firstName} ${manager.lastName}`;
+                    }
+
+                    sitesData.push(result.data);
+                    console.log('✅ Site ajouté à sitesData:', result.data);
+                    renderSitesTable();
+                    updateStatistics();
+
+                    closeModal('createSiteModal');
+                    form.reset();
+                    showToast('Site créé avec succès !', 'success');
+                } else {
+                    showToast('Erreur lors de la création du site: ' + result.error, 'error');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la création du site:', error);
+                showToast('Erreur lors de la création du site', 'error');
+            }
+        }
+
+        async function createManager() {
+            const form = document.getElementById('createManagerForm');
+            const formData = new FormData(form);
+
+            // Générer un ID unique
+            const users = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+            const managers = JSON.parse(localStorage.getItem('manohpressing_managers') || '[]');
+            const newId = Math.max(...users.map(u => u.id), ...managers.map(m => m.id), 0) + 1;
+
+            const username = formData.get('email').split('@')[0]; // Générer un username depuis l'email
+            const password = formData.get('password');
+
+            // Données pour la table users (pour la connexion)
+            const userData = {
+                id: newId,
+                username: username,
+                password: password,
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                role: 'manager',
+                isActive: true,
+                siteId: null,
+                createdAt: new Date().toISOString()
+            };
+
+            // Données pour la table managers (pour la gestion)
+            const managerData = {
+                id: newId,
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                address: '',
+                siteId: null,
+                hireDate: new Date().toISOString(),
+                status: 'Actif',
+                isActive: true,
+                role: 'manager'
+            };
+
+            try {
+                // Ajouter à la liste des utilisateurs
+                users.push(userData);
+                localStorage.setItem('manohpressing_users', JSON.stringify(users));
+                console.log('✅ Utilisateur sauvegardé:', userData);
+
+                // Ajouter à la liste des gérants
+                managers.push(managerData);
+                localStorage.setItem('manohpressing_managers', JSON.stringify(managers));
+                console.log('✅ Gérant sauvegardé:', managerData);
+
+                // Recharger la section des gérants
+                loadManagersSection();
+                updateStatistics();
+
+                closeModal('createManagerModal');
+                form.reset();
+                showToast(`Gérant créé avec succès ! Identifiants: ${username} / ${password}`, 'success');
+            } catch (error) {
+                console.error('Erreur lors de la création du gérant:', error);
+                showToast('Erreur lors de la création du gérant', 'error');
+            }
+        }
+
+        function editSite(siteId) {
+            const site = sitesData.find(s => s.id === siteId);
+            if (site) {
+                console.log('Editing site:', site);
+                showToast('Fonction d\'édition en cours de développement', 'info');
+            }
+        }
+
+        function viewSiteDetails(siteId) {
+            const site = sitesData.find(s => s.id === siteId);
+            if (site) {
+                console.log('Viewing site details:', site);
+                showToast('Affichage des détails du site', 'info');
+            }
+        }
+
+        function showNotificationsPanel() {
+            showToast('Panneau de notifications ouvert', 'info');
+        }
+
+        function generateGlobalReport() {
+            showToast('Génération du rapport global...', 'info');
+            setTimeout(() => {
+                showToast('Rapport global généré avec succès !', 'success');
+            }, 2000);
+        }
+
+        function exportData() {
+            showToast('Export des données en cours...', 'info');
+            setTimeout(() => {
+                showToast('Données exportées avec succès !', 'success');
+            }, 1500);
+        }
+
+        function showUserMenu() {
+            showToast('Menu utilisateur', 'info');
+        }
+
+        function resetAllData() {
+            if (confirm('⚠️ ATTENTION: Cette action va supprimer TOUTES les données et réinitialiser l\'application avec les données par défaut. Êtes-vous sûr ?')) {
+                // Supprimer toutes les données localStorage
+                const keys = Object.keys(localStorage);
+                keys.forEach(key => {
+                    if (key.startsWith('manohpressing_')) {
+                        localStorage.removeItem(key);
+                    }
+                });
+
+                // Forcer la réinitialisation
+                if (window.dataInit) {
+                    window.dataInit.resetData();
+                }
+
+                // Recharger la page
+                showToast('Données réinitialisées avec succès !', 'success');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = '/';
+        }
+
+        // Fonctions utilitaires pour les sections
+        // Fonctions de recherche optimisées avec debouncing
+        const debouncedFilterSites = window.performanceOptimizer.debounce((query) => {
+            const rows = document.querySelectorAll('#sites-table-content .table-row, #sites-table-body tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
+            });
+        }, 300);
+
+        const debouncedFilterManagers = window.performanceOptimizer.debounce((query) => {
+            const rows = document.querySelectorAll('#managers-table-content .table-row, #managers-table-content tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
+            });
+        }, 300);
+
+        function filterSites(query) {
+            debouncedFilterSites(query);
+        }
+
+        function filterManagers(query) {
+            debouncedFilterManagers(query);
+        }
+
+        function editSite(siteId) {
+            const sites = JSON.parse(localStorage.getItem('manohpressing_sites') || '[]');
+            const site = sites.find(s => s.id === siteId);
+
+            if (site) {
+                // Remplir le modal de modification
+                document.getElementById('editSiteId').value = site.id;
+                document.getElementById('editSiteName').value = site.name;
+                document.getElementById('editSiteAddress').value = site.address;
+                document.getElementById('editSitePhone').value = site.phone || '';
+                document.getElementById('editSiteEmail').value = site.email || '';
+
+                // Afficher le modal
+                document.getElementById('editSiteModal').classList.add('active');
+            }
+        }
+
+        async function updateSite() {
+            const form = document.getElementById('editSiteForm');
+            const formData = new FormData(form);
+            const siteId = parseInt(formData.get('siteId'));
+
+            try {
+                const sites = JSON.parse(localStorage.getItem('manohpressing_sites') || '[]');
+                const siteIndex = sites.findIndex(s => s.id === siteId);
+
+                if (siteIndex !== -1) {
+                    sites[siteIndex] = {
+                        ...sites[siteIndex],
+                        name: formData.get('name'),
+                        address: formData.get('address'),
+                        phone: formData.get('phone'),
+                        email: formData.get('email'),
+                        updatedAt: new Date().toISOString()
+                    };
+
+                    localStorage.setItem('manohpressing_sites', JSON.stringify(sites));
+                    loadSitesSection();
+                    closeModal('editSiteModal');
+                    showToast('Site modifié avec succès', 'success');
+                } else {
+                    showToast('Site non trouvé', 'error');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la modification:', error);
+                showToast('Erreur lors de la modification du site', 'error');
+            }
+        }
+
+        async function deleteSite(siteId) {
+            // Vérifier s'il y a des gérants assignés à ce site
+            const users = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+            const assignedManagers = users.filter(u => u.role === 'manager' && u.siteId === siteId);
+
+            if (assignedManagers.length > 0) {
+                showToast(`Impossible de supprimer: ${assignedManagers.length} gérant(s) assigné(s) à ce site`, 'error');
+                return;
+            }
+
+            // Vérifier s'il y a des commandes liées à ce site
+            const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            const siteOrders = orders.filter(o => o.siteId === siteId);
+
+            if (siteOrders.length > 0) {
+                if (!confirm(`Ce site a ${siteOrders.length} commande(s). Voulez-vous vraiment le supprimer ? Les commandes seront transférées vers "Site supprimé".`)) {
+                    return;
+                }
+            }
+
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce site ? Cette action est irréversible.')) {
+                try {
+                    // Supprimer le site
+                    const sites = JSON.parse(localStorage.getItem('manohpressing_sites') || '[]');
+                    const updatedSites = sites.filter(s => s.id !== siteId);
+                    localStorage.setItem('manohpressing_sites', JSON.stringify(updatedSites));
+
+                    // Mettre à jour les commandes si nécessaire
+                    if (siteOrders.length > 0) {
+                        const updatedOrders = orders.map(o =>
+                            o.siteId === siteId ? {...o, siteId: null, siteName: 'Site supprimé'} : o
+                        );
+                        localStorage.setItem('manohpressing_orders', JSON.stringify(updatedOrders));
+                    }
+
+                    loadSitesSection();
+                    showToast('Site supprimé avec succès', 'success');
+                } catch (error) {
+                    console.error('Erreur lors de la suppression:', error);
+                    showToast('Erreur lors de la suppression du site', 'error');
+                }
+            }
+        }
+
+        function viewSiteDetails(siteId) {
+            window.open(`details.html?type=site&id=${siteId}`, '_blank');
+        }
+
+        function viewManagerDetails(managerId) {
+            window.open(`details.html?type=manager&id=${managerId}`, '_blank');
+        }
+
+        function editManager(managerId) {
+            const users = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+            const managers = JSON.parse(localStorage.getItem('manohpressing_managers') || '[]');
+
+            const user = users.find(u => u.id === managerId && u.role === 'manager');
+            const manager = managers.find(m => m.id === managerId);
+
+            if (user && manager) {
+                // Remplir le modal de modification
+                document.getElementById('editManagerId').value = managerId;
+                document.getElementById('editManagerFirstName').value = user.firstName;
+                document.getElementById('editManagerLastName').value = user.lastName;
+                document.getElementById('editManagerEmail').value = user.email;
+                document.getElementById('editManagerPhone').value = user.phone;
+                document.getElementById('editManagerUsername').value = user.username;
+
+                // Afficher le modal
+                document.getElementById('editManagerModal').classList.add('active');
+            } else {
+                showToast('Gérant non trouvé', 'error');
+            }
+        }
+
+        async function updateManager() {
+            const form = document.getElementById('editManagerForm');
+            const formData = new FormData(form);
+            const managerId = parseInt(formData.get('managerId'));
+
+            try {
+                // Mettre à jour dans la liste des utilisateurs
+                const users = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+                const userIndex = users.findIndex(u => u.id === managerId);
+
+                if (userIndex !== -1) {
+                    users[userIndex] = {
+                        ...users[userIndex],
+                        firstName: formData.get('firstName'),
+                        lastName: formData.get('lastName'),
+                        email: formData.get('email'),
+                        phone: formData.get('phone'),
+                        username: formData.get('username'),
+                        updatedAt: new Date().toISOString()
+                    };
+                    localStorage.setItem('manohpressing_users', JSON.stringify(users));
+                }
+
+                // Mettre à jour dans la liste des gérants
+                const managers = JSON.parse(localStorage.getItem('manohpressing_managers') || '[]');
+                const managerIndex = managers.findIndex(m => m.id === managerId);
+
+                if (managerIndex !== -1) {
+                    managers[managerIndex] = {
+                        ...managers[managerIndex],
+                        firstName: formData.get('firstName'),
+                        lastName: formData.get('lastName'),
+                        email: formData.get('email'),
+                        phone: formData.get('phone'),
+                        updatedAt: new Date().toISOString()
+                    };
+                    localStorage.setItem('manohpressing_managers', JSON.stringify(managers));
+                }
+
+                loadManagersSection();
+                closeModal('editManagerModal');
+                showToast('Gérant modifié avec succès', 'success');
+            } catch (error) {
+                console.error('Erreur lors de la modification:', error);
+                showToast('Erreur lors de la modification du gérant', 'error');
+            }
+        }
+
+        function assignSite(managerId) {
+            const manager = managersData.find(m => m.id === managerId);
+            const availableSites = sitesData.filter(s => !s.managerId || s.managerId === managerId);
+
+            if (manager && availableSites.length > 0) {
+                let siteOptions = availableSites.map(s => `${s.id}: ${s.name}`).join('\n');
+                const siteId = prompt(`Assigner un site à ${manager.firstName} ${manager.lastName}:\n\n${siteOptions}\n\nEntrez l'ID du site:`);
+
+                if (siteId) {
+                    const site = sitesData.find(s => s.id == siteId);
+                    if (site) {
+                        site.managerId = managerId;
+                        site.manager = `${manager.firstName} ${manager.lastName}`;
+                        manager.siteId = siteId;
+
+                        localStorage.setItem('manohpressing_sites', JSON.stringify(sitesData));
+                        localStorage.setItem('manohpressing_managers', JSON.stringify(managersData));
+
+                        loadSitesSection();
+                        loadManagersSection();
+                        showToast('Site assigné avec succès', 'success');
+                    }
+                }
+            } else {
+                showToast('Aucun site disponible pour assignation', 'warning');
+            }
+        }
+
+        async function deleteManager(managerId) {
+            // Vérifier s'il y a des commandes en cours pour ce gérant
+            const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            const managerOrders = orders.filter(o => o.managerId === managerId && o.status !== 'completed');
+
+            if (managerOrders.length > 0) {
+                if (!confirm(`Ce gérant a ${managerOrders.length} commande(s) en cours. Voulez-vous vraiment le supprimer ? Les commandes seront transférées vers "Gérant supprimé".`)) {
+                    return;
+                }
+            }
+
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce gérant ? Cette action est irréversible.')) {
+                try {
+                    // Supprimer de la liste des utilisateurs
+                    const users = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+                    const updatedUsers = users.filter(u => u.id !== managerId);
+                    localStorage.setItem('manohpressing_users', JSON.stringify(updatedUsers));
+
+                    // Supprimer de la liste des gérants
+                    const managers = JSON.parse(localStorage.getItem('manohpressing_managers') || '[]');
+                    const updatedManagers = managers.filter(m => m.id !== managerId);
+                    localStorage.setItem('manohpressing_managers', JSON.stringify(updatedManagers));
+
+                    // Libérer le site assigné
+                    const sites = JSON.parse(localStorage.getItem('manohpressing_sites') || '[]');
+                    const updatedSites = sites.map(s =>
+                        s.managerId === managerId ? {...s, managerId: null, manager: null} : s
+                    );
+                    localStorage.setItem('manohpressing_sites', JSON.stringify(updatedSites));
+
+                    // Mettre à jour les commandes si nécessaire
+                    if (managerOrders.length > 0) {
+                        const updatedOrders = orders.map(o =>
+                            o.managerId === managerId ? {...o, managerId: null, managerName: 'Gérant supprimé'} : o
+                        );
+                        localStorage.setItem('manohpressing_orders', JSON.stringify(updatedOrders));
+                    }
+
+                    loadManagersSection();
+                    loadSitesSection();
+                    showToast('Gérant supprimé avec succès', 'success');
+                } catch (error) {
+                    console.error('Erreur lors de la suppression:', error);
+                    showToast('Erreur lors de la suppression du gérant', 'error');
+                }
+            }
+        }
+
+        function updateAnalyticsPeriod(period) {
+            showToast(`Période mise à jour : ${period}`, 'info');
+            loadAnalyticsSection();
+        }
+
+        function exportAnalytics() {
+            showToast('Export des analytics en cours...', 'info');
+        }
+
+        function exportSitesData() {
+            dataManager.exportData('sites');
+            showToast('Export des sites réussi', 'success');
+        }
+
+        function exportManagersData() {
+            dataManager.exportData('users');
+            showToast('Export des gérants réussi', 'success');
+        }
+
+        function generateReport(type) {
+            const reportName = `Rapport ${type} - ${new Date().toLocaleDateString('fr-FR')}`;
+            const reportId = Date.now().toString();
+
+            // Simuler la génération du rapport
+            showToast('Génération du rapport en cours...', 'info');
+
+            setTimeout(() => {
+                // Sauvegarder le rapport dans les rapports récents
+                const recentReports = JSON.parse(localStorage.getItem('manohpressing_recent_reports') || '[]');
+                recentReports.unshift({
+                    id: reportId,
+                    name: reportName,
+                    type: type,
+                    date: new Date().toLocaleDateString('fr-FR')
+                });
+
+                // Garder seulement les 10 derniers rapports
+                if (recentReports.length > 10) {
+                    recentReports.splice(10);
+                }
+
+                localStorage.setItem('manohpressing_recent_reports', JSON.stringify(recentReports));
+
+                showToast('Rapport généré avec succès !', 'success');
+                loadReportsSection();
+            }, 2000);
+        }
+
+        function generateCustomReport() {
+            showToast('Générateur de rapport personnalisé en développement', 'info');
+        }
+
+        function downloadReport(reportId) {
+            showToast('Téléchargement du rapport...', 'info');
+        }
+
+        function saveSettings() {
+            const generalForm = document.getElementById('general-settings-form');
+            const notificationForm = document.getElementById('notification-settings-form');
+
+            const settings = {
+                general: {},
+                notifications: {}
+            };
+
+            // Récupérer les paramètres généraux
+            const generalData = new FormData(generalForm);
+            for (let [key, value] of generalData.entries()) {
+                settings.general[key] = value;
+            }
+
+            // Récupérer les paramètres de notification
+            const notificationData = new FormData(notificationForm);
+            for (let [key, value] of notificationData.entries()) {
+                settings.notifications[key] = value;
+            }
+
+            // Gérer les checkboxes
+            document.querySelectorAll('#notification-settings-form input[type="checkbox"]').forEach(checkbox => {
+                settings.notifications[checkbox.name] = checkbox.checked;
+            });
+
+            localStorage.setItem('manohpressing_settings', JSON.stringify(settings));
+            showToast('Paramètres sauvegardés avec succès !', 'success');
+        }
+
+        function exportAllData() {
+            dataManager.exportData();
+            showToast('Export de toutes les données réussi', 'success');
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const data = JSON.parse(e.target.result);
+
+                            // Importer les données
+                            if (data.sites) localStorage.setItem('manohpressing_sites', JSON.stringify(data.sites));
+                            if (data.managers) localStorage.setItem('manohpressing_managers', JSON.stringify(data.managers));
+                            if (data.orders) localStorage.setItem('manohpressing_orders', JSON.stringify(data.orders));
+                            if (data.users) localStorage.setItem('manohpressing_users', JSON.stringify(data.users));
+                            if (data.stock) localStorage.setItem('manohpressing_stock', JSON.stringify(data.stock));
+
+                            showToast('Données importées avec succès', 'success');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1500);
+                        } catch (error) {
+                            showToast('Erreur lors de l\'import des données', 'error');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+
+        function resetData() {
+            if (confirm('Êtes-vous sûr de vouloir réinitialiser toutes les données ? Cette action est irréversible.')) {
+                // Supprimer toutes les données
+                const keys = [
+                    'manohpressing_sites',
+                    'manohpressing_managers',
+                    'manohpressing_orders',
+                    'manohpressing_users',
+                    'manohpressing_stock',
+                    'manohpressing_notifications',
+                    'manohpressing_chat_messages',
+                    'manohpressing_settings',
+                    'manohpressing_reports',
+                    'manohpressing_admin_notifications',
+                    'manohpressing_restock_requests'
+                ];
+
+                keys.forEach(key => localStorage.removeItem(key));
+
+                showToast('Données réinitialisées avec succès', 'success');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
+            }
+        }
+
+        function backupData() {
+            // Créer une sauvegarde complète
+            const backup = {
+                timestamp: new Date().toISOString(),
+                sites: JSON.parse(localStorage.getItem('manohpressing_sites') || '[]'),
+                managers: JSON.parse(localStorage.getItem('manohpressing_managers') || '[]'),
+                orders: JSON.parse(localStorage.getItem('manohpressing_orders') || '[]'),
+                users: JSON.parse(localStorage.getItem('manohpressing_users') || '[]'),
+                stock: JSON.parse(localStorage.getItem('manohpressing_stock') || '[]'),
+                notifications: JSON.parse(localStorage.getItem('manohpressing_notifications') || '[]'),
+                settings: JSON.parse(localStorage.getItem('manohpressing_settings') || '{}')
+            };
+
+            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `manohpressing_backup_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showToast('Sauvegarde créée avec succès', 'success');
+        }
+
+        // Fonction utilitaire pour afficher les toasts
+        function showToast(message, type = 'info') {
+            // Créer l'élément toast
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-color)' : type === 'error' ? 'var(--error-color)' : 'var(--primary-color)'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: var(--radius-md);
+                box-shadow: var(--shadow-lg);
+                z-index: 10000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            // Animer l'apparition
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Supprimer après 3 secondes
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

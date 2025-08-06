@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Sidebar - Pressing Management System</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/base/variables.css">
+    <link rel="stylesheet" href="assets/css/base/reset.css">
+    <link rel="stylesheet" href="assets/css/base/typography.css">
+    <link rel="stylesheet" href="assets/css/layouts/grid.css">
+    <link rel="stylesheet" href="assets/css/layouts/responsive.css">
+    <link rel="stylesheet" href="assets/css/layouts/sidebar.css">
+    <link rel="stylesheet" href="assets/css/components/buttons.css">
+    <link rel="stylesheet" href="assets/css/components/cards.css">
+    <link rel="stylesheet" href="assets/css/components/forms.css">
+    <link rel="stylesheet" href="assets/css/components/modals.css">
+    <link rel="stylesheet" href="assets/css/components/tables.css">
+    <link rel="stylesheet" href="assets/css/components/toast.css">
+</head>
+<body>
+    <!-- Overlay pour mobile -->
+    <div class="sidebar-overlay" data-action="close-sidebar"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon">👔</div>
+                <h1 class="sidebar-logo-text">Pressing Pro</h1>
+            </div>
+            <button class="sidebar-close" data-action="close-sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-nav-section">
+                <h3 class="sidebar-nav-title">Menu Principal</h3>
+                <ul class="sidebar-nav-list">
+                    <li class="sidebar-nav-item">
+                        <a href="/dashboard" class="sidebar-nav-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/orders" class="sidebar-nav-link">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>Commandes</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/customers" class="sidebar-nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/tracking" class="sidebar-nav-link">
+                            <i class="fas fa-search"></i>
+                            <span>Suivi</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-nav-section">
+                <h3 class="sidebar-nav-title">Gestion</h3>
+                <ul class="sidebar-nav-list">
+                    <li class="sidebar-nav-item">
+                        <a href="/payments" class="sidebar-nav-link">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/reports" class="sidebar-nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Rapports</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/admin" class="sidebar-nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Administration</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user" data-action="toggle-user-menu">
+                <div class="sidebar-user-avatar">A</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name">Admin User</div>
+                    <div class="sidebar-user-role">Administrateur</div>
+                </div>
+                <div class="sidebar-user-menu">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            
+            <div class="sidebar-user-dropdown">
+                <a href="#" class="sidebar-user-dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profil</span>
+                </a>
+                <a href="#" class="sidebar-user-dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Paramètres</span>
+                </a>
+                <a href="/logout" class="sidebar-user-dropdown-item danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="header-toggle" data-action="toggle-sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="header-title">Test Sidebar Responsive</h1>
+            </div>
+            
+            <div class="header-right">
+                <div class="header-actions">
+                    <button class="header-action" data-action="show-notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="header-action-badge">3</span>
+                    </button>
+                    <button class="header-action" data-action="show-user-menu">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Test de la Sidebar Responsive</h2>
+                </div>
+                <div class="card-body">
+                    <p>Cette page teste le fonctionnement de la sidebar responsive.</p>
+                    
+                    <h3>Instructions de test :</h3>
+                    <ul>
+                        <li><strong>Desktop (>1024px)</strong> : La sidebar doit être visible en permanence</li>
+                        <li><strong>Tablette (768px-1024px)</strong> : La sidebar doit être cachée par défaut, cliquer sur le bouton hamburger pour l'ouvrir</li>
+                        <li><strong>Mobile (<768px)</strong> : La sidebar doit être cachée par défaut, cliquer sur le bouton hamburger pour l'ouvrir avec overlay</li>
+                    </ul>
+                    
+                    <h3>Fonctionnalités à tester :</h3>
+                    <ul>
+                        <li>✅ Bouton toggle dans le header</li>
+                        <li>✅ Bouton de fermeture dans la sidebar</li>
+                        <li>✅ Overlay qui ferme la sidebar</li>
+                        <li>✅ Navigation qui ferme la sidebar sur mobile</li>
+                        <li>✅ Menu utilisateur dans la sidebar</li>
+                    </ul>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Test 1</h4>
+                                <p>Contenu de test pour vérifier le layout.</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Test 2</h4>
+                                <p>Contenu de test pour vérifier le layout.</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Test 3</h4>
+                                <p>Contenu de test pour vérifier le layout.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- JavaScript -->
+    <script type="module" src="assets/js/core/app.js"></script>
+</body>
+</html> 

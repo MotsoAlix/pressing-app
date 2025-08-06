@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrammes UML - ManohPressing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .diagrams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .diagram-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .diagram-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .diagram-card h2 {
+            color: #4a5568;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .diagram-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .diagram-container {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1rem;
+            background: #f8fafc;
+            overflow: auto;
+        }
+
+        .diagram-container svg {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+        }
+
+        .features {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .features h2 {
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            padding: 1rem;
+            border-left: 4px solid #667eea;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .feature-item h3 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            background: rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            background: #5a67d8;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .diagrams-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧺 ManohPressing</h1>
+            <p>Diagrammes UML - Architecture du Système</p>
+        </div>
+
+        <div class="diagrams-grid" id="diagrams">
+            <!-- Diagramme de cas d'utilisation -->
+            <div class="diagram-card">
+                <h2>📋 Diagramme de Cas d'Utilisation</h2>
+                <p>Vue d'ensemble des interactions entre les acteurs (Client, Gérant, Admin, Système) et les fonctionnalités du système.</p>
+                <div class="diagram-container">
+                    <object data="use-case-diagram.svg" type="image/svg+xml" width="100%" height="400">
+                        <img src="use-case-diagram.svg" alt="Diagramme de cas d'utilisation" style="width: 100%; height: auto;">
+                    </object>
+                </div>
+                <div style="margin-top: 1rem; padding: 1rem; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #0369a1;">
+                    <h4 style="color: #0369a1; margin-bottom: 0.5rem;">📋 Cas d'utilisation détaillé</h4>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">
+                        Consultez la spécification complète du cas d'utilisation principal "Passer une commande"
+                        avec scénarios, extensions et exceptions détaillés.
+                    </p>
+                    <a href="use-case-passer-commande.html" class="btn" style="margin-right: 0.5rem;">📋 Voir le tableau détaillé</a>
+                    <a href="use-case-passer-commande.md" class="btn btn-outline">📄 Version Markdown</a>
+                </div>
+            </div>
+
+            <!-- Diagramme de classes -->
+            <div class="diagram-card">
+                <h2>🏗️ Diagramme de Classes</h2>
+                <p>Structure des classes principales, leurs attributs, méthodes et relations dans le système ManohPressing.</p>
+                <div style="margin-bottom: 1rem;">
+                    <button onclick="showClassDiagram('detailed')" class="btn" style="margin-right: 0.5rem;">📊 Vue Complète</button>
+                    <button onclick="showClassDiagram('simple')" class="btn" style="margin-right: 0.5rem;">🎯 Vue Simplifiée</button>
+                    <button onclick="showClassDiagram('entities')" class="btn">📦 Entités Métier</button>
+                </div>
+                <div class="diagram-container">
+                    <object id="class-diagram-detailed" data="class-diagram.svg" type="image/svg+xml" width="100%" height="400">
+                        <img src="class-diagram.svg" alt="Diagramme de classes détaillé" style="width: 100%; height: auto;">
+                    </object>
+                    <object id="class-diagram-simple" data="class-diagram-simple.svg" type="image/svg+xml" width="100%" height="400" style="display: none;">
+                        <img src="class-diagram-simple.svg" alt="Diagramme de classes simplifié" style="width: 100%; height: auto;">
+                    </object>
+                    <object id="class-diagram-entities" data="entities-diagram.svg" type="image/svg+xml" width="100%" height="400" style="display: none;">
+                        <img src="entities-diagram.svg" alt="Diagramme des entités métier" style="width: 100%; height: auto;">
+                    </object>
+                </div>
+                <div style="margin-top: 1rem; padding: 1rem; background: #f8fafc; border-radius: 8px; font-size: 0.9rem;">
+                    <p id="class-diagram-description">
+                        <strong>Vue complète :</strong> Montre toutes les classes avec leurs attributs, méthodes et relations complètes.
+                        Idéale pour les développeurs et l'architecture technique.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Diagramme de séquence -->
+            <div class="diagram-card">
+                <h2>💳 Diagramme de Séquence - Paiement Mobile</h2>
+                <p>Processus détaillé du paiement mobile avec Orange Money et MTN Money, incluant la validation et les notifications.</p>
+                <div class="diagram-container">
+                    <object data="sequence-payment.svg" type="image/svg+xml" width="100%" height="400">
+                        <img src="sequence-payment.svg" alt="Diagramme de séquence" style="width: 100%; height: auto;">
+                    </object>
+                </div>
+                <div style="margin-top: 1rem; padding: 1rem; background: #f0fdf4; border-radius: 8px; border-left: 4px solid #10b981;">
+                    <h4 style="color: #166534; margin-bottom: 0.5rem;">💳 Cas d'utilisation détaillé</h4>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">
+                        Découvrez la spécification complète du paiement mobile avec Orange Money et MTN Money,
+                        incluant les règles métier et la gestion des exceptions.
+                    </p>
+                    <a href="use-case-paiement-mobile.html" class="btn">💳 Voir le tableau détaillé</a>
+                </div>
+            </div>
+
+            <!-- Diagramme d'activité -->
+            <div class="diagram-card">
+                <h2>🔄 Diagramme d'Activité - Gestion Commande</h2>
+                <p>Workflow complet de gestion d'une commande, de la création à la livraison avec génération du reçu de dépôt.</p>
+                <div class="diagram-container">
+                    <object data="activity-order.svg" type="image/svg+xml" width="100%" height="400">
+                        <img src="activity-order.svg" alt="Diagramme d'activité" style="width: 100%; height: auto;">
+                    </object>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>🚀 Fonctionnalités Clés</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>👥 Gestion Multi-Rôles</h3>
+                    <p>3 rôles distincts avec interfaces adaptées : Admin, Gérant, Client</p>
+                </div>
+                <div class="feature-item">
+                    <h3>📦 Gestion Commandes</h3>
+                    <p>Cycle complet : En attente → En cours → Prêtes → Livrées</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🎫 Reçus de Dépôt</h3>
+                    <p>Génération automatique avec codes uniques et expiration</p>
+                </div>
+                <div class="feature-item">
+                    <h3>💳 Paiements Mobiles</h3>
+                    <p>Orange Money et MTN Money avec validation temps réel</p>
+                </div>
+                <div class="feature-item">
+                    <h3>💬 Communication</h3>
+                    <p>Chat temps réel et notifications automatiques</p>
+                </div>
+                <div class="feature-item">
+                    <h3>📊 Statistiques</h3>
+                    <p>Dashboard avec métriques et graphiques interactifs</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>📚 Documentation Complète</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>📋 Diagrammes UML</h3>
+                    <p>Visualisation de l'architecture système avec 4 diagrammes détaillés</p>
+                    <a href="#diagrams" class="btn" style="margin-top: 0.5rem;">Voir les Diagrammes</a>
+                </div>
+                <div class="feature-item">
+                    <h3>📚 Documentation Technique</h3>
+                    <p>Guide complet d'architecture, utilisation et maintenance</p>
+                    <a href="documentation.html" class="btn" style="margin-top: 0.5rem;">Lire la Doc</a>
+                </div>
+                <div class="feature-item">
+                    <h3>📖 README Projet</h3>
+                    <p>Vue d'ensemble du projet avec instructions d'installation</p>
+                    <a href="../../../README.md" class="btn" style="margin-top: 0.5rem;">README</a>
+                </div>
+                <div class="feature-item">
+                    <h3>🧪 Tests & Évaluation</h3>
+                    <p>Rapport complet des tests et évaluation des fonctionnalités</p>
+                    <a href="../../../TESTS.md" class="btn" style="margin-top: 0.5rem;">Voir Tests</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>🔗 Liens Utiles</h3>
+            <a href="use-cases-index.html" class="btn">📋 Cas d'utilisation détaillés</a>
+            <a href="../../index.html" class="btn">🏠 Accueil</a>
+            <a href="../../manager-dashboard.html" class="btn">👔 Dashboard Gérant</a>
+            <a href="../../client-dashboard.html" class="btn">👤 Dashboard Client</a>
+            <a href="documentation.html" class="btn">📚 Documentation Technique</a>
+            <a href="documentation.md" class="btn">📄 Documentation MD</a>
+            <p style="margin-top: 1rem; opacity: 0.8;">
+                ManohPressing - Système de gestion de pressing moderne avec paiements mobiles
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour basculer entre les vues du diagramme de classes
+        function showClassDiagram(type) {
+            const detailedDiagram = document.getElementById('class-diagram-detailed');
+            const simpleDiagram = document.getElementById('class-diagram-simple');
+            const entitiesDiagram = document.getElementById('class-diagram-entities');
+            const description = document.getElementById('class-diagram-description');
+
+            // Cacher tous les diagrammes
+            detailedDiagram.style.display = 'none';
+            simpleDiagram.style.display = 'none';
+            entitiesDiagram.style.display = 'none';
+
+            if (type === 'simple') {
+                simpleDiagram.style.display = 'block';
+                description.innerHTML = `
+                    <strong>Vue simplifiée :</strong> Vue d'ensemble claire avec les classes principales et le workflow.
+                    Parfaite pour comprendre rapidement l'architecture et les relations essentielles.
+                `;
+            } else if (type === 'entities') {
+                entitiesDiagram.style.display = 'block';
+                description.innerHTML = `
+                    <strong>Entités métier :</strong> Focus exclusif sur le modèle de données métier avec tous les attributs.
+                    Idéale pour comprendre la structure des données et les relations entre entités.
+                `;
+            } else {
+                detailedDiagram.style.display = 'block';
+                description.innerHTML = `
+                    <strong>Vue complète :</strong> Montre toutes les classes avec leurs attributs, méthodes et relations complètes.
+                    Idéale pour les développeurs et l'architecture technique.
+                `;
+            }
+        }
+
+        // Animation d'entrée pour les cartes
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.diagram-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+
+        // Fonction pour télécharger un diagramme
+        function downloadDiagram(filename) {
+            const link = document.createElement('a');
+            link.href = filename;
+            link.download = filename;
+            link.click();
+        }
+
+        // Ajouter des boutons de téléchargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const diagramCards = document.querySelectorAll('.diagram-card');
+            const diagramFiles = [
+                'use-case-diagram.svg',
+                ['class-diagram.svg', 'class-diagram-simple.svg', 'entities-diagram.svg'], // Plusieurs options pour les classes
+                'sequence-payment.svg',
+                'activity-order.svg'
+            ];
+
+            diagramCards.forEach((card, index) => {
+                if (diagramFiles[index]) {
+                    if (Array.isArray(diagramFiles[index])) {
+                        // Cas spécial pour le diagramme de classes avec plusieurs versions
+                        const downloadContainer = document.createElement('div');
+                        downloadContainer.style.marginTop = '1rem';
+
+                        const downloadBtnComplete = document.createElement('button');
+                        downloadBtnComplete.className = 'btn';
+                        downloadBtnComplete.style.marginRight = '0.5rem';
+                        downloadBtnComplete.innerHTML = '💾 Complet';
+                        downloadBtnComplete.onclick = () => downloadDiagram(diagramFiles[index][0]);
+
+                        const downloadBtnSimple = document.createElement('button');
+                        downloadBtnSimple.className = 'btn';
+                        downloadBtnSimple.style.marginRight = '0.5rem';
+                        downloadBtnSimple.innerHTML = '💾 Simplifié';
+                        downloadBtnSimple.onclick = () => downloadDiagram(diagramFiles[index][1]);
+
+                        const downloadBtnEntities = document.createElement('button');
+                        downloadBtnEntities.className = 'btn';
+                        downloadBtnEntities.innerHTML = '💾 Entités';
+                        downloadBtnEntities.onclick = () => downloadDiagram(diagramFiles[index][2]);
+
+                        downloadContainer.appendChild(downloadBtnComplete);
+                        downloadContainer.appendChild(downloadBtnSimple);
+                        downloadContainer.appendChild(downloadBtnEntities);
+                        card.appendChild(downloadContainer);
+                    } else {
+                        const downloadBtn = document.createElement('button');
+                        downloadBtn.className = 'btn';
+                        downloadBtn.style.marginTop = '1rem';
+                        downloadBtn.innerHTML = '💾 Télécharger SVG';
+                        downloadBtn.onclick = () => downloadDiagram(diagramFiles[index]);
+
+                        card.appendChild(downloadBtn);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200">
+  <title>Diagramme d'activité - Gestion d'une commande</title>
+  
+  <!-- Styles -->
+  <defs>
+    <style>
+      .start-end { fill: #e1f5fe; stroke: #01579b; stroke-width: 2; }
+      .activity { fill: #f3e5f5; stroke: #4a148c; stroke-width: 1.5; rx: 10; }
+      .decision { fill: #fff3e0; stroke: #e65100; stroke-width: 1.5; }
+      .success { fill: #e8f5e8; stroke: #2e7d32; stroke-width: 1.5; rx: 10; }
+      .error { fill: #ffebee; stroke: #c62828; stroke-width: 1.5; rx: 10; }
+      .text { font-family: Arial, sans-serif; font-size: 11px; text-anchor: middle; }
+      .title { font-size: 16px; font-weight: bold; text-anchor: middle; }
+      .line { stroke: #333; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+      .decision-text { font-size: 10px; }
+    </style>
+    
+    <!-- Flèche -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+  
+  <!-- Titre -->
+  <text x="500" y="30" class="title">Diagramme d'activité - Gestion d'une commande</text>
+  
+  <!-- Début -->
+  <circle cx="500" cy="70" r="20" class="start-end"/>
+  <text x="500" y="75" class="text" style="fill: white; font-weight: bold;">Début</text>
+  
+  <!-- Créer commande -->
+  <rect x="400" y="110" width="200" height="40" class="activity"/>
+  <text x="500" y="135" class="text">Gérant crée une commande</text>
+  
+  <!-- Décision client existant -->
+  <polygon points="500,170 550,200 500,230 450,200" class="decision"/>
+  <text x="500" y="205" class="text decision-text">Client existant?</text>
+  
+  <!-- Créer nouveau client -->
+  <rect x="250" y="180" width="150" height="40" class="activity"/>
+  <text x="325" y="205" class="text">Créer nouveau client</text>
+  
+  <!-- Ajouter services -->
+  <rect x="400" y="270" width="200" height="40" class="activity"/>
+  <text x="500" y="295" class="text">Ajouter services</text>
+  
+  <!-- Calculer total -->
+  <rect x="400" y="330" width="200" height="40" class="activity"/>
+  <text x="500" y="355" class="text">Calculer total</text>
+  
+  <!-- Sauvegarder commande -->
+  <rect x="400" y="390" width="200" height="40" class="activity"/>
+  <text x="500" y="415" class="text">Sauvegarder commande</text>
+  
+  <!-- Statut: En attente -->
+  <rect x="400" y="450" width="200" height="40" class="success"/>
+  <text x="500" y="475" class="text">Statut: En attente</text>
+  
+  <!-- Commencer travail -->
+  <rect x="400" y="510" width="200" height="40" class="activity"/>
+  <text x="500" y="535" class="text">Gérant: Commencer travail</text>
+  
+  <!-- Statut: En cours -->
+  <rect x="400" y="570" width="200" height="40" class="success"/>
+  <text x="500" y="595" class="text">Statut: En cours</text>
+  
+  <!-- Traitement des vêtements -->
+  <rect x="400" y="630" width="200" height="40" class="activity"/>
+  <text x="500" y="655" class="text">Traitement des vêtements</text>
+  
+  <!-- Terminer travail -->
+  <rect x="400" y="690" width="200" height="40" class="activity"/>
+  <text x="500" y="715" class="text">Gérant: Terminer travail</text>
+  
+  <!-- Statut: Prêt -->
+  <rect x="400" y="750" width="200" height="40" class="success"/>
+  <text x="500" y="775" class="text">Statut: Prêt</text>
+  
+  <!-- Client récupère -->
+  <rect x="400" y="810" width="200" height="40" class="activity"/>
+  <text x="500" y="835" class="text">Client récupère</text>
+  
+  <!-- Statut: Livré -->
+  <rect x="400" y="870" width="200" height="40" class="success"/>
+  <text x="500" y="895" class="text">Statut: Livré</text>
+  
+  <!-- Générer reçu de dépôt -->
+  <rect x="400" y="930" width="200" height="40" class="activity"/>
+  <text x="500" y="955" class="text">Générer reçu de dépôt</text>
+  
+  <!-- Décision validation reçu -->
+  <polygon points="500,990 550,1020 500,1050 450,1020" class="decision"/>
+  <text x="500" y="1020" class="text decision-text">Gérant valide?</text>
+  
+  <!-- Attendre validation -->
+  <rect x="650" y="1000" width="150" height="40" class="activity"/>
+  <text x="725" y="1025" class="text">Attendre validation</text>
+  
+  <!-- Envoyer reçu -->
+  <rect x="400" y="1090" width="200" height="40" class="success"/>
+  <text x="500" y="1115" class="text">Envoyer reçu au client</text>
+  
+  <!-- Fin -->
+  <circle cx="500" cy="1170" r="20" class="start-end"/>
+  <text x="500" y="1175" class="text" style="fill: white; font-weight: bold;">Fin</text>
+  
+  <!-- Flèches -->
+  <g id="arrows">
+    <!-- Flux principal -->
+    <line x1="500" y1="90" x2="500" y2="110" class="line"/>
+    <line x1="500" y1="150" x2="500" y2="170" class="line"/>
+    <line x1="500" y1="230" x2="500" y2="270" class="line"/>
+    <line x1="500" y1="310" x2="500" y2="330" class="line"/>
+    <line x1="500" y1="370" x2="500" y2="390" class="line"/>
+    <line x1="500" y1="430" x2="500" y2="450" class="line"/>
+    <line x1="500" y1="490" x2="500" y2="510" class="line"/>
+    <line x1="500" y1="550" x2="500" y2="570" class="line"/>
+    <line x1="500" y1="610" x2="500" y2="630" class="line"/>
+    <line x1="500" y1="670" x2="500" y2="690" class="line"/>
+    <line x1="500" y1="730" x2="500" y2="750" class="line"/>
+    <line x1="500" y1="790" x2="500" y2="810" class="line"/>
+    <line x1="500" y1="850" x2="500" y2="870" class="line"/>
+    <line x1="500" y1="910" x2="500" y2="930" class="line"/>
+    <line x1="500" y1="970" x2="500" y2="990" class="line"/>
+    <line x1="500" y1="1050" x2="500" y2="1090" class="line"/>
+    <line x1="500" y1="1130" x2="500" y2="1150" class="line"/>
+    
+    <!-- Branche nouveau client -->
+    <line x1="450" y1="200" x2="400" y2="200" class="line"/>
+    <line x1="325" y1="220" x2="325" y2="290" class="line"/>
+    <line x1="325" y1="290" x2="400" y2="290" class="line"/>
+    
+    <!-- Client existant -->
+    <line x1="550" y1="200" x2="600" y2="200" class="line"/>
+    <line x1="600" y1="200" x2="600" y2="290" class="line"/>
+    <line x1="600" y1="290" x2="600" y2="290" class="line"/>
+    
+    <!-- Boucle validation -->
+    <line x1="550" y1="1020" x2="650" y2="1020" class="line"/>
+    <line x1="725" y1="1000" x2="725" y2="980" class="line"/>
+    <line x1="725" y1="980" x2="550" y2="980" class="line"/>
+    <line x1="550" y1="980" x2="550" y2="1020" class="line"/>
+    
+    <!-- Validation OK -->
+    <line x1="450" y1="1020" x2="400" y2="1020" class="line"/>
+    <line x1="400" y1="1020" x2="400" y2="1110" class="line"/>
+  </g>
+  
+  <!-- Labels des décisions -->
+  <text x="420" y="195" class="text decision-text" style="fill: #c62828;">Non</text>
+  <text x="580" y="195" class="text decision-text" style="fill: #2e7d32;">Oui</text>
+  <text x="580" y="1015" class="text decision-text" style="fill: #c62828;">Non</text>
+  <text x="420" y="1015" class="text decision-text" style="fill: #2e7d32;">Oui</text>
+  
+  <!-- Légende -->
+  <g id="legend">
+    <rect x="50" y="50" width="200" height="150" fill="none" stroke="#ccc" stroke-width="1"/>
+    <text x="60" y="70" class="text" style="font-weight: bold;">Légende:</text>
+    
+    <circle cx="80" cy="90" r="10" class="start-end"/>
+    <text x="110" y="95" class="text">Début/Fin</text>
+    
+    <rect x="60" y="105" width="40" height="15" class="activity"/>
+    <text x="110" y="117" class="text">Activité</text>
+    
+    <polygon points="80,130 90,140 80,150 70,140" class="decision"/>
+    <text x="110" y="145" class="text">Décision</text>
+    
+    <rect x="60" y="160" width="40" height="15" class="success"/>
+    <text x="110" y="172" class="text">Succès</text>
+    
+    <rect x="60" y="180" width="40" height="15" class="error"/>
+    <text x="110" y="192" class="text">Erreur</text>
+  </g>
+</svg>

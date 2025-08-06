@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi - Pressing Management System</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/base/variables.css">
+    <link rel="stylesheet" href="assets/css/base/reset.css">
+    <link rel="stylesheet" href="assets/css/base/typography.css">
+    <link rel="stylesheet" href="assets/css/layouts/grid.css">
+    <link rel="stylesheet" href="assets/css/layouts/responsive.css">
+    <link rel="stylesheet" href="assets/css/layouts/sidebar.css">
+    <link rel="stylesheet" href="assets/css/components/buttons.css">
+    <link rel="stylesheet" href="assets/css/components/cards.css">
+    <link rel="stylesheet" href="assets/css/components/forms.css">
+    <link rel="stylesheet" href="assets/css/components/modals.css">
+    <link rel="stylesheet" href="assets/css/components/tables.css">
+    <link rel="stylesheet" href="assets/css/components/toast.css">
+    <link rel="stylesheet" href="assets/css/pages/tracking.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon">👔</div>
+                <h1 class="sidebar-logo-text">Pressing Pro</h1>
+            </div>
+            <button class="sidebar-close" data-action="close-sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-nav-section">
+                <h3 class="sidebar-nav-title">Menu Principal</h3>
+                <ul class="sidebar-nav-list">
+                    <li class="sidebar-nav-item">
+                        <a href="/dashboard" class="sidebar-nav-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/orders" class="sidebar-nav-link">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>Commandes</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/customers" class="sidebar-nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/tracking" class="sidebar-nav-link is-active">
+                            <i class="fas fa-search"></i>
+                            <span>Suivi</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-nav-section">
+                <h3 class="sidebar-nav-title">Gestion</h3>
+                <ul class="sidebar-nav-list">
+                    <li class="sidebar-nav-item">
+                        <a href="/payments" class="sidebar-nav-link">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/reports" class="sidebar-nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Rapports</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/admin" class="sidebar-nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Administration</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user" data-action="toggle-user-menu">
+                <div class="sidebar-user-avatar">A</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name">Admin User</div>
+                    <div class="sidebar-user-role">Administrateur</div>
+                </div>
+                <div class="sidebar-user-menu">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            
+            <div class="sidebar-user-dropdown">
+                <a href="#" class="sidebar-user-dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profil</span>
+                </a>
+                <a href="#" class="sidebar-user-dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Paramètres</span>
+                </a>
+                <a href="/logout" class="sidebar-user-dropdown-item danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Overlay pour mobile -->
+    <div class="sidebar-overlay" data-action="close-sidebar"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="header-toggle" data-action="toggle-sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-search">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Rechercher une commande...">
+                    <button class="search-clear" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="search-shortcut">Ctrl+K</div>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="header-actions">
+                <button class="header-action" data-action="notifications" title="Notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" style="display: none;">0</span>
+                </button>
+                <button class="header-action" data-action="new-order" title="Nouvelle commande">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h1 class="page-title">Suivi des commandes</h1>
+                    <p class="page-subtitle">Recherchez et suivez l'état de vos commandes</p>
+                </div>
+                <div class="page-header-actions">
+                    <button class="btn btn-secondary" data-action="bulk-update">
+                        <i class="fas fa-edit"></i>
+                        <span>Mise à jour en lot</span>
+                    </button>
+                    <button class="btn btn-primary" data-action="new-order">
+                        <i class="fas fa-plus"></i>
+                        <span>Nouvelle commande</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-card">
+                    <div class="search-header">
+                        <h2 class="search-title">Recherche rapide</h2>
+                        <p class="search-subtitle">Entrez le numéro de commande ou le nom du client</p>
+                    </div>
+                    <div class="search-form">
+                        <div class="search-input-group">
+                            <input type="text" id="trackingSearch" class="form-input form-input-lg" placeholder="Ex: ORD-001 ou Jean Dupont">
+                            <button class="btn btn-primary btn-lg" data-action="search-order">
+                                <i class="fas fa-search"></i>
+                                <span>Rechercher</span>
+                            </button>
+                        </div>
+                        <div class="search-options">
+                            <label class="form-checkbox">
+                                <input type="checkbox" id="searchByPhone">
+                                <span class="form-checkbox-label">Rechercher par téléphone</span>
+                            </label>
+                            <label class="form-checkbox">
+                                <input type="checkbox" id="searchByEmail">
+                                <span class="form-checkbox-label">Rechercher par email</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="content-card">
+                <div class="content-card-header">
+                    <div class="content-card-title-group">
+                        <h2 class="content-card-title">Commandes récentes</h2>
+                        <span class="content-card-subtitle" id="recentOrdersCount">0 commande(s)</span>
+                    </div>
+                    <div class="content-card-actions">
+                        <button class="btn btn-secondary btn-sm" data-action="refresh-orders">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Actualiser</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="content-card-body">
+                    <div class="orders-grid" id="recentOrdersGrid">
+                        <!-- Les commandes seront chargées dynamiquement -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tracking Timeline -->
+            <div class="content-card" id="trackingTimeline" style="display: none;">
+                <div class="content-card-header">
+                    <h2 class="content-card-title">Suivi de la commande</h2>
+                    <button class="btn btn-secondary btn-sm" data-action="close-tracking">
+                        <i class="fas fa-times"></i>
+                        <span>Fermer</span>
+                    </button>
+                </div>
+                <div class="content-card-body">
+                    <div class="tracking-content">
+                        <div class="order-summary" id="orderSummary">
+                            <!-- Résumé de la commande -->
+                        </div>
+                        <div class="timeline" id="trackingTimelineContent">
+                            <!-- Timeline de suivi -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Détails Commande -->
+    <div class="modal" id="orderDetailsModal">
+        <div class="modal-overlay" data-action="close-modal"></div>
+        <div class="modal-container modal-container--large">
+            <div class="modal-header">
+                <h2 class="modal-title">Détails de la commande</h2>
+                <button class="modal-close" data-action="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="orderDetailsContent">
+                    <!-- Le contenu sera chargé dynamiquement -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-action="close-modal">Fermer</button>
+                <button class="btn btn-primary" data-action="update-status">
+                    <i class="fas fa-edit"></i>
+                    <span>Mettre à jour le statut</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- JavaScript -->
+    <script type="module" src="assets/js/core/api.js"></script>
+    <script type="module" src="assets/js/core/router.js"></script>
+    <script type="module" src="assets/js/components/toast.js"></script>
+    <script type="module" src="assets/js/components/modal.js"></script>
+    <script type="module" src="assets/js/modules/auth.js"></script>
+    <script type="module" src="assets/js/modules/tracking.js"></script>
+    <script type="module" src="assets/js/core/app.js"></script>
+</body>
+</html> 

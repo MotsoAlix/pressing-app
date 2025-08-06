@@ -1,0 +1,3454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Espace Client - ManohPressing</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chat Styles -->
+    <link rel="stylesheet" href="assets/css/messenger-chat.css">
+
+    <style>
+        :root {
+            --primary-color: #10b981;
+            --primary-light: #ecfdf5;
+            --primary-dark: #059669;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --background-color: #f8fafc;
+            --surface-color: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --gradient-primary: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --gradient-secondary: linear-gradient(135deg, #64748b 0%, #475569 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--surface-color);
+            border-right: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-header p {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .sidebar-nav {
+            padding: 1.5rem 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-link i {
+            width: 20px;
+            margin-right: 0.75rem;
+            font-size: 1.125rem;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: var(--surface-color);
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .header-title h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .header-title p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            position: relative;
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--background-color);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--error-color);
+            color: white;
+            border-radius: 50%;
+            min-width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            padding: 0 4px;
+            box-sizing: border-box;
+            white-space: nowrap;
+            z-index: 10;
+            border: 2px solid var(--surface-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .stat-icon.green { background: var(--primary-color); }
+        .stat-icon.blue { background: #2563eb; }
+        .stat-icon.yellow { background: var(--warning-color); }
+        .stat-icon.purple { background: #8b5cf6; }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .order-card {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .order-card:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .order-number {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.125rem;
+        }
+
+        .order-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .order-status.pending { background: #fef3c7; color: #92400e; }
+        .order-status.in_progress { background: #dbeafe; color: #1e40af; }
+        .order-status.ready { background: #dcfce7; color: #166534; }
+        .order-status.delivered { background: #f3f4f6; color: #374151; }
+
+        .order-progress {
+            margin-bottom: 1rem;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border-color);
+            z-index: 1;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-step.completed .step-icon {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .order-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .order-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .loyalty-card {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1rem;
+        }
+
+        .loyalty-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .loyalty-points {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .loyalty-level {
+            background: rgba(255,255,255,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .loyalty-progress {
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: white;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .tracking-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tracking-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+        }
+
+        .tracking-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .chat-panel {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: var(--surface-color);
+            border-left: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            transition: right 0.3s ease;
+            z-index: 1001;
+        }
+
+        .chat-panel.active {
+            right: 0;
+        }
+
+        .chat-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .chat-messages {
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .chat-input {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--surface-color);
+        }
+
+        .chat-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-form input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .chat-panel {
+                width: 100%;
+                right: -100%;
+            }
+
+            /* Responsive Payment Components */
+            .payment-methods {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .payment-method-card {
+                padding: 1rem;
+                min-height: auto;
+            }
+
+            .payment-method-card i {
+                font-size: 1.5rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .payment-method-card span {
+                font-size: 0.8rem;
+            }
+
+            .payment-order-info {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .payment-summary {
+                padding: 1rem;
+                margin-top: 1rem;
+            }
+
+            .payment-summary-row {
+                flex-direction: column;
+                gap: 0.25rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .payment-summary-row span:last-child {
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .payment-status {
+                padding: 1.5rem 1rem;
+            }
+
+            .payment-status i {
+                font-size: 3rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .payment-status h3 {
+                font-size: 1.25rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .payment-status p {
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .phone-input {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .phone-prefix {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                text-align: center;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                max-height: calc(100vh - 2rem);
+                overflow-y: auto;
+            }
+
+            .modal-body {
+                max-height: calc(100vh - 200px);
+                overflow-y: auto;
+            }
+        }
+
+        /* Extra small screens (phones) */
+        @media (max-width: 480px) {
+            .modal-content {
+                margin: 0.5rem;
+                border-radius: var(--radius-md);
+            }
+
+            .payment-method-card {
+                padding: 0.75rem;
+                flex-direction: row;
+                justify-content: flex-start;
+                text-align: left;
+                gap: 0.75rem;
+            }
+
+            .payment-method-card i {
+                font-size: 1.25rem;
+                margin-bottom: 0;
+            }
+
+            .payment-method-card span {
+                font-size: 0.75rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .payment-summary h4 {
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .payment-summary-row {
+                font-size: 0.85rem;
+            }
+
+            .payment-summary-row.total {
+                font-size: 0.95rem;
+                padding-top: 0.75rem;
+                margin-top: 0.75rem;
+            }
+
+            .modal-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .modal-footer .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            .form-label {
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .form-help {
+                font-size: 0.8rem;
+            }
+
+            .pay-button {
+                font-size: 0.8rem;
+                padding: 0.5rem 0.75rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .order-detail-card {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            transition: all 0.2s ease;
+        }
+
+        .order-detail-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tracking-container {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .tracking-result {
+            background: var(--primary-light);
+            border: 1px solid var(--primary-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+
+        .tracking-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--surface-color);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-item.completed {
+            background: #dcfce7;
+            border-color: var(--success-color);
+        }
+
+        .timeline-item.current {
+            background: #dbeafe;
+            border-color: var(--primary-color);
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .timeline-icon.completed {
+            background: var(--success-color);
+        }
+
+        .timeline-icon.current {
+            background: var(--primary-color);
+        }
+
+        .timeline-icon.pending {
+            background: var(--secondary-color);
+        }
+
+        .profile-form {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+        }
+
+        .profile-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .profile-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .profile-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .loyalty-details {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+        }
+
+        .loyalty-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .loyalty-stat {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius-md);
+        }
+
+        .loyalty-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .loyalty-stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .history-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: var(--surface-color);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-button.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .filter-button:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-color);
+        }
+
+        /* Styles pour les reçus de dépôt côté client */
+        .coupons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .coupon-card {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            border: 3px dashed rgba(255,255,255,0.3);
+        }
+
+        .coupon-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .coupon-card.expired {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            opacity: 0.7;
+        }
+
+        .coupon-card.collected {
+            background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+        }
+
+        .coupon-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .coupon-status.active {
+            background: rgba(40, 167, 69, 0.8);
+        }
+
+        .coupon-status.expired {
+            background: rgba(220, 53, 69, 0.8);
+        }
+
+        .coupon-status.used {
+            background: rgba(108, 117, 125, 0.8);
+        }
+
+        .coupon-code-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            margin: 1rem 0;
+            padding: 0.75rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: var(--radius-md);
+            text-align: center;
+            border: 2px dashed rgba(255,255,255,0.5);
+        }
+
+        .coupon-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .coupon-discount {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .coupon-expiry {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .coupon-actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-copy-code {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-copy-code:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Styles pour le paiement mobile */
+        .payment-order-info {
+            background: var(--surface-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .payment-method-option {
+            cursor: pointer;
+        }
+
+        .payment-method-option input[type="radio"] {
+            display: none;
+        }
+
+        .payment-method-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .payment-method-card.orange {
+            background: linear-gradient(135deg, #FF6600 0%, #FF8533 100%);
+            color: white;
+        }
+
+        .payment-method-card.mtn {
+            background: linear-gradient(135deg, #FFCC00 0%, #FFD633 100%);
+            color: #333;
+        }
+
+        .payment-method-option input[type="radio"]:checked + .payment-method-card {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .payment-method-card i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-method-card span {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .phone-input {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .phone-prefix {
+            background: var(--surface-color);
+            padding: 0.75rem 1rem;
+            border-right: 1px solid var(--border-color);
+            font-weight: bold;
+            color: var(--text-secondary);
+        }
+
+        .phone-input input {
+            border: none;
+            flex: 1;
+            padding: 0.75rem;
+        }
+
+        .payment-summary {
+            background: var(--surface-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .payment-summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .payment-summary-row span {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .payment-summary-row span:first-child {
+            flex: 1;
+        }
+
+        .payment-summary-row span:last-child {
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        .payment-summary-row.total {
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.5rem;
+            margin-top: 1rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .payment-status {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .payment-status.processing {
+            color: var(--warning-color);
+        }
+
+        .payment-status.completed {
+            color: var(--success-color);
+        }
+
+        .payment-status.failed {
+            color: var(--error-color);
+        }
+
+        .payment-status i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .payment-status.processing i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .pay-button {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .pay-button:hover {
+            background: var(--success-dark);
+            transform: translateY(-1px);
+        }
+
+        .pay-button:disabled {
+            background: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Styles pour les modales - Correction du problème d'affichage */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--background-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--border-color);
+            color: var(--text-secondary);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .modal-body {
+            padding: 2rem;
+            overflow-y: auto;
+            max-height: calc(90vh - 200px);
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--background-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-user"></i> Client</h1>
+                <p>Mon Espace Personnel</p>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item">
+                    <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-home"></i>
+                        Tableau de Bord
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#orders" class="nav-link" data-section="orders">
+                        <i class="fas fa-shopping-bag"></i>
+                        Mes Commandes
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#tracking" class="nav-link" data-section="tracking">
+                        <i class="fas fa-search"></i>
+                        Suivi Commande
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#notifications" class="nav-link" data-section="notifications">
+                        <i class="fas fa-bell"></i>
+                        Notifications
+                        <span class="notification-badge" id="nav-notification-count">3</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="client-payments.html" class="nav-link">
+                        <i class="fas fa-credit-card"></i>
+                        Paiements
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#coupons" class="nav-link" data-section="coupons">
+                        <i class="fas fa-receipt"></i>
+                        Mes Reçus de Dépôt
+                        <span class="notification-badge" id="nav-coupon-count" style="display: none;">0</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#chat" class="nav-link" data-section="chat">
+                        <i class="fas fa-comments"></i>
+                        Chat Gérant
+                        <span class="notification-badge" id="nav-chat-count">1</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#history" class="nav-link" data-section="history">
+                        <i class="fas fa-history"></i>
+                        Historique
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#profile" class="nav-link" data-section="profile">
+                        <i class="fas fa-user-cog"></i>
+                        Mon Profil
+                    </a>
+                </div>
+                <div class="nav-item" style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+                    <a href="/" class="nav-link" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Déconnexion
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-title">
+                    <h1>Mon Espace Client</h1>
+                    <p>Bienvenue dans votre espace personnel ManohPressing</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="header-notification-count">3</span>
+                    </button>
+                    <button class="btn btn-outline" onclick="toggleChat()">
+                        <i class="fas fa-comments"></i>
+                        <span class="notification-badge" id="header-chat-count">1</span>
+                    </button>
+                    <button class="btn btn-primary" onclick="contactManager()">
+                        <i class="fas fa-phone"></i>
+                        Contacter le Gérant
+                    </button>
+                    <div class="user-menu">
+                        <div class="user-avatar" onclick="showUserMenu()">C</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div id="dashboard-content" class="content-section active">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="active-orders-count">2</div>
+                                <div class="stat-label">Commandes Actives</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="completed-orders-count">15</div>
+                                <div class="stat-label">Commandes Terminées</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="total-spent">€425</div>
+                                <div class="stat-label">Total Dépensé</div>
+                            </div>
+                            <div class="stat-icon yellow">
+                                <i class="fas fa-euro-sign"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="loyalty-points">125</div>
+                                <div class="stat-label">Points Fidélité</div>
+                            </div>
+                            <div class="stat-icon purple">
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="content-grid">
+                    <!-- Active Orders -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Mes Commandes Actives</h3>
+                            <button class="btn btn-primary btn-sm" onclick="showTrackingModal()">
+                                <i class="fas fa-search"></i> Suivre
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="active-orders">
+                                <!-- Les commandes actives seront chargées dynamiquement -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Loyalty & Quick Actions -->
+                    <div>
+                        <!-- Loyalty Card -->
+                        <div class="loyalty-card">
+                            <div class="loyalty-header">
+                                <div>
+                                    <div class="loyalty-points" id="loyalty-points-display">125</div>
+                                    <div>Points Fidélité</div>
+                                </div>
+                                <div class="loyalty-level" id="loyalty-level">Niveau 2</div>
+                            </div>
+                            <div class="loyalty-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="loyalty-progress" style="width: 25%"></div>
+                                </div>
+                                <div class="progress-text" id="loyalty-progress-text">75 points pour le niveau suivant</div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Tracking -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Suivi Rapide</h3>
+                            </div>
+                            <div class="card-body">
+                                <form class="tracking-form" onsubmit="trackOrder(event)">
+                                    <input type="text" class="tracking-input" placeholder="Code de suivi" name="trackingCode" required>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </form>
+                                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                    <button class="btn btn-outline btn-sm" onclick="contactManager()">
+                                        <i class="fas fa-comments"></i> Chat avec le Gérant
+                                    </button>
+                                    <button class="btn btn-outline btn-sm" onclick="showOrderHistory()">
+                                        <i class="fas fa-history"></i> Voir l'Historique
+                                    </button>
+                                    <button class="btn btn-outline btn-sm" onclick="showProfile()">
+                                        <i class="fas fa-user-cog"></i> Mon Profil
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Notifications -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Notifications Récentes</h3>
+                        <button class="btn btn-outline btn-sm" onclick="markAllNotificationsRead()">
+                            <i class="fas fa-check"></i> Tout marquer comme lu
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="recent-notifications">
+                            <!-- Les notifications seront chargées dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Section -->
+            <div id="orders-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-shopping-bag"></i>
+                        Mes Commandes
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline" onclick="loadOrdersSection()" title="Actualiser">
+                            <i class="fas fa-refresh"></i>
+                        </button>
+                        <button class="btn btn-outline" onclick="debugClientOrders()" title="Debug">
+                            <i class="fas fa-bug"></i>
+                        </button>
+                        <select class="form-select" onchange="filterOrdersByStatus(this.value)">
+                            <option value="all">Toutes les commandes</option>
+                            <option value="pending">En attente</option>
+                            <option value="in_progress">En cours</option>
+                            <option value="ready">Prêtes</option>
+                            <option value="delivered">Livrées</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="orders-list" id="orders-list">
+                    <!-- Les commandes seront chargées dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Tracking Section -->
+            <div id="tracking-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-search"></i>
+                        Suivi de Commande
+                    </h2>
+                </div>
+
+                <div class="tracking-container">
+                    <h3 style="margin-bottom: 1rem;">Rechercher une commande</h3>
+                    <form class="tracking-form" onsubmit="trackOrderDetailed(event)">
+                        <input type="text" class="tracking-input" placeholder="Numéro de commande ou code de suivi" name="trackingCode" required>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Rechercher
+                        </button>
+                    </form>
+
+                    <div id="tracking-result" style="display: none;">
+                        <!-- Résultat du suivi sera affiché ici -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Mes Commandes Récentes</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="recent-orders-tracking">
+                            <!-- Les commandes récentes seront affichées ici -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications Section -->
+            <div id="notifications-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-bell"></i>
+                        Mes Notifications
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline" onclick="markAllClientNotificationsRead()">
+                            <i class="fas fa-check"></i> Tout marquer comme lu
+                        </button>
+                    </div>
+                </div>
+
+                <div class="notifications-list" id="client-notifications-list">
+                    <!-- Les notifications seront chargées dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Reçus de Dépôt Section -->
+            <div id="coupons-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-receipt"></i>
+                        Mes Reçus de Dépôt
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline" onclick="loadCouponsSection()" title="Actualiser">
+                            <i class="fas fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="coupons-grid" id="client-coupons-list">
+                    <!-- Les reçus de dépôt seront chargés dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Chat Section -->
+            <div id="chat-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-comments"></i>
+                        Chat avec le Gérant
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" onclick="toggleChat()">
+                            <i class="fas fa-comments"></i> Ouvrir le Chat
+                        </button>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Conversation</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                                <i class="fas fa-comments" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                                <h3>Contactez votre gérant</h3>
+                                <p>Posez vos questions ou demandez des informations sur vos commandes</p>
+                                <button class="btn btn-primary" onclick="toggleChat()" style="margin-top: 1rem;">
+                                    <i class="fas fa-comments"></i> Démarrer une conversation
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Aide Rapide</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                <button class="btn btn-outline btn-block" onclick="quickMessage('Où en est ma commande ?')">
+                                    <i class="fas fa-question-circle"></i> Où en est ma commande ?
+                                </button>
+                                <button class="btn btn-outline btn-block" onclick="quickMessage('Quand sera-t-elle prête ?')">
+                                    <i class="fas fa-clock"></i> Quand sera-t-elle prête ?
+                                </button>
+                                <button class="btn btn-outline btn-block" onclick="quickMessage('J\'ai un problème avec ma commande')">
+                                    <i class="fas fa-exclamation-triangle"></i> Signaler un problème
+                                </button>
+                                <button class="btn btn-outline btn-block" onclick="quickMessage('Je souhaite annuler ma commande')">
+                                    <i class="fas fa-times-circle"></i> Annuler une commande
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div id="history-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-history"></i>
+                        Historique des Commandes
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline" onclick="exportClientHistory()">
+                            <i class="fas fa-download"></i> Exporter
+                        </button>
+                    </div>
+                </div>
+
+                <div class="history-filters">
+                    <button class="filter-button active" onclick="filterHistory('all')">Toutes</button>
+                    <button class="filter-button" onclick="filterHistory('this-month')">Ce mois</button>
+                    <button class="filter-button" onclick="filterHistory('last-month')">Mois dernier</button>
+                    <button class="filter-button" onclick="filterHistory('this-year')">Cette année</button>
+                </div>
+
+                <div class="orders-list" id="history-orders-list">
+                    <!-- L'historique sera chargé dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div id="profile-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-user-cog"></i>
+                        Mon Profil
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-success" onclick="saveProfile()">
+                            <i class="fas fa-save"></i> Sauvegarder
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loyalty Program -->
+                <div class="loyalty-details">
+                    <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-star"></i>
+                        Programme de Fidélité
+                    </h3>
+                    <div class="loyalty-stats">
+                        <div class="loyalty-stat">
+                            <div class="loyalty-stat-value" id="profile-loyalty-points">125</div>
+                            <div class="loyalty-stat-label">Points Actuels</div>
+                        </div>
+                        <div class="loyalty-stat">
+                            <div class="loyalty-stat-value" id="profile-loyalty-level">Niveau 2</div>
+                            <div class="loyalty-stat-label">Niveau Actuel</div>
+                        </div>
+                        <div class="loyalty-stat">
+                            <div class="loyalty-stat-value" id="profile-total-spent">€425</div>
+                            <div class="loyalty-stat-label">Total Dépensé</div>
+                        </div>
+                        <div class="loyalty-stat">
+                            <div class="loyalty-stat-value" id="profile-orders-count">17</div>
+                            <div class="loyalty-stat-label">Commandes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Form -->
+                <div class="profile-form">
+                    <form id="profile-form">
+                        <div class="profile-section">
+                            <h3><i class="fas fa-user"></i> Informations Personnelles</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Prénom</label>
+                                    <input type="text" class="form-input" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Nom</label>
+                                    <input type="text" class="form-input" name="lastName" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-input" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Téléphone</label>
+                                    <input type="tel" class="form-input" name="phone">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h3><i class="fas fa-map-marker-alt"></i> Adresse</h3>
+                            <div class="form-group">
+                                <label class="form-label">Adresse Complète</label>
+                                <textarea class="form-textarea" name="address" rows="3" placeholder="Votre adresse complète"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Code Postal</label>
+                                    <input type="text" class="form-input" name="postalCode">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Ville</label>
+                                    <input type="text" class="form-input" name="city">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h3><i class="fas fa-cog"></i> Préférences</h3>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" name="emailNotifications" checked>
+                                    Recevoir les notifications par email
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" name="smsNotifications">
+                                    Recevoir les notifications par SMS
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" name="promotionalEmails" checked>
+                                    Recevoir les offres promotionnelles
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Langue Préférée</label>
+                                <select class="form-select" name="language">
+                                    <option value="fr" selected>Français</option>
+                                    <option value="en">English</option>
+                                    <option value="es">Español</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h3><i class="fas fa-lock"></i> Sécurité</h3>
+                            <div class="form-group">
+                                <label class="form-label">Mot de passe actuel</label>
+                                <input type="password" class="form-input" name="currentPassword">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Nouveau mot de passe</label>
+                                    <input type="password" class="form-input" name="newPassword">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Confirmer le mot de passe</label>
+                                    <input type="password" class="form-input" name="confirmPassword">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Account Actions -->
+                <div class="card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <h3 class="card-title">Actions du Compte</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <button class="btn btn-outline" onclick="exportClientData()">
+                                <i class="fas fa-download"></i>
+                                Exporter mes données
+                            </button>
+                            <button class="btn btn-outline" onclick="requestDataDeletion()">
+                                <i class="fas fa-trash"></i>
+                                Supprimer mon compte
+                            </button>
+                            <button class="btn btn-outline" onclick="contactSupport()">
+                                <i class="fas fa-life-ring"></i>
+                                Contacter le support
+                            </button>
+                            <button class="btn btn-outline" onclick="viewPrivacyPolicy()">
+                                <i class="fas fa-shield-alt"></i>
+                                Politique de confidentialité
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chat Panel -->
+    <div id="chat-panel" class="chat-panel">
+        <div class="chat-header">
+            <h3>Chat avec le Gérant</h3>
+            <button class="btn btn-sm btn-outline" onclick="toggleChat()" style="color: white; border-color: rgba(255,255,255,0.3);">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages seront chargés dynamiquement -->
+        </div>
+        <div class="chat-input">
+            <form class="chat-form" onsubmit="sendMessage(event)">
+                <input type="text" placeholder="Tapez votre message..." id="chat-input" required>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Scripts -->
+    <script src="assets/js/modules/data-init.js"></script>
+    <script src="assets/js/modules/data-manager.js"></script>
+    <script src="assets/js/modules/coupon-manager.js"></script>
+    <script src="assets/js/modules/mobile-payment.js"></script>
+    <script src="assets/js/modules/toast-notifications.js"></script>
+    <script src="assets/js/modules/details-display.js"></script>
+    <script src="assets/js/modules/notifications.js"></script>
+    <script src="assets/js/modules/chat.js"></script>
+    <script src="assets/js/modules/client-features.js"></script>
+    <script>
+        // Variables globales
+        let currentUser = null;
+        let ordersData = [];
+        let notificationsData = [];
+
+        // Fonctions de gestion des reçus de dépôt côté client
+        function loadCouponsSection() {
+            if (!currentUser) return;
+
+            const container = document.getElementById('client-coupons-list');
+            if (!container) return;
+
+            // Charger les reçus de dépôt du client
+            const coupons = window.couponManager ?
+                window.couponManager.getCustomerCoupons(currentUser.id) : [];
+
+            console.log('🎫 Reçus de dépôt du client:', coupons.length);
+
+            if (coupons.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 4rem; color: var(--text-secondary); grid-column: 1 / -1;">
+                        <i class="fas fa-receipt" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <h3>Aucun reçu de dépôt</h3>
+                        <p>Vos reçus de dépôt de vêtements apparaîtront ici après vos commandes</p>
+                    </div>
+                `;
+                updateCouponBadge(0);
+                return;
+            }
+
+            container.innerHTML = coupons.map(coupon => {
+                const isExpired = new Date() > new Date(coupon.validUntil);
+                const statusClass = coupon.status === 'collected' ? 'collected' : (isExpired ? 'expired' : 'active');
+                const statusLabel = coupon.status === 'collected' ? 'Récupéré' : (isExpired ? 'Expiré' : 'À récupérer');
+
+                return `
+                    <div class="coupon-card ${statusClass}">
+                        <div class="coupon-status ${statusClass}">${statusLabel}</div>
+                        <div class="coupon-code-display">${coupon.code}</div>
+                        <div class="coupon-info">
+                            <div class="coupon-discount">
+                                ${coupon.itemsCount} article(s) déposé(s)
+                            </div>
+                            <div class="coupon-expiry">
+                                À récupérer avant le ${formatDate(coupon.validUntil)}
+                            </div>
+                        </div>
+                        <div style="margin-top: 0.5rem; font-size: 0.875rem; opacity: 0.9;">
+                            <strong>Articles:</strong> ${coupon.itemsDescription}
+                        </div>
+                        <div style="margin-top: 0.5rem; font-size: 0.875rem; opacity: 0.9;">
+                            <strong>Commande:</strong> ${coupon.orderNumber}
+                        </div>
+                        <div class="coupon-actions">
+                            ${coupon.status === 'active' && !isExpired ? `
+                                <button class="btn-copy-code" onclick="copyCouponCode('${coupon.code}')">
+                                    <i class="fas fa-copy"></i> Copier le code
+                                </button>
+                            ` : ''}
+                            ${coupon.collectedAt ? `
+                                <div style="font-size: 0.875rem; opacity: 0.9;">
+                                    Récupéré le ${formatDate(coupon.collectedAt)}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Mettre à jour le badge de navigation
+            const activeReceipts = coupons.filter(c => c.status === 'active' && new Date() <= new Date(c.validUntil));
+            updateCouponBadge(activeReceipts.length);
+        }
+
+        function copyCouponCode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showToast(`Code ${code} copié dans le presse-papiers !`, 'success');
+            }).catch(() => {
+                // Fallback pour les navigateurs plus anciens
+                const textArea = document.createElement('textarea');
+                textArea.value = code;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast(`Code ${code} copié !`, 'success');
+            });
+        }
+
+        function updateCouponBadge(count) {
+            const badge = document.getElementById('nav-coupon-count');
+            if (badge) {
+                badge.textContent = count;
+                badge.style.display = count > 0 ? 'inline' : 'none';
+            }
+        }
+
+        // Variables globales pour le paiement
+        let currentOrderForPayment = null;
+
+        // Fonction pour fermer les modales
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        // Fermer les modales en cliquant sur l'arrière-plan
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+
+        // Fermer les modales avec la touche Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const activeModals = document.querySelectorAll('.modal.active');
+                activeModals.forEach(modal => modal.classList.remove('active'));
+            }
+        });
+
+        // Redirection vers la page paiements
+        function showPaymentModal(orderId) {
+            // Rediriger vers la page paiements dédiée
+            window.location.href = 'client-payments.html';
+        }
+
+        function updatePaymentSummary(amount) {
+            const form = document.getElementById('mobilePaymentForm');
+            const selectedMethod = form.querySelector('input[name="paymentMethod"]:checked');
+
+            let fees = 0;
+            if (selectedMethod && window.mobilePaymentManager) {
+                const method = window.mobilePaymentManager.paymentMethods[selectedMethod.value];
+                if (method) {
+                    fees = Math.round(amount * method.fees * 100) / 100;
+                }
+            }
+
+            const total = amount + fees;
+
+            const summary = document.getElementById('paymentSummary');
+            summary.innerHTML = `
+                <h4>Résumé du paiement</h4>
+                <div class="payment-summary-row">
+                    <span>Montant de la commande:</span>
+                    <span>${amount}€</span>
+                </div>
+                <div class="payment-summary-row">
+                    <span>Frais de transaction:</span>
+                    <span>${fees}€</span>
+                </div>
+                <div class="payment-summary-row total">
+                    <span>Total à payer:</span>
+                    <span>${total}€</span>
+                </div>
+            `;
+        }
+
+        async function processPayment() {
+            if (!currentOrderForPayment) {
+                showToast('Aucune commande sélectionnée', 'error');
+                return;
+            }
+
+            const form = document.getElementById('mobilePaymentForm');
+            const formData = new FormData(form);
+
+            const paymentMethod = formData.get('paymentMethod');
+            const phoneNumber = formData.get('phoneNumber');
+
+            if (!paymentMethod || !phoneNumber) {
+                showToast('Veuillez remplir tous les champs', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('paymentBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+
+            try {
+                const payment = await window.mobilePaymentManager.initiatePayment(
+                    currentOrderForPayment.id,
+                    currentUser.id,
+                    currentOrderForPayment.total,
+                    phoneNumber,
+                    paymentMethod
+                );
+
+                closeModal('mobilePaymentModal');
+                showPaymentStatusModal(payment);
+
+                // Surveiller le statut du paiement
+                monitorPaymentStatus(payment.id);
+
+            } catch (error) {
+                console.error('Erreur paiement:', error);
+                showToast(error.message || 'Erreur lors du paiement', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-credit-card"></i> Payer Maintenant';
+            }
+        }
+
+        function showPaymentStatusModal(payment) {
+            const content = document.getElementById('paymentStatusContent');
+
+            if (payment.status === 'processing') {
+                content.innerHTML = `
+                    <div class="payment-status processing">
+                        <i class="fas fa-spinner"></i>
+                        <h3>Paiement en cours...</h3>
+                        <p>Veuillez confirmer le paiement sur votre téléphone</p>
+                        <p><strong>Montant:</strong> ${payment.totalAmount}€</p>
+                        <p><strong>Numéro:</strong> ${payment.phoneNumber}</p>
+                        <p><strong>Transaction:</strong> ${payment.transactionId}</p>
+                    </div>
+                `;
+            } else if (payment.status === 'completed') {
+                content.innerHTML = `
+                    <div class="payment-status completed">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Paiement réussi !</h3>
+                        <p>Votre paiement a été traité avec succès</p>
+                        <p><strong>Code de confirmation:</strong> ${payment.confirmationCode}</p>
+                        <p><strong>Montant payé:</strong> ${payment.totalAmount}€</p>
+                    </div>
+                `;
+            } else if (payment.status === 'failed') {
+                content.innerHTML = `
+                    <div class="payment-status failed">
+                        <i class="fas fa-times-circle"></i>
+                        <h3>Paiement échoué</h3>
+                        <p>${payment.failureReason || 'Une erreur est survenue'}</p>
+                        <button class="btn btn-primary" onclick="retryPayment(${payment.id})" style="margin-top: 1rem;">
+                            Réessayer
+                        </button>
+                    </div>
+                `;
+            }
+
+            document.getElementById('paymentStatusModal').classList.add('active');
+        }
+
+        async function monitorPaymentStatus(paymentId) {
+            const maxAttempts = 20; // 20 tentatives = 1 minute
+            let attempts = 0;
+
+            const checkStatus = async () => {
+                try {
+                    const payment = await window.mobilePaymentManager.checkPaymentStatus(paymentId);
+
+                    if (payment.status === 'completed') {
+                        showPaymentStatusModal(payment);
+                        showToast('Paiement réussi !', 'success');
+                        loadOrdersSection(); // Recharger les commandes
+                        return;
+                    } else if (payment.status === 'failed') {
+                        showPaymentStatusModal(payment);
+                        showToast('Paiement échoué', 'error');
+                        return;
+                    } else if (payment.status === 'processing' && attempts < maxAttempts) {
+                        attempts++;
+                        setTimeout(checkStatus, 3000); // Vérifier toutes les 3 secondes
+                    } else {
+                        // Timeout
+                        payment.status = 'failed';
+                        payment.failureReason = 'Timeout - Paiement expiré';
+                        showPaymentStatusModal(payment);
+                        showToast('Paiement expiré', 'error');
+                    }
+                } catch (error) {
+                    console.error('Erreur vérification paiement:', error);
+                }
+            };
+
+            checkStatus();
+        }
+
+        async function retryPayment(paymentId) {
+            closeModal('paymentStatusModal');
+            if (currentOrderForPayment) {
+                showPaymentModal(currentOrderForPayment.id);
+            }
+        }
+
+        // Écouter les changements de méthode de paiement pour mettre à jour les frais
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const form = document.getElementById('mobilePaymentForm');
+                if (form) {
+                    form.addEventListener('change', function(e) {
+                        if (e.target.name === 'paymentMethod' && currentOrderForPayment) {
+                            updatePaymentSummary(currentOrderForPayment.total);
+                        }
+                    });
+                }
+            }, 1000);
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // S'assurer que toutes les modales sont fermées au chargement
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.classList.remove('active');
+            });
+
+            initializeApp();
+            setupEventListeners();
+            loadDashboardData();
+        });
+
+        // Recharger les données quand la page devient visible
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && currentUser) {
+                console.log('🔄 Page visible, rechargement des données...');
+                const activeSection = document.querySelector('.nav-link.active')?.dataset.section;
+                if (activeSection === 'orders') {
+                    loadOrdersSection();
+                }
+            }
+        });
+
+        function initializeApp() {
+            // Vérifier l'authentification
+            const userData = localStorage.getItem('user');
+            if (!userData) {
+                window.location.href = '/';
+                return;
+            }
+            
+            currentUser = JSON.parse(userData);
+            if (currentUser.role !== 'client') {
+                window.location.href = '/';
+                return;
+            }
+
+            // Mettre à jour l'avatar utilisateur
+            const userAvatar = document.querySelector('.user-avatar');
+            if (userAvatar && currentUser.firstName) {
+                userAvatar.textContent = currentUser.firstName.charAt(0).toUpperCase();
+            }
+        }
+
+        function setupEventListeners() {
+            // Navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.dataset.section;
+                    if (section) {
+                        switchSection(section);
+                    }
+                });
+            });
+        }
+
+        async function loadDashboardData() {
+            try {
+                // Charger les données depuis les APIs
+                await Promise.all([
+                    loadOrdersData(),
+                    loadNotificationsData(),
+                    updateStatistics(),
+                    updateLoyaltyDisplay()
+                ]);
+
+                // Charger les coupons si le gestionnaire est disponible
+                if (window.couponManager) {
+                    loadCouponsSection();
+                }
+
+            } catch (error) {
+                console.error('Erreur lors du chargement des données:', error);
+                showToast('Erreur lors du chargement des données', 'error');
+            }
+        }
+
+        async function loadOrdersData() {
+            try {
+                const result = await dataManager.getOrdersByCustomer(currentUser.id);
+                if (result.success) {
+                    ordersData = result.data;
+                } else {
+                    console.error('Erreur lors du chargement des commandes:', result.error);
+                    ordersData = [];
+                }
+                renderActiveOrders();
+            } catch (error) {
+                console.error('Erreur lors du chargement des commandes:', error);
+                ordersData = [];
+                renderActiveOrders();
+            }
+        }
+
+        function generateDemoOrders() {
+            return [
+                {
+                    id: 1,
+                    orderNumber: 'CMD-001',
+                    status: 'in_progress',
+                    items: [{ name: 'Chemise', service: 'Nettoyage à sec', price: 15 }],
+                    total: 15,
+                    createdAt: '2025-08-05',
+                    expectedDate: '2025-08-07'
+                },
+                {
+                    id: 2,
+                    orderNumber: 'CMD-002',
+                    status: 'ready',
+                    items: [{ name: 'Costume', service: 'Nettoyage à sec', price: 35 }],
+                    total: 35,
+                    createdAt: '2025-08-04',
+                    expectedDate: '2025-08-06'
+                }
+            ];
+        }
+
+        async function loadNotificationsData() {
+            try {
+                const response = await fetch(`/api/notifications?userId=${currentUser.id}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    notificationsData = data.data;
+                } else {
+                    // Données de démonstration
+                    notificationsData = generateDemoNotifications();
+                }
+                
+                renderRecentNotifications();
+            } catch (error) {
+                console.error('Erreur API, utilisation des données de démonstration:', error);
+                notificationsData = generateDemoNotifications();
+                renderRecentNotifications();
+            }
+        }
+
+        function generateDemoNotifications() {
+            return [
+                {
+                    id: 1,
+                    type: 'order_ready',
+                    title: 'Commande prête',
+                    message: 'Votre commande CMD-002 est prête à être récupérée',
+                    isRead: false,
+                    timeAgo: 'Il y a 2 heures',
+                    icon: 'fas fa-check-circle',
+                    color: '#10b981'
+                },
+                {
+                    id: 2,
+                    type: 'order_progress',
+                    title: 'Commande en cours',
+                    message: 'Votre commande CMD-001 est actuellement en traitement',
+                    isRead: false,
+                    timeAgo: 'Il y a 1 jour',
+                    icon: 'fas fa-cog',
+                    color: '#2563eb'
+                },
+                {
+                    id: 3,
+                    type: 'loyalty_points',
+                    title: 'Points fidélité',
+                    message: 'Vous avez gagné 15 points avec votre dernière commande',
+                    isRead: true,
+                    timeAgo: 'Il y a 2 jours',
+                    icon: 'fas fa-star',
+                    color: '#f59e0b'
+                }
+            ];
+        }
+
+        function renderActiveOrders() {
+            const container = document.getElementById('active-orders');
+            if (!container) return;
+
+            const activeOrders = ordersData.filter(order => 
+                ['pending', 'in_progress', 'ready'].includes(order.status)
+            );
+
+            if (activeOrders.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Aucune commande en cours</p>
+                        <button class="btn btn-primary" onclick="contactManager()" style="margin-top: 1rem;">
+                            <i class="fas fa-plus"></i> Nouvelle commande
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = activeOrders.map(order => `
+                <div class="order-card fade-in">
+                    <div class="order-header">
+                        <div class="order-number">#${order.orderNumber}</div>
+                        <div class="order-status ${order.status}">
+                            ${getStatusLabel(order.status)}
+                        </div>
+                    </div>
+                    <div class="order-progress">
+                        ${renderOrderProgress(order.status)}
+                    </div>
+                    <div class="order-details">
+                        <div class="order-detail">
+                            <i class="fas fa-tshirt"></i>
+                            ${order.items.length} article(s)
+                        </div>
+                        <div class="order-detail">
+                            <i class="fas fa-calendar"></i>
+                            ${formatDate(order.createdAt)}
+                        </div>
+                        <div class="order-detail">
+                            <i class="fas fa-euro-sign"></i>
+                            <strong>${order.total}€</strong>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn btn-outline btn-sm" onclick="showOrderDetails('${order.orderNumber}')">
+                            <i class="fas fa-eye"></i> Détails
+                        </button>
+                        ${order.status === 'ready' ? `
+                            <button class="btn btn-success btn-sm">
+                                <i class="fas fa-check"></i> Prêt !
+                            </button>
+                        ` : ''}
+                        ${(order.status === 'delivered' && (!order.paymentStatus || order.paymentStatus === 'unpaid')) ? `
+                            <button class="pay-button" onclick="showPaymentModal(${order.id})">
+                                <i class="fas fa-credit-card"></i> Payer
+                            </button>
+                        ` : ''}
+                        ${order.paymentStatus === 'paid' ? `
+                            <span class="btn btn-success btn-sm" style="cursor: default;">
+                                <i class="fas fa-check-circle"></i> Payé
+                            </span>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderOrderProgress(status) {
+            const steps = [
+                { key: 'pending', label: 'Reçue', icon: 'fas fa-inbox' },
+                { key: 'in_progress', label: 'En cours', icon: 'fas fa-cog' },
+                { key: 'ready', label: 'Prête', icon: 'fas fa-check-circle' },
+                { key: 'delivered', label: 'Livrée', icon: 'fas fa-truck' }
+            ];
+
+            const currentIndex = steps.findIndex(step => step.key === status);
+            
+            return `
+                <div class="progress-steps">
+                    ${steps.map((step, index) => `
+                        <div class="progress-step ${index <= currentIndex ? 'completed' : ''}">
+                            <div class="step-icon">
+                                <i class="${step.icon}"></i>
+                            </div>
+                            <div class="step-label">${step.label}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderRecentNotifications() {
+            const container = document.getElementById('recent-notifications');
+            if (!container) return;
+
+            const recentNotifications = notificationsData.slice(0, 5);
+
+            if (recentNotifications.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <i class="fas fa-bell-slash" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Aucune notification</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = recentNotifications.map(notification => `
+                <div class="notification-item ${notification.isRead ? 'read' : 'unread'}" style="
+                    display: flex;
+                    align-items: center;
+                    padding: 1rem;
+                    border: 1px solid var(--border-color);
+                    border-radius: var(--radius-md);
+                    margin-bottom: 0.75rem;
+                    background: ${notification.isRead ? 'var(--background-color)' : 'var(--surface-color)'};
+                ">
+                    <div style="
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        background: ${notification.color};
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        margin-right: 1rem;
+                    ">
+                        <i class="${notification.icon}"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;">
+                            ${notification.title}
+                        </div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">
+                            ${notification.message}
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                            ${notification.timeAgo}
+                        </div>
+                    </div>
+                    ${!notification.isRead ? `
+                        <button class="btn btn-outline btn-sm" onclick="markNotificationRead(${notification.id})">
+                            <i class="fas fa-check"></i>
+                        </button>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function updateStatistics() {
+            const activeOrders = ordersData.filter(o => ['pending', 'in_progress', 'ready'].includes(o.status)).length;
+            const completedOrders = ordersData.filter(o => o.status === 'delivered').length;
+            const totalSpent = ordersData.reduce((sum, order) => sum + parseFloat(order.total), 0);
+
+            document.getElementById('active-orders-count').textContent = activeOrders;
+            document.getElementById('completed-orders-count').textContent = completedOrders;
+            document.getElementById('total-spent').textContent = `€${totalSpent.toFixed(0)}`;
+        }
+
+        function updateLoyaltyDisplay() {
+            const loyaltyPoints = 125; // Simulé
+            const level = Math.floor(loyaltyPoints / 100) + 1;
+            const nextLevelPoints = level * 100;
+            const progressPercent = ((loyaltyPoints % 100) / 100) * 100;
+
+            document.getElementById('loyalty-points').textContent = loyaltyPoints;
+            document.getElementById('loyalty-points-display').textContent = loyaltyPoints;
+            document.getElementById('loyalty-level').textContent = `Niveau ${level}`;
+            document.getElementById('loyalty-progress').style.width = `${progressPercent}%`;
+            document.getElementById('loyalty-progress-text').textContent = `${nextLevelPoints - loyaltyPoints} points pour le niveau suivant`;
+        }
+
+        function switchSection(section) {
+            // Mettre à jour la navigation active
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${section}"]`).classList.add('active');
+
+            // Masquer toutes les sections
+            document.querySelectorAll('.content-section').forEach(contentSection => {
+                contentSection.classList.remove('active');
+            });
+
+            // Afficher la section demandée
+            const targetSection = document.getElementById(`${section}-content`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+
+                // Charger le contenu spécifique selon la section
+                switch(section) {
+                    case 'dashboard':
+                        loadDashboardData();
+                        break;
+                    case 'orders':
+                        loadOrdersSection();
+                        break;
+                    case 'tracking':
+                        loadTrackingSection();
+                        break;
+                    case 'notifications':
+                        loadClientNotificationsSection();
+                        break;
+                    case 'chat':
+                        loadClientChatSection();
+                        break;
+                    case 'history':
+                        loadHistorySection();
+                        break;
+                    case 'profile':
+                        loadProfileSection();
+                        break;
+                }
+            }
+
+            console.log('Switched to section:', section);
+        }
+
+        // Fonctions pour charger le contenu des sections
+        async function loadOrdersSection() {
+            const container = document.getElementById('orders-list');
+            if (!container) {
+                console.error('❌ Container orders-list non trouvé');
+                return;
+            }
+
+            if (!currentUser || !currentUser.id) {
+                console.error('❌ Utilisateur non connecté ou ID manquant');
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 4rem; color: var(--error-color);">
+                        <i class="fas fa-user-times" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                        <h3>Erreur d'authentification</h3>
+                        <p>Veuillez vous reconnecter pour voir vos commandes.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            console.log('📦 Chargement des commandes pour le client:', currentUser);
+
+            try {
+                // Essayer d'abord avec dataManager
+                let result = await dataManager.getOrdersByCustomer(currentUser.id);
+                console.log('📊 Résultat getOrdersByCustomer:', result);
+
+                // Si échec, charger directement depuis localStorage
+                if (!result.success) {
+                    console.log('🔄 Chargement direct depuis localStorage...');
+                    const allOrders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+                    const userOrders = allOrders.filter(order => order.customerId === parseInt(currentUser.id));
+                    result = { success: true, data: userOrders };
+                    console.log('📊 Commandes depuis localStorage:', result);
+                }
+
+                if (result.success && result.data.length > 0) {
+                    container.innerHTML = result.data.map(order => `
+                        <div class="order-detail-card">
+                            <div class="order-header">
+                                <div>
+                                    <div class="order-number">#${order.orderNumber}</div>
+                                    <div class="order-date">${formatDate(order.createdAt)}</div>
+                                </div>
+                                <div class="order-status ${order.status}">
+                                    ${getStatusLabel(order.status)}
+                                </div>
+                            </div>
+                            <div class="order-progress">
+                                ${renderOrderProgress(order.status)}
+                            </div>
+                            <div class="order-details">
+                                <div class="order-detail">
+                                    <i class="fas fa-tshirt"></i>
+                                    <strong>Articles:</strong> ${order.services ? order.services.map(service => service.name).join(', ') : 'Non spécifié'}
+                                </div>
+                                <div class="order-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <strong>Date prévue:</strong> ${order.deliveryDate ? formatDate(order.deliveryDate) : 'Non définie'}
+                                </div>
+                                <div class="order-detail">
+                                    <i class="fas fa-euro-sign"></i>
+                                    <strong>Total:</strong> €${order.total}
+                                </div>
+                                ${order.notes ? `
+                                    <div class="order-detail">
+                                        <i class="fas fa-sticky-note"></i>
+                                        <strong>Notes:</strong> ${order.notes}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="order-actions">
+                                <button class="btn btn-outline btn-sm" onclick="trackOrderById('${order.orderNumber}')">
+                                    <i class="fas fa-search"></i> Suivre
+                                </button>
+                                ${order.status === 'ready' ? `
+                                    <button class="btn btn-success btn-sm">
+                                        <i class="fas fa-check"></i> Prêt à récupérer !
+                                    </button>
+                                ` : ''}
+                                ${order.status === 'pending' ? `
+                                    <button class="btn btn-warning btn-sm" onclick="contactAboutOrder('${order.orderNumber}')">
+                                        <i class="fas fa-comments"></i> Contacter
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    console.log('ℹ️ Aucune commande trouvée pour le client', currentUser.id);
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 4rem; color: var(--text-secondary);">
+                            <i class="fas fa-shopping-bag" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                            <h3>Aucune commande trouvée</h3>
+                            <p>Vos commandes apparaîtront ici une fois que vous en aurez passé</p>
+                            <button class="btn btn-primary" onclick="contactManager()" style="margin-top: 1rem;">
+                                <i class="fas fa-plus"></i> Passer une commande
+                            </button>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('❌ Erreur lors du chargement des commandes:', error);
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 4rem; color: var(--error-color);">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                        <h3>Erreur de chargement</h3>
+                        <p>Impossible de charger vos commandes. Veuillez réessayer.</p>
+                        <button class="btn btn-primary" onclick="loadOrdersSection()" style="margin-top: 1rem;">
+                            <i class="fas fa-refresh"></i> Réessayer
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function loadTrackingSection() {
+            const container = document.getElementById('recent-orders-tracking');
+            if (!container) return;
+
+            // Afficher les commandes récentes pour le suivi rapide
+            const recentOrders = ordersData.slice(0, 5);
+            if (recentOrders.length > 0) {
+                container.innerHTML = recentOrders.map(order => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 0.5rem;">
+                        <div>
+                            <div style="font-weight: 600;">#${order.orderNumber}</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">${formatDate(order.createdAt)}</div>
+                        </div>
+                        <div>
+                            <span class="order-status ${order.status}">${getStatusLabel(order.status)}</span>
+                        </div>
+                        <div>
+                            <button class="btn btn-outline btn-sm" onclick="trackOrderById('${order.orderNumber}')">
+                                <i class="fas fa-search"></i> Suivre
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <p>Aucune commande récente</p>
+                    </div>
+                `;
+            }
+        }
+
+        function loadClientNotificationsSection() {
+            const container = document.getElementById('client-notifications-list');
+            if (!container) return;
+
+            // Utiliser les données de notifications existantes
+            if (notificationsData.length > 0) {
+                container.innerHTML = notificationsData.map(notification => `
+                    <div class="notification-item ${notification.isRead ? 'read' : 'unread'}">
+                        <div class="notification-header">
+                            <div>
+                                <span class="notification-type ${notification.type}">${notification.type.replace('_', ' ')}</span>
+                                <span style="font-size: 0.875rem; color: var(--text-secondary); margin-left: 1rem;">${notification.timeAgo}</span>
+                            </div>
+                            ${!notification.isRead ? `
+                                <button class="btn btn-outline btn-sm" onclick="markClientNotificationRead(${notification.id})">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            ` : ''}
+                        </div>
+                        <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">${notification.title}</h4>
+                        <p style="color: var(--text-secondary); margin: 0;">${notification.message}</p>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 4rem; color: var(--text-secondary);">
+                        <i class="fas fa-bell-slash" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <h3>Aucune notification</h3>
+                        <p>Vos notifications apparaîtront ici</p>
+                    </div>
+                `;
+            }
+        }
+
+        function loadClientChatSection() {
+            // Cette section utilise le panneau de chat existant
+            showToast('Section chat chargée - Utilisez le bouton pour ouvrir le chat', 'info');
+        }
+
+        function loadHistorySection() {
+            const container = document.getElementById('history-orders-list');
+            if (!container) return;
+
+            // Afficher toutes les commandes (y compris livrées)
+            const allOrders = ordersData.slice().reverse(); // Plus récentes en premier
+
+            if (allOrders.length > 0) {
+                container.innerHTML = allOrders.map(order => `
+                    <div class="order-detail-card">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-number">#${order.orderNumber}</div>
+                                <div class="order-date">${formatDate(order.createdAt)}</div>
+                            </div>
+                            <div class="order-status ${order.status}">
+                                ${getStatusLabel(order.status)}
+                            </div>
+                        </div>
+                        <div class="order-details">
+                            <div class="order-detail">
+                                <i class="fas fa-tshirt"></i>
+                                <strong>Articles:</strong> ${order.items.map(item => item.name).join(', ')}
+                            </div>
+                            <div class="order-detail">
+                                <i class="fas fa-euro-sign"></i>
+                                <strong>Total:</strong> €${order.total}
+                            </div>
+                            ${order.deliveredAt ? `
+                                <div class="order-detail">
+                                    <i class="fas fa-truck"></i>
+                                    <strong>Livrée le:</strong> ${formatDate(order.deliveredAt)}
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="order-actions">
+                            <button class="btn btn-outline btn-sm" onclick="viewOrderDetails('${order.orderNumber}')">
+                                <i class="fas fa-eye"></i> Détails
+                            </button>
+                            ${order.status === 'delivered' ? `
+                                <button class="btn btn-outline btn-sm" onclick="reorderItems('${order.orderNumber}')">
+                                    <i class="fas fa-redo"></i> Recommander
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 4rem; color: var(--text-secondary);">
+                        <i class="fas fa-history" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <h3>Aucun historique</h3>
+                        <p>Votre historique de commandes apparaîtra ici</p>
+                    </div>
+                `;
+            }
+        }
+
+        function loadProfileSection() {
+            // Remplir le formulaire avec les données utilisateur
+            const form = document.getElementById('profile-form');
+            if (form && currentUser) {
+                form.firstName.value = currentUser.firstName || '';
+                form.lastName.value = currentUser.lastName || '';
+                form.email.value = currentUser.email || '';
+                form.phone.value = currentUser.phone || '';
+                form.address.value = currentUser.address || '';
+
+                // Mettre à jour les statistiques de fidélité
+                document.getElementById('profile-loyalty-points').textContent = currentUser.loyaltyPoints || 0;
+                document.getElementById('profile-total-spent').textContent = `€${currentUser.totalSpent || 0}`;
+                document.getElementById('profile-orders-count').textContent = ordersData.length;
+            }
+        }
+
+        function trackOrder(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const trackingCode = formData.get('trackingCode');
+            
+            console.log('Tracking order:', trackingCode);
+            showToast('Recherche de la commande...', 'info');
+            
+            setTimeout(() => {
+                showToast('Commande trouvée !', 'success');
+            }, 1500);
+        }
+
+        function showOrderDetails(orderNumber) {
+            console.log('Showing details for order:', orderNumber);
+            showToast('Affichage des détails de la commande', 'info');
+        }
+
+        function markNotificationRead(notificationId) {
+            const notification = notificationsData.find(n => n.id === notificationId);
+            if (notification) {
+                notification.isRead = true;
+                renderRecentNotifications();
+                showToast('Notification marquée comme lue', 'success');
+            }
+        }
+
+        function markAllNotificationsRead() {
+            notificationsData.forEach(n => n.isRead = true);
+            renderRecentNotifications();
+            showToast('Toutes les notifications marquées comme lues', 'success');
+        }
+
+        function toggleChat() {
+            const chatPanel = document.getElementById('chat-panel');
+            chatPanel.classList.toggle('active');
+        }
+
+        function toggleNotifications() {
+            showToast('Panneau de notifications ouvert', 'info');
+        }
+
+        function contactManager() {
+            toggleChat();
+            showToast('Chat avec le gérant ouvert', 'info');
+        }
+
+        function showOrderHistory() {
+            switchSection('history');
+        }
+
+        function showProfile() {
+            switchSection('profile');
+        }
+
+        function sendMessage(event) {
+            event.preventDefault();
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                console.log('Sending message:', message);
+                input.value = '';
+                showToast('Message envoyé', 'success');
+            }
+        }
+
+        function showUserMenu() {
+            showToast('Menu utilisateur', 'info');
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = '/';
+        }
+
+        // Fonctions utilitaires pour les sections
+        function filterOrdersByStatus(status) {
+            const orders = document.querySelectorAll('#orders-list .order-detail-card');
+            orders.forEach(orderCard => {
+                const statusElement = orderCard.querySelector('.order-status');
+                if (status === 'all' || statusElement.classList.contains(status)) {
+                    orderCard.style.display = 'block';
+                } else {
+                    orderCard.style.display = 'none';
+                }
+            });
+        }
+
+        function trackOrderDetailed(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const trackingCode = formData.get('trackingCode');
+
+            // Rechercher la commande
+            const order = ordersData.find(o =>
+                o.orderNumber === trackingCode ||
+                o.trackingCode === trackingCode
+            );
+
+            const resultContainer = document.getElementById('tracking-result');
+
+            if (order) {
+                resultContainer.style.display = 'block';
+                resultContainer.innerHTML = `
+                    <div class="tracking-result">
+                        <h3 style="margin-bottom: 1rem;">Commande trouvée : #${order.orderNumber}</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <strong>Client:</strong> ${order.customerName}
+                            </div>
+                            <div>
+                                <strong>Date:</strong> ${formatDate(order.createdAt)}
+                            </div>
+                            <div>
+                                <strong>Total:</strong> €${order.total}
+                            </div>
+                            <div>
+                                <strong>Statut:</strong> <span class="order-status ${order.status}">${getStatusLabel(order.status)}</span>
+                            </div>
+                        </div>
+                        <div class="tracking-timeline">
+                            ${generateTrackingTimeline(order)}
+                        </div>
+                    </div>
+                `;
+                showToast('Commande trouvée !', 'success');
+            } else {
+                resultContainer.style.display = 'block';
+                resultContainer.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--error-color);">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h3>Commande non trouvée</h3>
+                        <p>Aucune commande ne correspond à ce code de suivi</p>
+                        <button class="btn btn-primary" onclick="contactManager()" style="margin-top: 1rem;">
+                            <i class="fas fa-comments"></i> Contacter le gérant
+                        </button>
+                    </div>
+                `;
+                showToast('Commande non trouvée', 'error');
+            }
+        }
+
+        function generateTrackingTimeline(order) {
+            const steps = [
+                { key: 'pending', label: 'Commande reçue', icon: 'fas fa-inbox', completed: true },
+                { key: 'in_progress', label: 'En cours de traitement', icon: 'fas fa-cog', completed: order.status !== 'pending' },
+                { key: 'ready', label: 'Prête à récupérer', icon: 'fas fa-check-circle', completed: ['ready', 'delivered'].includes(order.status) },
+                { key: 'delivered', label: 'Livrée', icon: 'fas fa-truck', completed: order.status === 'delivered' }
+            ];
+
+            return steps.map(step => {
+                const isCurrent = step.key === order.status;
+                const statusClass = step.completed ? 'completed' : (isCurrent ? 'current' : 'pending');
+
+                return `
+                    <div class="timeline-item ${statusClass}">
+                        <div class="timeline-icon ${statusClass}">
+                            <i class="${step.icon}"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600;">${step.label}</div>
+                            ${step.completed && step.key === 'delivered' && order.deliveredAt ?
+                                `<div style="font-size: 0.875rem; color: var(--text-secondary);">Le ${formatDate(order.deliveredAt)}</div>` :
+                                step.completed && step.key === 'ready' && order.completedAt ?
+                                `<div style="font-size: 0.875rem; color: var(--text-secondary);">Le ${formatDate(order.completedAt)}</div>` :
+                                isCurrent ? `<div style="font-size: 0.875rem; color: var(--primary-color);">En cours...</div>` : ''
+                            }
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function trackOrderById(orderNumber) {
+            // Remplir automatiquement le formulaire de suivi et déclencher la recherche
+            switchSection('tracking');
+            setTimeout(() => {
+                const trackingInput = document.querySelector('input[name="trackingCode"]');
+                if (trackingInput) {
+                    trackingInput.value = orderNumber;
+                    trackingInput.form.dispatchEvent(new Event('submit'));
+                }
+            }, 100);
+        }
+
+        function contactAboutOrder(orderNumber) {
+            toggleChat();
+            showToast(`Chat ouvert pour la commande ${orderNumber}`, 'info');
+        }
+
+        function markClientNotificationRead(notificationId) {
+            const notification = notificationsData.find(n => n.id === notificationId);
+            if (notification) {
+                notification.isRead = true;
+                loadClientNotificationsSection();
+                showToast('Notification marquée comme lue', 'success');
+            }
+        }
+
+        function markAllClientNotificationsRead() {
+            notificationsData.forEach(n => n.isRead = true);
+            loadClientNotificationsSection();
+            showToast('Toutes les notifications marquées comme lues', 'success');
+        }
+
+        function quickMessage(message) {
+            toggleChat();
+            // Simuler l'envoi du message rapide
+            setTimeout(() => {
+                const chatInput = document.getElementById('chat-input');
+                if (chatInput) {
+                    chatInput.value = message;
+                }
+                showToast('Message pré-rempli dans le chat', 'info');
+            }, 500);
+        }
+
+        function filterHistory(period) {
+            // Mettre à jour les boutons de filtre
+            document.querySelectorAll('.filter-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            const orders = document.querySelectorAll('#history-orders-list .order-detail-card');
+            const now = new Date();
+
+            orders.forEach(orderCard => {
+                const dateElement = orderCard.querySelector('.order-date');
+                const orderDate = new Date(dateElement.textContent);
+                let show = true;
+
+                switch(period) {
+                    case 'this-month':
+                        show = orderDate.getMonth() === now.getMonth() && orderDate.getFullYear() === now.getFullYear();
+                        break;
+                    case 'last-month':
+                        const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1);
+                        show = orderDate.getMonth() === lastMonth.getMonth() && orderDate.getFullYear() === lastMonth.getFullYear();
+                        break;
+                    case 'this-year':
+                        show = orderDate.getFullYear() === now.getFullYear();
+                        break;
+                    case 'all':
+                    default:
+                        show = true;
+                        break;
+                }
+
+                orderCard.style.display = show ? 'block' : 'none';
+            });
+        }
+
+        function viewOrderDetails(orderNumber) {
+            showToast(`Affichage des détails de la commande ${orderNumber}`, 'info');
+        }
+
+        function reorderItems(orderNumber) {
+            showToast(`Recommande des articles de la commande ${orderNumber}`, 'info');
+            contactManager();
+        }
+
+        function exportClientHistory() {
+            const clientOrders = ordersData.filter(order => order.customerId === currentUser.id);
+            const data = {
+                client: currentUser,
+                orders: clientOrders,
+                exportDate: new Date().toISOString()
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `historique_commandes_${currentUser.firstName}_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showToast('Historique exporté avec succès', 'success');
+        }
+
+        function saveProfile() {
+            const form = document.getElementById('profile-form');
+            const formData = new FormData(form);
+
+            // Mettre à jour les données utilisateur
+            const updatedUser = { ...currentUser };
+            for (let [key, value] of formData.entries()) {
+                if (key !== 'currentPassword' && key !== 'newPassword' && key !== 'confirmPassword') {
+                    updatedUser[key] = value;
+                }
+            }
+
+            // Gérer les checkboxes
+            form.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                updatedUser[checkbox.name] = checkbox.checked;
+            });
+
+            // Sauvegarder dans localStorage
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            currentUser = updatedUser;
+
+            showToast('Profil sauvegardé avec succès !', 'success');
+        }
+
+        function exportClientData() {
+            const clientData = {
+                profile: currentUser,
+                orders: ordersData.filter(order => order.customerId === currentUser.id),
+                notifications: notificationsData,
+                exportDate: new Date().toISOString()
+            };
+
+            const blob = new Blob([JSON.stringify(clientData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `mes_donnees_${currentUser.firstName}_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showToast('Données exportées avec succès', 'success');
+        }
+
+        function requestDataDeletion() {
+            if (confirm('Êtes-vous sûr de vouloir supprimer définitivement votre compte ? Cette action est irréversible.')) {
+                showToast('Demande de suppression envoyée au gérant', 'info');
+                contactManager();
+            }
+        }
+
+        function contactSupport() {
+            const message = `Bonjour,
+
+Je suis ${currentUser.firstName} ${currentUser.lastName} et j'ai besoin d'aide concernant mon compte.
+
+Pouvez-vous m'aider ?
+
+Merci.`;
+
+            chatManager.sendQuickMessage(message);
+            showToast('Message envoyé au support', 'success');
+        }
+
+        function viewPrivacyPolicy() {
+            const policyWindow = window.open('', '_blank', 'width=800,height=600');
+            policyWindow.document.write(`
+                <html>
+                <head>
+                    <title>Politique de Confidentialité - ManohPressing</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
+                        h1 { color: #2563eb; }
+                        h2 { color: #333; margin-top: 30px; }
+                        p { margin-bottom: 15px; }
+                    </style>
+                </head>
+                <body>
+                    <h1>Politique de Confidentialité - ManohPressing</h1>
+
+                    <h2>1. Collecte des données</h2>
+                    <p>Nous collectons uniquement les données nécessaires au fonctionnement de notre service de pressing.</p>
+
+                    <h2>2. Utilisation des données</h2>
+                    <p>Vos données sont utilisées pour gérer vos commandes et améliorer notre service.</p>
+
+                    <h2>3. Protection des données</h2>
+                    <p>Nous mettons en place toutes les mesures nécessaires pour protéger vos données personnelles.</p>
+
+                    <h2>4. Vos droits</h2>
+                    <p>Vous avez le droit d'accéder, modifier ou supprimer vos données à tout moment.</p>
+
+                    <h2>5. Contact</h2>
+                    <p>Pour toute question concernant cette politique, contactez-nous via le chat.</p>
+
+                    <p><em>Dernière mise à jour: ${new Date().toLocaleDateString('fr-FR')}</em></p>
+                </body>
+                </html>
+            `);
+        }
+
+        // Fonctions utilitaires
+        function getStatusLabel(status) {
+            const labels = {
+                'pending': 'En attente',
+                'in_progress': 'En cours',
+                'ready': 'Prête',
+                'delivered': 'Livrée'
+            };
+            return labels[status] || status;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR');
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-color)' : type === 'error' ? 'var(--error-color)' : 'var(--primary-color)'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: var(--radius-md);
+                box-shadow: var(--shadow-lg);
+                z-index: 10000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+
+        function debugClientOrders() {
+            console.log('=== DEBUG COMMANDES CLIENT ===');
+            console.log('👤 currentUser:', currentUser);
+
+            const allOrders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            console.log('🗄️ Toutes les commandes localStorage:', allOrders);
+
+            if (currentUser && currentUser.id) {
+                const userOrders = allOrders.filter(order => order.customerId === parseInt(currentUser.id));
+                console.log('📦 Commandes du client:', userOrders);
+
+                alert(`Debug Commandes Client:
+- Client ID: ${currentUser.id}
+- Nom: ${currentUser.firstName} ${currentUser.lastName}
+- Total commandes en base: ${allOrders.length}
+- Commandes du client: ${userOrders.length}
+
+Détails dans la console F12.`);
+            } else {
+                alert('Erreur: Utilisateur non connecté ou ID manquant');
+            }
+        }
+    </script>
+</body>
+</html>

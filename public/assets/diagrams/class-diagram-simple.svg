@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <title>Diagramme de classes simplifié - ManohPressing</title>
+  
+  <!-- Styles -->
+  <defs>
+    <style>
+      .entity { fill: #e8f4fd; stroke: #1976d2; stroke-width: 3; rx: 8; }
+      .manager { fill: #f0f9ff; stroke: #0369a1; stroke-width: 2; rx: 8; }
+      .text { font-family: Arial, sans-serif; font-size: 11px; }
+      .title { font-size: 20px; font-weight: bold; text-anchor: middle; }
+      .class-name { font-size: 14px; font-weight: bold; text-anchor: middle; }
+      .section-title { font-size: 16px; font-weight: bold; text-anchor: middle; fill: #374151; }
+      .line { stroke: #374151; stroke-width: 1; fill: none; }
+      .composition { stroke: #dc2626; stroke-width: 3; marker-end: url(#diamond); }
+      .association { stroke: #059669; stroke-width: 2; marker-end: url(#arrow); }
+      .dependency { stroke: #7c3aed; stroke-width: 1.5; stroke-dasharray: 8,4; marker-end: url(#arrow); }
+    </style>
+    
+    <!-- Marqueurs pour les flèches -->
+    <marker id="arrow" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#059669"/>
+    </marker>
+    
+    <marker id="diamond" markerWidth="14" markerHeight="10" refX="14" refY="5" orient="auto">
+      <polygon points="0 5, 7 0, 14 5, 7 10" fill="#dc2626"/>
+    </marker>
+  </defs>
+  
+  <!-- Titre -->
+  <text x="600" y="40" class="title">📊 Diagramme de Classes - Vue Simplifiée</text>
+  
+  <!-- Section Entités Métier -->
+  <text x="300" y="80" class="section-title">📦 ENTITÉS MÉTIER</text>
+  
+  <!-- User -->
+  <g id="user-simple">
+    <rect x="50" y="100" width="150" height="100" class="entity"/>
+    <text x="125" y="125" class="class-name">👤 User</text>
+    <line x1="50" y1="135" x2="200" y2="135" class="line"/>
+    <text x="60" y="155" class="text">+ id, username, role</text>
+    <text x="60" y="170" class="text">+ firstName, lastName</text>
+    <text x="60" y="185" class="text">+ email, phone</text>
+  </g>
+  
+  <!-- Order -->
+  <g id="order-simple">
+    <rect x="250" y="100" width="150" height="100" class="entity"/>
+    <text x="325" y="125" class="class-name">📦 Order</text>
+    <line x1="250" y1="135" x2="400" y2="135" class="line"/>
+    <text x="260" y="155" class="text">+ id, orderNumber</text>
+    <text x="260" y="170" class="text">+ customerId, total</text>
+    <text x="260" y="185" class="text">+ status, createdAt</text>
+  </g>
+  
+  <!-- Service -->
+  <g id="service-simple">
+    <rect x="450" y="100" width="150" height="100" class="entity"/>
+    <text x="525" y="125" class="class-name">🛍️ Service</text>
+    <line x1="450" y1="135" x2="600" y2="135" class="line"/>
+    <text x="460" y="155" class="text">+ id, name, price</text>
+    <text x="460" y="170" class="text">+ quantity, orderId</text>
+    <text x="460" y="185" class="text">+ description</text>
+  </g>
+  
+  <!-- DepositCoupon -->
+  <g id="coupon-simple">
+    <rect x="50" y="250" width="150" height="100" class="entity"/>
+    <text x="125" y="275" class="class-name">🎫 DepositCoupon</text>
+    <line x1="50" y1="285" x2="200" y2="285" class="line"/>
+    <text x="60" y="305" class="text">+ id, code, status</text>
+    <text x="60" y="320" class="text">+ customerId, orderId</text>
+    <text x="60" y="335" class="text">+ validUntil, itemsCount</text>
+  </g>
+  
+  <!-- MobilePayment -->
+  <g id="payment-simple">
+    <rect x="250" y="250" width="150" height="100" class="entity"/>
+    <text x="325" y="275" class="class-name">💳 MobilePayment</text>
+    <line x1="250" y1="285" x2="400" y2="285" class="line"/>
+    <text x="260" y="305" class="text">+ id, transactionId</text>
+    <text x="260" y="320" class="text">+ amount, phoneNumber</text>
+    <text x="260" y="335" class="text">+ paymentMethod, status</text>
+  </g>
+  
+  <!-- Section Gestionnaires -->
+  <text x="850" y="80" class="section-title">⚙️ GESTIONNAIRES</text>
+  
+  <!-- DataManager -->
+  <g id="data-manager-simple">
+    <rect x="700" y="100" width="180" height="80" class="manager"/>
+    <text x="790" y="125" class="class-name">📊 DataManager</text>
+    <line x1="700" y1="135" x2="880" y2="135" class="line"/>
+    <text x="710" y="155" class="text">+ CRUD operations</text>
+    <text x="710" y="170" class="text">+ Data export/import</text>
+  </g>
+  
+  <!-- MobilePaymentManager -->
+  <g id="payment-manager-simple">
+    <rect x="700" y="200" width="180" height="80" class="manager"/>
+    <text x="790" y="225" class="class-name">💰 PaymentManager</text>
+    <line x1="700" y1="235" x2="880" y2="235" class="line"/>
+    <text x="710" y="255" class="text">+ Process payments</text>
+    <text x="710" y="270" class="text">+ Validate & simulate</text>
+  </g>
+  
+  <!-- DepositCouponManager -->
+  <g id="coupon-manager-simple">
+    <rect x="700" y="300" width="180" height="80" class="manager"/>
+    <text x="790" y="325" class="class-name">🎟️ CouponManager</text>
+    <line x1="700" y1="335" x2="880" y2="335" class="line"/>
+    <text x="710" y="355" class="text">+ Generate coupons</text>
+    <text x="710" y="370" class="text">+ Validate & expire</text>
+  </g>
+  
+  <!-- Relations principales -->
+  <g id="main-relations">
+    <!-- User -> Order (composition) -->
+    <line x1="200" y1="150" x2="250" y2="150" class="composition"/>
+    <text x="215" y="145" class="text" style="font-size: 10px; fill: #dc2626;">1</text>
+    <text x="235" y="145" class="text" style="font-size: 10px; fill: #dc2626;">0..*</text>
+    <text x="225" y="165" class="text" style="font-size: 9px; fill: #dc2626;">crée</text>
+    
+    <!-- Order -> Service (composition) -->
+    <line x1="400" y1="150" x2="450" y2="150" class="composition"/>
+    <text x="415" y="145" class="text" style="font-size: 10px; fill: #dc2626;">1</text>
+    <text x="435" y="145" class="text" style="font-size: 10px; fill: #dc2626;">1..*</text>
+    <text x="425" y="165" class="text" style="font-size: 9px; fill: #dc2626;">contient</text>
+    
+    <!-- Order -> DepositCoupon (association) -->
+    <line x1="280" y1="200" x2="150" y2="250" class="association"/>
+    <text x="200" y="220" class="text" style="font-size: 9px; fill: #059669;">génère</text>
+    
+    <!-- Order -> MobilePayment (association) -->
+    <line x1="325" y1="200" x2="325" y2="250" class="association"/>
+    <text x="330" y="225" class="text" style="font-size: 9px; fill: #059669;">payé par</text>
+    
+    <!-- DataManager dependencies -->
+    <line x1="700" y1="140" x2="400" y2="140" class="dependency"/>
+    <text x="550" y="135" class="text" style="font-size: 9px; fill: #7c3aed;">gère</text>
+    
+    <!-- PaymentManager -> MobilePayment -->
+    <line x1="700" y1="240" x2="400" y2="300" class="dependency"/>
+    <text x="550" y="270" class="text" style="font-size: 9px; fill: #7c3aed;">traite</text>
+    
+    <!-- CouponManager -> DepositCoupon -->
+    <line x1="700" y1="340" x2="200" y2="320" class="dependency"/>
+    <text x="450" y="330" class="text" style="font-size: 9px; fill: #7c3aed;">gère</text>
+  </g>
+  
+  <!-- Workflow principal -->
+  <g id="workflow">
+    <rect x="50" y="450" width="1100" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+    <text x="600" y="475" class="section-title">🔄 WORKFLOW PRINCIPAL</text>
+    
+    <!-- Étapes du workflow -->
+    <g id="workflow-steps">
+      <rect x="80" y="490" width="120" height="60" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="5"/>
+      <text x="140" y="515" class="text" style="text-anchor: middle; font-weight: bold;">1. Création</text>
+      <text x="140" y="530" class="text" style="text-anchor: middle; font-size: 10px;">Gérant crée</text>
+      <text x="140" y="543" class="text" style="text-anchor: middle; font-size: 10px;">une commande</text>
+      
+      <rect x="230" y="490" width="120" height="60" fill="#dcfce7" stroke="#16a34a" stroke-width="2" rx="5"/>
+      <text x="290" y="515" class="text" style="text-anchor: middle; font-weight: bold;">2. Traitement</text>
+      <text x="290" y="530" class="text" style="text-anchor: middle; font-size: 10px;">Progression des</text>
+      <text x="290" y="543" class="text" style="text-anchor: middle; font-size: 10px;">statuts</text>
+      
+      <rect x="380" y="490" width="120" height="60" fill="#fef3c7" stroke="#d97706" stroke-width="2" rx="5"/>
+      <text x="440" y="515" class="text" style="text-anchor: middle; font-weight: bold;">3. Livraison</text>
+      <text x="440" y="530" class="text" style="text-anchor: middle; font-size: 10px;">Remise au</text>
+      <text x="440" y="543" class="text" style="text-anchor: middle; font-size: 10px;">client</text>
+      
+      <rect x="530" y="490" width="120" height="60" fill="#fce7f3" stroke="#ec4899" stroke-width="2" rx="5"/>
+      <text x="590" y="515" class="text" style="text-anchor: middle; font-weight: bold;">4. Reçu</text>
+      <text x="590" y="530" class="text" style="text-anchor: middle; font-size: 10px;">Génération</text>
+      <text x="590" y="543" class="text" style="text-anchor: middle; font-size: 10px;">automatique</text>
+      
+      <rect x="680" y="490" width="120" height="60" fill="#f3e8ff" stroke="#a855f7" stroke-width="2" rx="5"/>
+      <text x="740" y="515" class="text" style="text-anchor: middle; font-weight: bold;">5. Paiement</text>
+      <text x="740" y="530" class="text" style="text-anchor: middle; font-size: 10px;">Mobile Money</text>
+      <text x="740" y="543" class="text" style="text-anchor: middle; font-size: 10px;">(optionnel)</text>
+      
+      <!-- Flèches du workflow -->
+      <polygon points="205,520 225,515 225,525" fill="#374151"/>
+      <polygon points="355,520 375,515 375,525" fill="#374151"/>
+      <polygon points="505,520 525,515 525,525" fill="#374151"/>
+      <polygon points="655,520 675,515 675,525" fill="#374151"/>
+    </g>
+  </g>
+  
+  <!-- Légende simplifiée -->
+  <g id="simple-legend">
+    <rect x="50" y="600" width="400" height="120" fill="white" stroke="#374151" stroke-width="2" rx="8"/>
+    <text x="60" y="625" class="text" style="font-weight: bold; font-size: 12px;">📋 LÉGENDE</text>
+    
+    <rect x="60" y="640" width="60" height="15" class="entity"/>
+    <text x="130" y="652" class="text">📦 Entités métier (données)</text>
+    
+    <rect x="60" y="665" width="60" height="15" class="manager"/>
+    <text x="130" y="677" class="text">⚙️ Gestionnaires (logique)</text>
+    
+    <line x1="250" y1="647" x2="290" y2="647" class="composition"/>
+    <text x="300" y="652" class="text">Composition (contient)</text>
+    
+    <line x1="250" y1="667" x2="290" y2="667" class="association"/>
+    <text x="300" y="672" class="text">Association (utilise)</text>
+    
+    <line x1="250" y1="687" x2="290" y2="687" class="dependency"/>
+    <text x="300" y="692" class="text">Dépendance (gère)</text>
+    
+    <text x="60" y="710" class="text" style="font-size: 10px; font-style: italic;">
+      Vue simplifiée de l'architecture - Voir class-diagram.svg pour les détails complets
+    </text>
+  </g>
+  
+  <!-- Informations -->
+  <text x="1150" y="780" class="text" style="font-size: 10px; text-anchor: end;">ManohPressing - Vue simplifiée</text>
+</svg>

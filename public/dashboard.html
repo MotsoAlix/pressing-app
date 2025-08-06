@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ManohPressing</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/base/variables.css">
+    <link rel="stylesheet" href="assets/css/base/reset.css">
+    <link rel="stylesheet" href="assets/css/base/typography.css">
+    <link rel="stylesheet" href="assets/css/base/animations.css">
+    <link rel="stylesheet" href="assets/css/layouts/grid.css">
+    <link rel="stylesheet" href="assets/css/layouts/responsive.css">
+    <link rel="stylesheet" href="assets/css/layouts/sidebar.css">
+    <link rel="stylesheet" href="assets/css/components/buttons.css">
+    <link rel="stylesheet" href="assets/css/components/cards.css">
+    <link rel="stylesheet" href="assets/css/components/forms.css">
+    <link rel="stylesheet" href="assets/css/components/modals.css">
+    <link rel="stylesheet" href="assets/css/components/tables.css">
+    <link rel="stylesheet" href="assets/css/components/toast.css">
+    <link rel="stylesheet" href="assets/css/pages/dashboard.css">
+</head>
+<body>
+    <!-- Overlay pour mobile -->
+    <div class="sidebar-overlay" data-action="close-sidebar"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon">👔</div>
+                <h1 class="sidebar-logo-text">ManohPressing</h1>
+            </div>
+            <button class="sidebar-close" data-action="close-sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-nav-section">
+                <h3 class="sidebar-nav-title">Menu Principal</h3>
+                <ul class="sidebar-nav-list">
+                    <li class="sidebar-nav-item">
+                        <a href="dashboard.html" class="sidebar-nav-link is-active">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="orders.html" class="sidebar-nav-link">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>Commandes</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="customers.html" class="sidebar-nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="tracking.html" class="sidebar-nav-link">
+                            <i class="fas fa-search"></i>
+                            <span>Suivi</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-nav-section">
+                <h3 class="sidebar-nav-title">Gestion</h3>
+                <ul class="sidebar-nav-list">
+                    <li class="sidebar-nav-item">
+                        <a href="payments.html" class="sidebar-nav-link">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="reports.html" class="sidebar-nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Rapports</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="admin.html" class="sidebar-nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Administration</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user" data-action="toggle-user-menu">
+                <div class="sidebar-user-avatar">A</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name">Admin User</div>
+                    <div class="sidebar-user-role">Administrateur</div>
+                </div>
+                <div class="sidebar-user-menu">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            
+            <div class="sidebar-user-dropdown">
+                <a href="#" class="sidebar-user-dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profil</span>
+                </a>
+                <a href="#" class="sidebar-user-dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Paramètres</span>
+                </a>
+                <a href="login.html" class="sidebar-user-dropdown-item danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="header-toggle" data-action="toggle-sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div>
+                    <h1 class="header-title">Dashboard</h1>
+                    <p class="header-subtitle">Bienvenue dans votre espace de gestion</p>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="header-actions">
+                    <button class="header-action" data-action="show-notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="header-action-badge">3</span>
+                    </button>
+                    <button class="header-action" data-action="show-user-menu">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-title">Bienvenue chez ManohPressing</h1>
+                        <p class="hero-description">
+                            Gérez votre pressing avec efficacité et style. Interface moderne pour une expérience professionnelle.
+                        </p>
+                        <div class="hero-actions">
+                            <button class="btn btn-primary btn-lg">
+                                <i class="fas fa-plus"></i>
+                                <span>Nouvelle Commande</span>
+                            </button>
+                            <button class="btn btn-outline btn-lg">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Ajouter Client</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-illustration">
+                        <div class="illustration-container">
+                            <div class="floating-icon icon-1">
+                                <i class="fas fa-tshirt"></i>
+                            </div>
+                            <div class="floating-icon icon-2">
+                                <i class="fas fa-iron"></i>
+                            </div>
+                            <div class="floating-icon icon-3">
+                                <i class="fas fa-sparkles"></i>
+                            </div>
+                            <div class="main-illustration">
+                                <div class="washing-machine">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Stats -->
+            <section class="quick-stats">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-icon stat-card-icon--primary">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="stat-card-content">
+                            <div class="stat-card-value" id="total-orders">1,234</div>
+                            <div class="stat-card-label">Commandes</div>
+                            <div class="stat-card-change stat-card-change--positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+12.5%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card secondary">
+                        <div class="stat-card-icon stat-card-icon--success">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-card-content">
+                            <div class="stat-card-value" id="total-customers">567</div>
+                            <div class="stat-card-label">Clients</div>
+                            <div class="stat-card-change stat-card-change--positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+8.3%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card accent">
+                        <div class="stat-card-icon stat-card-icon--info">
+                            <i class="fas fa-euro-sign"></i>
+                        </div>
+                        <div class="stat-card-content">
+                            <div class="stat-card-value" id="total-revenue">€12,345</div>
+                            <div class="stat-card-label">Revenus</div>
+                            <div class="stat-card-change stat-card-change--positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+15.2%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card success">
+                        <div class="stat-card-icon stat-card-icon--warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-card-content">
+                            <div class="stat-card-value" id="pending-orders">23</div>
+                            <div class="stat-card-label">En attente</div>
+                            <div class="stat-card-change stat-card-change--negative">
+                                <i class="fas fa-arrow-down"></i>
+                                <span>-5.1%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Recent Orders -->
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Commandes Récentes</h2>
+                        <button class="btn btn-outline btn-sm">
+                            <i class="fas fa-eye"></i>
+                            <span>Voir tout</span>
+                        </button>
+                    </div>
+                    
+                    <div class="orders-grid">
+                        <div class="order-card">
+                            <div class="order-header">
+                                <div class="order-tracking">#ORD-2024-001</div>
+                                <div class="order-status status-received">Reçu</div>
+                            </div>
+                            <div class="order-customer">Jean Dupont</div>
+                            <div class="order-details">
+                                <div class="order-detail">
+                                    <div class="order-detail-label">Articles</div>
+                                    <div class="order-detail-value">5</div>
+                                </div>
+                                <div class="order-detail">
+                                    <div class="order-detail-label">Prix</div>
+                                    <div class="order-detail-value">€45.00</div>
+                                </div>
+                                <div class="order-detail">
+                                    <div class="order-detail-label">Date</div>
+                                    <div class="order-detail-value">Aujourd'hui</div>
+                                </div>
+                            </div>
+                            <div class="order-actions">
+                                <button class="btn btn-sm btn-primary">Voir détails</button>
+                                <button class="btn btn-sm btn-outline">Modifier</button>
+                            </div>
+                        </div>
+
+                        <div class="order-card">
+                            <div class="order-header">
+                                <div class="order-tracking">#ORD-2024-002</div>
+                                <div class="order-status status-in-progress">En cours</div>
+                            </div>
+                            <div class="order-customer">Marie Martin</div>
+                            <div class="order-details">
+                                <div class="order-detail">
+                                    <div class="order-detail-label">Articles</div>
+                                    <div class="order-detail-value">3</div>
+                                </div>
+                                <div class="order-detail">
+                                    <div class="order-detail-label">Prix</div>
+                                    <div class="order-detail-value">€28.50</div>
+                                </div>
+                                <div class="order-detail">
+                                    <div class="order-detail-label">Date</div>
+                                    <div class="order-detail-value">Hier</div>
+                                </div>
+                            </div>
+                            <div class="order-actions">
+                                <button class="btn btn-sm btn-primary">Voir détails</button>
+                                <button class="btn btn-sm btn-outline">Modifier</button>
+                            </div>
+                        </div>
+
+                        <div class="order-card">
+                            <div class="order-header">
+                                <div class="order-tracking">#ORD-2024-003</div>
+                                <div class="order-status status-ready">Prêt</div>
+                            </div>
+                            <div class="order-customer">Pierre Leroy</div>
+                            <div class="order-details">
+                                <div class="order-detail">
+                                    <div class="order-detail-label">Articles</div>
+                                    <div class="order-detail-value">7</div>
+                                </div>
+                                <div class="order-detail">
+                                    <div class="order-detail-label">Prix</div>
+                                    <div class="order-detail-value">€62.00</div>
+                                </div>
+                                <div class="order-detail">
+                                    <div class="order-detail-label">Date</div>
+                                    <div class="order-detail-value">Il y a 2 jours</div>
+                                </div>
+                            </div>
+                            <div class="order-actions">
+                                <button class="btn btn-sm btn-success">Livrer</button>
+                                <button class="btn btn-sm btn-outline">Détails</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Actions -->
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Actions Rapides</h2>
+                    </div>
+                    
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-card">
+                            <div class="quick-action-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <h3 class="quick-action-title">Nouvelle Commande</h3>
+                            <p class="quick-action-description">Créer une nouvelle commande</p>
+                        </button>
+
+                        <button class="quick-action-card">
+                            <div class="quick-action-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <h3 class="quick-action-title">Ajouter Client</h3>
+                            <p class="quick-action-description">Enregistrer un nouveau client</p>
+                        </button>
+
+                        <button class="quick-action-card">
+                            <div class="quick-action-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3 class="quick-action-title">Rechercher</h3>
+                            <p class="quick-action-description">Trouver une commande</p>
+                        </button>
+
+                        <button class="quick-action-card">
+                            <div class="quick-action-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <h3 class="quick-action-title">Rapports</h3>
+                            <p class="quick-action-description">Voir les statistiques</p>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Activity Feed -->
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Activité Récente</h2>
+                    </div>
+                    
+                    <div class="activity-feed">
+                        <div class="activity-item">
+                            <div class="activity-icon success">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Commande livrée</div>
+                                <div class="activity-description">Commande #ORD-2024-001 livrée à Jean Dupont</div>
+                                <div class="activity-time">Il y a 2 heures</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon info">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Nouveau client</div>
+                                <div class="activity-description">Marie Martin ajoutée à la base de données</div>
+                                <div class="activity-time">Il y a 4 heures</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon warning">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Commande en retard</div>
+                                <div class="activity-description">Commande #ORD-2024-002 en attente depuis 24h</div>
+                                <div class="activity-time">Il y a 6 heures</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon primary">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Paiement reçu</div>
+                                <div class="activity-description">Paiement de €45.00 pour la commande #ORD-2024-001</div>
+                                <div class="activity-time">Il y a 8 heures</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- JavaScript -->
+    <script type="module" src="assets/js/core/app.js"></script>
+    <script type="module" src="assets/js/modules/dashboard.js"></script>
+</body>
+</html> 

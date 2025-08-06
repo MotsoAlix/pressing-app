@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Design System - ManohPressing</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/base/variables.css">
+    <link rel="stylesheet" href="assets/css/base/reset.css">
+    <link rel="stylesheet" href="assets/css/base/typography.css">
+    <link rel="stylesheet" href="assets/css/layouts/grid.css">
+    <link rel="stylesheet" href="assets/css/layouts/responsive.css">
+    <link rel="stylesheet" href="assets/css/layouts/sidebar.css">
+    <link rel="stylesheet" href="assets/css/components/buttons.css">
+    <link rel="stylesheet" href="assets/css/components/cards.css">
+    <link rel="stylesheet" href="assets/css/components/forms.css">
+    <link rel="stylesheet" href="assets/css/components/modals.css">
+    <link rel="stylesheet" href="assets/css/components/tables.css">
+    <link rel="stylesheet" href="assets/css/components/toast.css">
+</head>
+<body>
+    <!-- Overlay pour mobile -->
+    <div class="sidebar-overlay" data-action="close-sidebar"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+                            <div class="sidebar-logo">
+                    <div class="sidebar-logo-icon">👔</div>
+                    <h1 class="sidebar-logo-text">ManohPressing</h1>
+                </div>
+            <button class="sidebar-close" data-action="close-sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-nav-section">
+                <h3 class="sidebar-nav-title">Design System</h3>
+                <ul class="sidebar-nav-list">
+                    <li class="sidebar-nav-item">
+                        <a href="#colors" class="sidebar-nav-link">
+                            <i class="fas fa-palette"></i>
+                            <span>Couleurs</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="#typography" class="sidebar-nav-link">
+                            <i class="fas fa-font"></i>
+                            <span>Typographie</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="#buttons" class="sidebar-nav-link">
+                            <i class="fas fa-square"></i>
+                            <span>Boutons</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="#cards" class="sidebar-nav-link">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Cartes</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="#layout" class="sidebar-nav-link">
+                            <i class="fas fa-th-large"></i>
+                            <span>Layout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user" data-action="toggle-user-menu">
+                <div class="sidebar-user-avatar">A</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name">Design System</div>
+                    <div class="sidebar-user-role">Démonstration</div>
+                </div>
+                <div class="sidebar-user-menu">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="header-toggle" data-action="toggle-sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div>
+                                    <h1 class="header-title">Design System</h1>
+                <p class="header-subtitle">ManohPressing - Interface moderne et professionnelle</p>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="header-actions">
+                    <button class="header-action" data-action="show-notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="header-action-badge">3</span>
+                    </button>
+                    <button class="header-action" data-action="show-user-menu">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Introduction -->
+            <div class="page-header animate-fade-in-up">
+                <h1 class="page-title">Design System ManohPressing</h1>
+                <p class="page-description">
+                    Un système de design moderne et cohérent qui inspire confiance, propreté et efficacité. 
+                    Conçu pour optimiser l'expérience utilisateur dans le secteur du pressing.
+                </p>
+                <div class="page-actions">
+                    <button class="btn btn-primary btn-lg">
+                        <i class="fas fa-download"></i>
+                        <span>Télécharger les assets</span>
+                    </button>
+                    <button class="btn btn-outline btn-lg">
+                        <i class="fas fa-code"></i>
+                        <span>Voir le code</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Couleurs -->
+            <section id="colors" class="mb-12 animate-fade-in-up">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Palette de Couleurs</h2>
+                        <p class="card-subtitle">Couleurs modernes inspirant confiance et propreté</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <!-- Couleurs principales -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-semibold">Principales</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-primary rounded-lg shadow-md"></div>
+                                        <div>
+                                            <div class="font-medium">Primary</div>
+                                            <div class="text-sm text-muted">#3b82f6</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-secondary rounded-lg shadow-md"></div>
+                                        <div>
+                                            <div class="font-medium">Secondary</div>
+                                            <div class="text-sm text-muted">#10b981</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-accent rounded-lg shadow-md"></div>
+                                        <div>
+                                            <div class="font-medium">Accent</div>
+                                            <div class="text-sm text-muted">#f59e0b</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Couleurs de propreté -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-semibold">Propreté</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-clean rounded-lg border"></div>
+                                        <div>
+                                            <div class="font-medium">Clean</div>
+                                            <div class="text-sm text-muted">#f8fafc</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-fresh rounded-lg border"></div>
+                                        <div>
+                                            <div class="font-medium">Fresh</div>
+                                            <div class="text-sm text-muted">#f1f5f9</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-pure rounded-lg border"></div>
+                                        <div>
+                                            <div class="font-medium">Pure</div>
+                                            <div class="text-sm text-muted">#ffffff</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Couleurs sémantiques -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-semibold">Sémantiques</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-success rounded-lg shadow-md"></div>
+                                        <div>
+                                            <div class="font-medium">Success</div>
+                                            <div class="text-sm text-muted">#10b981</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-warning rounded-lg shadow-md"></div>
+                                        <div>
+                                            <div class="font-medium">Warning</div>
+                                            <div class="text-sm text-muted">#f59e0b</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-error rounded-lg shadow-md"></div>
+                                        <div>
+                                            <div class="font-medium">Error</div>
+                                            <div class="text-sm text-muted">#ef4444</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Couleurs neutres -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-semibold">Neutres</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-gray-100 rounded-lg border"></div>
+                                        <div>
+                                            <div class="font-medium">Gray 100</div>
+                                            <div class="text-sm text-muted">#f1f5f9</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-gray-500 rounded-lg shadow-md"></div>
+                                        <div>
+                                            <div class="font-medium">Gray 500</div>
+                                            <div class="text-sm text-muted">#64748b</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-gray-900 rounded-lg shadow-md"></div>
+                                        <div>
+                                            <div class="font-medium">Gray 900</div>
+                                            <div class="text-sm text-muted">#0f172a</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Typographie -->
+            <section id="typography" class="mb-12 animate-fade-in-up">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Typographie</h2>
+                        <p class="card-subtitle">Hiérarchie claire et lisibilité optimale</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="space-y-8">
+                            <!-- Titres -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Hiérarchie des titres</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <h1 class="heading-1">Heading 1 - Titre principal</h1>
+                                        <p class="text-sm text-muted">Inter Bold, 48px, -0.025em letter-spacing</p>
+                                    </div>
+                                    <div>
+                                        <h2 class="heading-2">Heading 2 - Titre de section</h2>
+                                        <p class="text-sm text-muted">Inter Bold, 36px, -0.025em letter-spacing</p>
+                                    </div>
+                                    <div>
+                                        <h3 class="heading-3">Heading 3 - Sous-section</h3>
+                                        <p class="text-sm text-muted">Inter Semibold, 30px</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="heading-4">Heading 4 - Titre de carte</h4>
+                                        <p class="text-sm text-muted">Inter Semibold, 24px</p>
+                                    </div>
+                                    <div>
+                                        <h5 class="heading-5">Heading 5 - Titre de widget</h5>
+                                        <p class="text-sm text-muted">Inter Semibold, 20px</p>
+                                    </div>
+                                    <div>
+                                        <h6 class="heading-6">Heading 6 - Titre de liste</h6>
+                                        <p class="text-sm text-muted">Inter Semibold, 18px</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Texte de base -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Texte de base</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-body">Ceci est un paragraphe de texte de base avec une ligne de 1.75 pour une lecture confortable. La police Inter est optimisée pour l'affichage à l'écran.</p>
+                                        <p class="text-sm text-muted">Inter Regular, 16px, 1.75 line-height</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-caption">Texte de légende pour les images et éléments secondaires</p>
+                                        <p class="text-sm text-muted">Inter Medium, 12px</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-label">LABEL POUR LES FORMULAIRES</p>
+                                        <p class="text-sm text-muted">Inter Semibold, 14px, uppercase, 0.05em letter-spacing</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Styles spécialisés -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Styles spécialisés</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-number">1,234.56</p>
+                                        <p class="text-sm text-muted">JetBrains Mono Semibold pour les nombres</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-currency">€1,234.56</p>
+                                        <p class="text-sm text-muted">JetBrains Mono Bold pour les montants</p>
+                                    </div>
+                                    <div>
+                                        <span class="text-status text-status-received">Reçu</span>
+                                        <span class="text-status text-status-in-progress">En cours</span>
+                                        <span class="text-status text-status-ready">Prêt</span>
+                                        <p class="text-sm text-muted mt-2">Inter Semibold, 12px, uppercase pour les statuts</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Boutons -->
+            <section id="buttons" class="mb-12 animate-fade-in-up">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Boutons</h2>
+                        <p class="card-subtitle">Interactions claires avec feedback visuel</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="space-y-8">
+                            <!-- Variantes -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Variantes</h3>
+                                <div class="flex flex-wrap gap-4">
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-plus"></i>
+                                        <span>Primary</span>
+                                    </button>
+                                    <button class="btn btn-secondary">
+                                        <i class="fas fa-edit"></i>
+                                        <span>Secondary</span>
+                                    </button>
+                                    <button class="btn btn-success">
+                                        <i class="fas fa-check"></i>
+                                        <span>Success</span>
+                                    </button>
+                                    <button class="btn btn-warning">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        <span>Warning</span>
+                                    </button>
+                                    <button class="btn btn-error">
+                                        <i class="fas fa-trash"></i>
+                                        <span>Error</span>
+                                    </button>
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-download"></i>
+                                        <span>Outline</span>
+                                    </button>
+                                    <button class="btn btn-ghost">
+                                        <i class="fas fa-eye"></i>
+                                        <span>Ghost</span>
+                                    </button>
+                                    <button class="btn btn-glass">
+                                        <i class="fas fa-star"></i>
+                                        <span>Glass</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Tailles -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Tailles</h3>
+                                <div class="flex flex-wrap items-center gap-4">
+                                    <button class="btn btn-primary btn-sm">Small</button>
+                                    <button class="btn btn-primary">Normal</button>
+                                    <button class="btn btn-primary btn-lg">Large</button>
+                                    <button class="btn btn-primary btn-xl">Extra Large</button>
+                                </div>
+                            </div>
+
+                            <!-- États -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">États</h3>
+                                <div class="flex flex-wrap gap-4">
+                                    <button class="btn btn-primary">Normal</button>
+                                    <button class="btn btn-primary" disabled>Disabled</button>
+                                    <button class="btn btn-primary btn-loading">Loading</button>
+                                </div>
+                            </div>
+
+                            <!-- Groupes -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Groupes de boutons</h3>
+                                <div class="flex flex-wrap gap-4">
+                                    <div class="btn-group">
+                                        <button class="btn btn-outline">Gauche</button>
+                                        <button class="btn btn-outline">Centre</button>
+                                        <button class="btn btn-outline">Droite</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Boutons flottants -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Boutons flottants</h3>
+                                <div class="relative h-32 bg-gray-100 rounded-lg flex items-center justify-center">
+                                    <button class="btn btn-floating">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cartes -->
+            <section id="cards" class="mb-12 animate-fade-in-up">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Cartes</h2>
+                        <p class="card-subtitle">Conteneurs modulaires pour organiser le contenu</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="space-y-8">
+                            <!-- Cartes de statistiques -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Cartes de statistiques</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    <div class="stat-card card-animate-in">
+                                        <div class="stat-card-icon stat-card-icon--primary">
+                                            <i class="fas fa-shopping-bag"></i>
+                                        </div>
+                                        <div class="stat-card-content">
+                                            <div class="stat-card-value">1,234</div>
+                                            <div class="stat-card-label">Commandes</div>
+                                            <div class="stat-card-change stat-card-change--positive">
+                                                <i class="fas fa-arrow-up"></i>
+                                                <span>+12.5%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="stat-card secondary card-animate-in">
+                                        <div class="stat-card-icon stat-card-icon--success">
+                                            <i class="fas fa-users"></i>
+                                        </div>
+                                        <div class="stat-card-content">
+                                            <div class="stat-card-value">567</div>
+                                            <div class="stat-card-label">Clients</div>
+                                            <div class="stat-card-change stat-card-change--positive">
+                                                <i class="fas fa-arrow-up"></i>
+                                                <span>+8.3%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="stat-card accent card-animate-in">
+                                        <div class="stat-card-icon stat-card-icon--info">
+                                            <i class="fas fa-euro-sign"></i>
+                                        </div>
+                                        <div class="stat-card-content">
+                                            <div class="stat-card-value">€12,345</div>
+                                            <div class="stat-card-label">Revenus</div>
+                                            <div class="stat-card-change stat-card-change--positive">
+                                                <i class="fas fa-arrow-up"></i>
+                                                <span>+15.2%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="stat-card success card-animate-in">
+                                        <div class="stat-card-icon stat-card-icon--warning">
+                                            <i class="fas fa-clock"></i>
+                                        </div>
+                                        <div class="stat-card-content">
+                                            <div class="stat-card-value">23</div>
+                                            <div class="stat-card-label">En attente</div>
+                                            <div class="stat-card-change stat-card-change--negative">
+                                                <i class="fas fa-arrow-down"></i>
+                                                <span>-5.1%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cartes standard -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Cartes standard</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    <div class="card card-animate-in">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Carte avec header</h3>
+                                            <p class="card-subtitle">Sous-titre optionnel</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <p>Contenu principal de la carte avec du texte de démonstration pour montrer l'espacement et la typographie.</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-primary">Action</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card card-animate-in">
+                                        <div class="card-body">
+                                            <h3 class="text-lg font-semibold mb-3">Carte simple</h3>
+                                            <p>Cette carte n'a pas de header ni de footer, juste du contenu dans le body.</p>
+                                            <ul class="mt-4 space-y-2">
+                                                <li>• Élément de liste 1</li>
+                                                <li>• Élément de liste 2</li>
+                                                <li>• Élément de liste 3</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card card-glass card-animate-in">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Carte Glassmorphism</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <p>Effet de verre avec backdrop-filter pour un look moderne et élégant.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cartes de service -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Cartes de service</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    <div class="service-card card card-animate-in">
+                                        <div class="service-icon">
+                                            <i class="fas fa-tshirt"></i>
+                                        </div>
+                                        <div class="service-name">Lavage</div>
+                                        <div class="service-price">€8.50</div>
+                                        <div class="service-description">Lavage professionnel de vos vêtements</div>
+                                    </div>
+                                    
+                                    <div class="service-card card card-animate-in">
+                                        <div class="service-icon">
+                                            <i class="fas fa-iron"></i>
+                                        </div>
+                                        <div class="service-name">Repassage</div>
+                                        <div class="service-price">€5.00</div>
+                                        <div class="service-description">Repassage soigné de vos vêtements</div>
+                                    </div>
+                                    
+                                    <div class="service-card card card-animate-in">
+                                        <div class="service-icon">
+                                            <i class="fas fa-magic"></i>
+                                        </div>
+                                        <div class="service-name">Nettoyage à sec</div>
+                                        <div class="service-price">€12.00</div>
+                                        <div class="service-description">Nettoyage à sec pour vêtements délicats</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Layout -->
+            <section id="layout" class="mb-12 animate-fade-in-up">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Système de Layout</h2>
+                        <p class="card-subtitle">Grilles flexibles et composants de mise en page</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="space-y-8">
+                            <!-- Grilles -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Grilles responsives</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <h4 class="font-medium mb-2">Grille 2 colonnes</h4>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="h-20 bg-primary-50 rounded-lg flex items-center justify-center text-primary font-medium">Colonne 1</div>
+                                            <div class="h-20 bg-primary-50 rounded-lg flex items-center justify-center text-primary font-medium">Colonne 2</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 class="font-medium mb-2">Grille 3 colonnes</h4>
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="h-20 bg-secondary-50 rounded-lg flex items-center justify-center text-secondary font-medium">Colonne 1</div>
+                                            <div class="h-20 bg-secondary-50 rounded-lg flex items-center justify-center text-secondary font-medium">Colonne 2</div>
+                                            <div class="h-20 bg-secondary-50 rounded-lg flex items-center justify-center text-secondary font-medium">Colonne 3</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 class="font-medium mb-2">Grille auto-fit</h4>
+                                        <div class="grid grid-cols-auto-fit gap-4">
+                                            <div class="h-20 bg-accent-50 rounded-lg flex items-center justify-center text-accent font-medium">Auto 1</div>
+                                            <div class="h-20 bg-accent-50 rounded-lg flex items-center justify-center text-accent font-medium">Auto 2</div>
+                                            <div class="h-20 bg-accent-50 rounded-lg flex items-center justify-center text-accent font-medium">Auto 3</div>
+                                            <div class="h-20 bg-accent-50 rounded-lg flex items-center justify-center text-accent font-medium">Auto 4</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Espacement -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Système d'espacement</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-4 h-4 bg-primary rounded"></div>
+                                        <span class="text-sm">4px - spacing-1</span>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-8 h-8 bg-primary rounded"></div>
+                                        <span class="text-sm">8px - spacing-2</span>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 bg-primary rounded"></div>
+                                        <span class="text-sm">12px - spacing-3</span>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-16 h-16 bg-primary rounded"></div>
+                                        <span class="text-sm">16px - spacing-4</span>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-20 h-20 bg-primary rounded"></div>
+                                        <span class="text-sm">20px - spacing-5</span>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-24 h-24 bg-primary rounded"></div>
+                                        <span class="text-sm">24px - spacing-6</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ombres -->
+                            <div>
+                                <h3 class="text-lg font-semibold mb-4">Système d'ombres</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    <div class="h-32 bg-white rounded-lg shadow-sm flex items-center justify-center">
+                                        <span class="font-medium">Shadow SM</span>
+                                    </div>
+                                    <div class="h-32 bg-white rounded-lg shadow-md flex items-center justify-center">
+                                        <span class="font-medium">Shadow MD</span>
+                                    </div>
+                                    <div class="h-32 bg-white rounded-lg shadow-lg flex items-center justify-center">
+                                        <span class="font-medium">Shadow LG</span>
+                                    </div>
+                                    <div class="h-32 bg-white rounded-lg shadow-xl flex items-center justify-center">
+                                        <span class="font-medium">Shadow XL</span>
+                                    </div>
+                                    <div class="h-32 bg-white rounded-lg shadow-2xl flex items-center justify-center">
+                                        <span class="font-medium">Shadow 2XL</span>
+                                    </div>
+                                    <div class="h-32 bg-white rounded-lg shadow-inner flex items-center justify-center">
+                                        <span class="font-medium">Shadow Inner</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="text-center py-8 text-muted">
+                <p>Design System ManohPressing - Créé avec ❤️ pour une expérience utilisateur optimale</p>
+                <p class="text-sm mt-2">Version 2.0 - Interface moderne et professionnelle</p>
+            </footer>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- JavaScript -->
+    <script type="module" src="assets/js/core/app.js"></script>
+</body>
+</html> 

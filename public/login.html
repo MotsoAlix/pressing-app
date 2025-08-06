@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - ManohPressing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+            margin: 1rem;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .password-toggle:hover {
+            color: #333;
+        }
+
+        .password-container input {
+            padding-right: 40px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.75rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>ManohPressing</h1>
+            <p>Système de Gestion de Pressing</p>
+        </div>
+
+        <div class="error-message" id="error-message"></div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required>
+                    <i class="fas fa-eye password-toggle" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn">Se Connecter</button>
+        </form>
+
+
+    </div>
+
+    <script>
+        // Fonction pour charger tous les utilisateurs
+        function loadAllUsers() {
+            const savedUsers = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+            const defaultUsers = [
+                { id: 1, username: 'admin', password: 'admin123', role: 'admin', firstName: 'Admin', lastName: 'System', email: 'admin@manohpressing.cm' },
+                { id: 2, username: 'manager1', password: 'manager123', role: 'manager', firstName: 'Jean-Baptiste', lastName: 'Mbarga', email: 'jb.mbarga@manohpressing.cm', phone: '677 12 34 56', address: 'Bastos, Yaoundé' },
+                { id: 4, username: 'client1', password: 'client123', role: 'client', firstName: 'Marie-Claire', lastName: 'Fouda', email: 'mc.fouda@gmail.com', phone: '694 87 65 43', address: 'Melen, Yaoundé' }
+            ];
+
+            // Fusionner les utilisateurs par défaut avec ceux sauvegardés
+            const allUsers = {};
+
+            // Ajouter les utilisateurs par défaut
+            defaultUsers.forEach(user => {
+                allUsers[user.username] = user;
+            });
+
+            // Ajouter les utilisateurs sauvegardés
+            savedUsers.forEach(user => {
+                if (user.username && user.password) {
+                    allUsers[user.username] = user;
+                }
+            });
+
+            return allUsers;
+        }
+
+        // Gestion du formulaire de connexion
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Validation
+            if (!username || !password) {
+                showError('Veuillez remplir tous les champs');
+                return;
+            }
+
+            // Charger tous les utilisateurs
+            const users = loadAllUsers();
+
+            // Désactiver le bouton pendant la vérification
+            const submitBtn = document.querySelector('.login-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Connexion...';
+
+            // Vérification des identifiants
+            if (users[username] && users[username].password === password) {
+                const user = users[username];
+
+                // Sauvegarder l'utilisateur connecté avec toutes ses données
+                localStorage.setItem('user', JSON.stringify({
+                    id: user.id,
+                    username: username,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    role: user.role,
+                    email: user.email,
+                    phone: user.phone || '',
+                    address: user.address || '',
+                    loyaltyPoints: user.loyaltyPoints || 0,
+                    totalSpent: user.totalSpent || 0
+                }));
+
+                // Réinitialiser le formulaire
+                document.getElementById('login-form').reset();
+
+                // Redirection selon le rôle
+                setTimeout(() => {
+                    switch(user.role) {
+                        case 'admin':
+                            window.location.href = 'admin-dashboard.html';
+                            break;
+                        case 'manager':
+                            window.location.href = 'manager-dashboard.html';
+                            break;
+                        case 'client':
+                            window.location.href = 'client-dashboard.html';
+                            break;
+                        default:
+                            window.location.href = 'index.html';
+                    }
+                }, 500);
+            } else {
+                // Réactiver le bouton en cas d'erreur
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Se Connecter';
+                showError('Nom d\'utilisateur ou mot de passe incorrect');
+            }
+        });
+
+
+
+        // Fonction d'affichage des erreurs
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        // Fonction pour basculer la visibilité du mot de passe
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('togglePassword');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
+</body>
+</html>

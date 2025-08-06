@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cas d'utilisation : Passer une commande - ManohPressing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .use-case-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .use-case-table th {
+            background: #4a90e2;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+            font-size: 16px;
+            border: 1px solid #357abd;
+        }
+
+        .use-case-table td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .use-case-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .use-case-table tr:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        .label-cell {
+            background: #e3f2fd !important;
+            font-weight: bold;
+            color: #1565c0;
+            width: 200px;
+            border-right: 2px solid #4a90e2;
+        }
+
+        .content-cell {
+            background: white;
+            line-height: 1.8;
+        }
+
+        .scenario-step {
+            margin: 0.5rem 0;
+            padding-left: 1rem;
+        }
+
+        .step-number {
+            color: #4a90e2;
+            font-weight: bold;
+        }
+
+        .exception-step {
+            color: #d32f2f;
+            font-style: italic;
+        }
+
+        .footer {
+            background: #f8fafc;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .footer a {
+            color: #4a90e2;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border: 2px solid #4a90e2;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            background: #4a90e2;
+            color: white;
+        }
+
+        .icon {
+            font-size: 1.2em;
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .use-case-table {
+                font-size: 12px;
+            }
+            
+            .use-case-table th,
+            .use-case-table td {
+                padding: 0.75rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Cas d'utilisation : Passer une commande</h1>
+            <p>ManohPressing - Spécification détaillée</p>
+        </div>
+
+        <table class="use-case-table">
+            <thead>
+                <tr>
+                    <th style="width: 200px;">Élément</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">📋</span>Cas d'utilisation
+                    </td>
+                    <td class="content-cell">
+                        <strong>Passer une commande</strong>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">👤</span>Acteur principal
+                    </td>
+                    <td class="content-cell">
+                        <strong>Gérant</strong> (Manager du pressing)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">👥</span>Acteurs secondaires
+                    </td>
+                    <td class="content-cell">
+                        • <strong>Client</strong> (propriétaire des vêtements)<br>
+                        • <strong>Système</strong> (génération automatique des données)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">🎯</span>Objectif
+                    </td>
+                    <td class="content-cell">
+                        Le gérant souhaite créer une nouvelle commande pour un client avec les services de pressing demandés
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">💡</span>Intérêts
+                    </td>
+                    <td class="content-cell">
+                        • <strong>Gérant :</strong> Enregistrer efficacement les demandes clients et organiser le travail<br>
+                        • <strong>Client :</strong> Obtenir un service de pressing professionnel avec suivi<br>
+                        • <strong>Pressing :</strong> Structurer et tracer toutes les commandes
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">✅</span>Pré-conditions
+                    </td>
+                    <td class="content-cell">
+                        • Le gérant doit être authentifié dans le système<br>
+                        • Le client doit être présent physiquement au pressing<br>
+                        • Les vêtements à traiter doivent être disponibles<br>
+                        • Le système doit être opérationnel
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">🎉</span>Post-conditions
+                    </td>
+                    <td class="content-cell">
+                        • La commande est créée et enregistrée dans le système<br>
+                        • Un numéro de commande unique est généré<br>
+                        • Le statut initial "En attente" est assigné<br>
+                        • Le client reçoit les informations de sa commande<br>
+                        • Le gérant peut commencer le traitement
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">📝</span>Scénario nominal
+                    </td>
+                    <td class="content-cell">
+                        <div class="scenario-step">
+                            <span class="step-number">1.</span> Le gérant accède à la fonction "Nouvelle commande" dans son dashboard
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">2.</span> Le système affiche le formulaire de création de commande
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">3.</span> Le gérant sélectionne ou crée le profil client :
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;• Si client existant : recherche par nom/téléphone
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;• Si nouveau client : saisie des informations (nom, téléphone, adresse)
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">4.</span> Le gérant ajoute les services demandés :
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;• Sélection du type de service (nettoyage à sec, repassage, teinture, etc.)
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;• Indication de la quantité pour chaque service
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;• Ajout de notes spéciales si nécessaire
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">5.</span> Le système calcule automatiquement le total de la commande
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">6.</span> Le gérant vérifie les informations et confirme la création
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">7.</span> Le système génère un numéro de commande unique (ex: CMD-001)
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">8.</span> Le système enregistre la commande avec le statut "En attente"
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">9.</span> Le gérant communique le numéro de commande au client
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">10.</span> Le client repart avec ses informations de commande
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">🔄</span>Extensions
+                    </td>
+                    <td class="content-cell">
+                        <strong>3a. Client existant non trouvé :</strong><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;3a.1. Le système propose de créer un nouveau profil client<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;3a.2. Retour à l'étape 3<br><br>
+                        
+                        <strong>4a. Service non disponible :</strong><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;4a.1. Le système affiche un message d'indisponibilité<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;4a.2. Le gérant propose une alternative au client<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;4a.3. Retour à l'étape 4<br><br>
+                        
+                        <strong>6a. Informations incomplètes :</strong><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;6a.1. Le système signale les champs manquants<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;6a.2. Retour à l'étape concernée
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">⚠️</span>Scénarios d'exception
+                    </td>
+                    <td class="content-cell">
+                        <div class="scenario-step exception-step">
+                            <span class="step-number">E1.</span> <strong>Panne système pendant la création :</strong>
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E1.1. Le système affiche un message d'erreur
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E1.2. Les données saisies sont perdues
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E1.3. Le gérant doit recommencer la saisie
+                        </div>
+                        <div class="scenario-step exception-step">
+                            <span class="step-number">E2.</span> <strong>Client change d'avis pendant la saisie :</strong>
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E2.1. Le gérant annule la création de commande
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E2.2. Retour au dashboard principal
+                        </div>
+                        <div class="scenario-step exception-step">
+                            <span class="step-number">E3.</span> <strong>Capacité de traitement dépassée :</strong>
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E3.1. Le système alerte sur la surcharge
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E3.2. Le gérant propose un délai de livraison plus long
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E3.3. Si accepté, continue le processus normal
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">⏱️</span>Fréquence d'utilisation
+                    </td>
+                    <td class="content-cell">
+                        <strong>Très élevée</strong> - Plusieurs fois par jour (10-50 commandes/jour selon la taille du pressing)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">📊</span>Priorité
+                    </td>
+                    <td class="content-cell">
+                        <strong>Critique</strong> - Fonctionnalité centrale du système
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">🔗</span>Relations
+                    </td>
+                    <td class="content-cell">
+                        • <strong>Include :</strong> "Gérer les clients" (création/sélection client)<br>
+                        • <strong>Include :</strong> "Calculer le total" (calcul automatique)<br>
+                        • <strong>Extend :</strong> "Ajouter des notes spéciales"<br>
+                        • <strong>Précède :</strong> "Suivre une commande"<br>
+                        • <strong>Précède :</strong> "Traiter une commande"
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">📋</span>Données manipulées
+                    </td>
+                    <td class="content-cell">
+                        • <strong>Entrées :</strong> Informations client, services demandés, quantités, notes<br>
+                        • <strong>Sorties :</strong> Numéro de commande, total calculé, récapitulatif<br>
+                        • <strong>Stockage :</strong> Commande complète dans la base de données
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">⚡</span>Exigences non-fonctionnelles
+                    </td>
+                    <td class="content-cell">
+                        • <strong>Performance :</strong> Création de commande en moins de 30 secondes<br>
+                        • <strong>Fiabilité :</strong> Aucune perte de données lors de la création<br>
+                        • <strong>Utilisabilité :</strong> Interface intuitive pour les gérants<br>
+                        • <strong>Sécurité :</strong> Authentification requise, traçabilité des actions
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <p><strong>ManohPressing</strong> - Spécification des cas d'utilisation</p>
+            <div style="margin-top: 1rem;">
+                <a href="index.html">🏠 Retour aux diagrammes</a>
+                <a href="documentation.html">📚 Documentation</a>
+                <a href="../../manager-dashboard.html">👔 Dashboard Gérant</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

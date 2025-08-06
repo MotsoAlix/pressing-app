@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapports - Pressing Management System</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/base/variables.css">
+    <link rel="stylesheet" href="assets/css/base/reset.css">
+    <link rel="stylesheet" href="assets/css/base/typography.css">
+    <link rel="stylesheet" href="assets/css/layouts/grid.css">
+    <link rel="stylesheet" href="assets/css/layouts/responsive.css">
+    <link rel="stylesheet" href="assets/css/layouts/sidebar.css">
+    <link rel="stylesheet" href="assets/css/components/buttons.css">
+    <link rel="stylesheet" href="assets/css/components/cards.css">
+    <link rel="stylesheet" href="assets/css/components/forms.css">
+    <link rel="stylesheet" href="assets/css/components/modals.css">
+    <link rel="stylesheet" href="assets/css/components/tables.css">
+    <link rel="stylesheet" href="assets/css/components/toast.css">
+    <link rel="stylesheet" href="assets/css/pages/reports.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon">👔</div>
+                <h1 class="sidebar-logo-text">Pressing Pro</h1>
+            </div>
+            <button class="sidebar-close" data-action="close-sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-nav-section">
+                <h3 class="sidebar-nav-title">Menu Principal</h3>
+                <ul class="sidebar-nav-list">
+                    <li class="sidebar-nav-item">
+                        <a href="/dashboard" class="sidebar-nav-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/orders" class="sidebar-nav-link">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>Commandes</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/customers" class="sidebar-nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/tracking" class="sidebar-nav-link">
+                            <i class="fas fa-search"></i>
+                            <span>Suivi</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-nav-section">
+                <h3 class="sidebar-nav-title">Gestion</h3>
+                <ul class="sidebar-nav-list">
+                    <li class="sidebar-nav-item">
+                        <a href="/payments" class="sidebar-nav-link">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/reports" class="sidebar-nav-link is-active">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Rapports</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/admin" class="sidebar-nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Administration</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user" data-action="toggle-user-menu">
+                <div class="sidebar-user-avatar">A</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name">Admin User</div>
+                    <div class="sidebar-user-role">Administrateur</div>
+                </div>
+                <div class="sidebar-user-menu">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            
+            <div class="sidebar-user-dropdown">
+                <a href="#" class="sidebar-user-dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profil</span>
+                </a>
+                <a href="#" class="sidebar-user-dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Paramètres</span>
+                </a>
+                <a href="/logout" class="sidebar-user-dropdown-item danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Overlay pour mobile -->
+    <div class="sidebar-overlay" data-action="close-sidebar"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="header-toggle" data-action="toggle-sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-search">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Rechercher un rapport...">
+                    <button class="search-clear" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="search-shortcut">Ctrl+K</div>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="header-actions">
+                <button class="header-action" data-action="notifications" title="Notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" style="display: none;">0</span>
+                </button>
+                <button class="header-action" data-action="generate-report" title="Générer un rapport">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h1 class="page-title">Rapports</h1>
+                    <p class="page-subtitle">Analyses et statistiques détaillées</p>
+                </div>
+                <div class="page-header-actions">
+                    <button class="btn btn-secondary" data-action="export-report">
+                        <i class="fas fa-download"></i>
+                        <span>Exporter</span>
+                    </button>
+                    <button class="btn btn-primary" data-action="generate-report">
+                        <i class="fas fa-plus"></i>
+                        <span>Générer un rapport</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Period Selector -->
+            <div class="period-selector">
+                <div class="period-buttons">
+                    <button class="period-btn is-active" data-period="week">Semaine</button>
+                    <button class="period-btn" data-period="month">Mois</button>
+                    <button class="period-btn" data-period="quarter">Trimestre</button>
+                    <button class="period-btn" data-period="year">Année</button>
+                </div>
+                <div class="period-custom">
+                    <input type="date" class="form-input" id="startDate">
+                    <span>à</span>
+                    <input type="date" class="form-input" id="endDate">
+                    <button class="btn btn-secondary btn-sm" data-action="apply-period">Appliquer</button>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Revenus</h3>
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <div class="metric-value" id="revenueMetric">0€</div>
+                    <div class="metric-change positive">+12.5%</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Commandes</h3>
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="metric-value" id="ordersMetric">0</div>
+                    <div class="metric-change positive">+8.3%</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Clients</h3>
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="metric-value" id="customersMetric">0</div>
+                    <div class="metric-change positive">+15.2%</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Moyenne</h3>
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="metric-value" id="averageMetric">0€</div>
+                    <div class="metric-change negative">-2.1%</div>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                <!-- Revenue Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Évolution des revenus</h3>
+                        <div class="chart-actions">
+                            <button class="btn btn-sm btn-secondary" data-action="refresh-chart">Actualiser</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Orders Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Répartition des commandes</h3>
+                        <div class="chart-actions">
+                            <button class="btn btn-sm btn-secondary" data-action="refresh-chart">Actualiser</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="ordersChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Services Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Services les plus populaires</h3>
+                        <div class="chart-actions">
+                            <button class="btn btn-sm btn-secondary" data-action="refresh-chart">Actualiser</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="servicesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Performance Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Performance par jour</h3>
+                        <div class="chart-actions">
+                            <button class="btn btn-sm btn-secondary" data-action="refresh-chart">Actualiser</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Performers -->
+            <div class="content-card">
+                <div class="content-card-header">
+                    <h2 class="content-card-title">Meilleurs clients</h2>
+                    <div class="content-card-actions">
+                        <button class="btn btn-secondary btn-sm" data-action="view-all-customers">
+                            Voir tous
+                        </button>
+                    </div>
+                </div>
+                <div class="content-card-body">
+                    <div class="top-performers" id="topPerformers">
+                        <!-- Chargé dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- JavaScript -->
+    <script type="module" src="assets/js/core/api.js"></script>
+    <script type="module" src="assets/js/core/router.js"></script>
+    <script type="module" src="assets/js/components/toast.js"></script>
+    <script type="module" src="assets/js/modules/auth.js"></script>
+    <script type="module" src="assets/js/modules/reports.js"></script>
+    <script type="module" src="assets/js/core/app.js"></script>
+</body>
+</html> 

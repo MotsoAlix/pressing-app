@@ -1,0 +1,108 @@
+/* Reset CSS moderne */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-900);
+  background-color: var(--color-gray-50);
+  min-height: 100vh;
+}
+
+main {
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  color: var(--color-gray-900);
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-gray-900);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Focus styles pour l'accessibilité */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Supprimer les styles par défaut sur mobile */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+/* Améliorer l'accessibilité des éléments interactifs */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Masquer les éléments visuellement mais les garder accessibles aux lecteurs d'écran */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+} 

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cas d'utilisation : Effectuer un paiement mobile - ManohPressing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .use-case-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .use-case-table th {
+            background: #10b981;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+            font-size: 16px;
+            border: 1px solid #059669;
+        }
+
+        .use-case-table td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .use-case-table tr:nth-child(even) {
+            background: #f0fdf4;
+        }
+
+        .use-case-table tr:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        .label-cell {
+            background: #dcfce7 !important;
+            font-weight: bold;
+            color: #166534;
+            width: 200px;
+            border-right: 2px solid #10b981;
+        }
+
+        .content-cell {
+            background: white;
+            line-height: 1.8;
+        }
+
+        .scenario-step {
+            margin: 0.5rem 0;
+            padding-left: 1rem;
+        }
+
+        .step-number {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .exception-step {
+            color: #dc2626;
+            font-style: italic;
+        }
+
+        .footer {
+            background: #f0fdf4;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #bbf7d0;
+        }
+
+        .footer a {
+            color: #10b981;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            background: #10b981;
+            color: white;
+        }
+
+        .icon {
+            font-size: 1.2em;
+            margin-right: 0.5rem;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .use-case-table {
+                font-size: 12px;
+            }
+            
+            .use-case-table th,
+            .use-case-table td {
+                padding: 0.75rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💳 Cas d'utilisation : Effectuer un paiement mobile</h1>
+            <p>ManohPressing - Spécification détaillée</p>
+        </div>
+
+        <table class="use-case-table">
+            <thead>
+                <tr>
+                    <th style="width: 200px;">Élément</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">💳</span>Cas d'utilisation
+                    </td>
+                    <td class="content-cell">
+                        <strong>Effectuer un paiement mobile</strong>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">👤</span>Acteur principal
+                    </td>
+                    <td class="content-cell">
+                        <strong>Client</strong> (propriétaire de la commande)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">👥</span>Acteurs secondaires
+                    </td>
+                    <td class="content-cell">
+                        • <strong>Système</strong> (traitement automatique)<br>
+                        • <strong>Opérateur mobile</strong> (Orange Money / MTN Money)<br>
+                        • <strong>Gérant</strong> (réception de notification)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">🎯</span>Objectif
+                    </td>
+                    <td class="content-cell">
+                        Le client souhaite payer sa facture de pressing en utilisant son compte de mobile money (Orange Money ou MTN Money)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">💡</span>Intérêts
+                    </td>
+                    <td class="content-cell">
+                        • <strong>Client :</strong> Payer facilement sans espèces, depuis n'importe où<br>
+                        • <strong>Gérant :</strong> Recevoir les paiements rapidement et de manière sécurisée<br>
+                        • <strong>Pressing :</strong> Réduire la gestion d'espèces et améliorer la traçabilité
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">✅</span>Pré-conditions
+                    </td>
+                    <td class="content-cell">
+                        • Le client doit être authentifié dans le système<br>
+                        • Une commande livrée doit exister avec un montant à payer<br>
+                        • Le client doit avoir un compte mobile money actif<br>
+                        • Le compte mobile money doit avoir un solde suffisant<br>
+                        • La connexion internet doit être disponible
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">🎉</span>Post-conditions
+                    </td>
+                    <td class="content-cell">
+                        • Le paiement est traité et confirmé<br>
+                        • Le statut de paiement de la commande est mis à jour<br>
+                        • Le gérant reçoit une notification de paiement<br>
+                        • Un code de confirmation est généré<br>
+                        • L'historique des paiements est mis à jour
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">📝</span>Scénario nominal
+                    </td>
+                    <td class="content-cell">
+                        <div class="scenario-step">
+                            <span class="step-number">1.</span> Le client accède à ses commandes livrées non payées
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">2.</span> Le client clique sur "Payer" pour une commande spécifique
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">3.</span> Le système affiche le modal de paiement avec le montant total
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">4.</span> Le client sélectionne sa méthode de paiement :
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;• <span class="highlight">Orange Money</span> (frais 2%)
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;• <span class="highlight">MTN Money</span> (frais 1.5%)
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">5.</span> Le client saisit son numéro de téléphone mobile money
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">6.</span> Le système valide le format du numéro selon l'opérateur
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">7.</span> Le système calcule et affiche les frais de transaction
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">8.</span> Le client confirme le paiement avec le montant total (montant + frais)
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">9.</span> Le système initie la transaction avec l'opérateur mobile
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">10.</span> Le système simule le traitement de l'opérateur (85% succès)
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">11.</span> En cas de succès, le système génère un code de confirmation
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">12.</span> Le système notifie automatiquement le gérant du paiement reçu
+                        </div>
+                        <div class="scenario-step">
+                            <span class="step-number">13.</span> Le client reçoit la confirmation avec le code de transaction
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">🔄</span>Extensions
+                    </td>
+                    <td class="content-cell">
+                        <strong>6a. Numéro de téléphone invalide :</strong><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;6a.1. Le système affiche un message d'erreur de format<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;6a.2. Retour à l'étape 5<br><br>
+                        
+                        <strong>8a. Client annule le paiement :</strong><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;8a.1. Le système ferme le modal de paiement<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;8a.2. Retour à la liste des commandes<br><br>
+                        
+                        <strong>10a. Solde insuffisant :</strong><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;10a.1. L'opérateur retourne une erreur de solde<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;10a.2. Le système affiche le message d'erreur<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;10a.3. Proposition de réessayer plus tard
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">⚠️</span>Scénarios d'exception
+                    </td>
+                    <td class="content-cell">
+                        <div class="scenario-step exception-step">
+                            <span class="step-number">E1.</span> <strong>Panne de l'opérateur mobile :</strong>
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E1.1. Le système détecte un timeout de l'opérateur
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E1.2. Message d'erreur "Service temporairement indisponible"
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E1.3. Proposition de réessayer dans quelques minutes
+                        </div>
+                        <div class="scenario-step exception-step">
+                            <span class="step-number">E2.</span> <strong>Connexion internet perdue :</strong>
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E2.1. Le système détecte la perte de connexion
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E2.2. Sauvegarde de l'état de la transaction
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E2.3. Message "Vérifiez votre connexion internet"
+                        </div>
+                        <div class="scenario-step exception-step">
+                            <span class="step-number">E3.</span> <strong>Transaction en double :</strong>
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E3.1. Le système détecte une transaction similaire récente
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E3.2. Blocage de la nouvelle transaction
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;E3.3. Message "Paiement déjà en cours de traitement"
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">⏱️</span>Fréquence d'utilisation
+                    </td>
+                    <td class="content-cell">
+                        <strong>Élevée</strong> - Plusieurs fois par jour (50-80% des paiements selon l'adoption)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">📊</span>Priorité
+                    </td>
+                    <td class="content-cell">
+                        <strong>Élevée</strong> - Fonctionnalité différenciante et moderne
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">🔗</span>Relations
+                    </td>
+                    <td class="content-cell">
+                        • <strong>Require :</strong> "Consulter ses commandes" (commande doit exister)<br>
+                        • <strong>Include :</strong> "Valider numéro de téléphone"<br>
+                        • <strong>Include :</strong> "Calculer les frais de transaction"<br>
+                        • <strong>Extend :</strong> "Recevoir notification SMS" (si disponible)<br>
+                        • <strong>Trigger :</strong> "Notifier le gérant" (notification automatique)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">📋</span>Données manipulées
+                    </td>
+                    <td class="content-cell">
+                        • <strong>Entrées :</strong> ID commande, méthode paiement, numéro téléphone<br>
+                        • <strong>Calculs :</strong> Montant + frais, validation numéro<br>
+                        • <strong>Sorties :</strong> Code de confirmation, statut transaction<br>
+                        • <strong>Stockage :</strong> Transaction complète, historique paiements
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">⚡</span>Exigences non-fonctionnelles
+                    </td>
+                    <td class="content-cell">
+                        • <strong>Performance :</strong> Traitement en moins de 60 secondes<br>
+                        • <strong>Fiabilité :</strong> 99% de disponibilité, gestion des timeouts<br>
+                        • <strong>Sécurité :</strong> Chiffrement des données, validation stricte<br>
+                        • <strong>Utilisabilité :</strong> Interface simple, messages d'erreur clairs<br>
+                        • <strong>Intégration :</strong> Compatible Orange Money et MTN Money
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label-cell">
+                        <span class="icon">💰</span>Règles métier
+                    </td>
+                    <td class="content-cell">
+                        • <strong>Orange Money :</strong> Numéros 65-69, frais 2%<br>
+                        • <strong>MTN Money :</strong> Numéros 67-68, frais 1.5%<br>
+                        • <strong>Montant minimum :</strong> 500 FCFA<br>
+                        • <strong>Montant maximum :</strong> 500 000 FCFA par transaction<br>
+                        • <strong>Tentatives :</strong> Maximum 3 tentatives par commande<br>
+                        • <strong>Expiration :</strong> Transaction expire après 5 minutes d'inactivité
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <p><strong>ManohPressing</strong> - Spécification des cas d'utilisation</p>
+            <div style="margin-top: 1rem;">
+                <a href="use-case-passer-commande.html">📋 Passer une commande</a>
+                <a href="index.html">🏠 Retour aux diagrammes</a>
+                <a href="../../client-dashboard.html">👤 Dashboard Client</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

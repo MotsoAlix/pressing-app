@@ -1,0 +1,435 @@
+/* Overlay de la modale */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: var(--z-modal-backdrop);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4);
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Conteneur de la modale */
+.modal {
+  background: white;
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-xl);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+  transform: scale(0.9) translateY(-20px);
+  opacity: 0;
+  transition: all var(--transition-normal);
+  position: relative;
+  z-index: var(--z-modal);
+}
+
+.modal-overlay.is-open .modal {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* Tailles de modales */
+.modal-sm {
+  width: 400px;
+}
+
+.modal-md {
+  width: 600px;
+}
+
+.modal-lg {
+  width: 800px;
+}
+
+.modal-xl {
+  width: 1000px;
+}
+
+.modal-full {
+  width: 95vw;
+  height: 95vh;
+}
+
+/* En-tête de la modale */
+.modal-header {
+  padding: var(--spacing-6);
+  border-bottom: var(--border-width) solid var(--color-gray-200);
+  background-color: var(--color-gray-50);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  margin: 0;
+}
+
+.modal-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin: var(--spacing-1) 0 0 0;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-600);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+  background-color: var(--color-gray-200);
+  color: var(--color-gray-900);
+}
+
+/* Corps de la modale */
+.modal-body {
+  padding: var(--spacing-6);
+  overflow-y: auto;
+  max-height: calc(90vh - 200px);
+}
+
+.modal-body:only-child {
+  padding: var(--spacing-6);
+}
+
+/* Pied de la modale */
+.modal-footer {
+  padding: var(--spacing-4) var(--spacing-6);
+  border-top: var(--border-width) solid var(--color-gray-200);
+  background-color: var(--color-gray-50);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+}
+
+.modal-footer-left {
+  justify-content: flex-start;
+}
+
+.modal-footer-center {
+  justify-content: center;
+}
+
+.modal-footer-space-between {
+  justify-content: space-between;
+}
+
+/* Modales avec icônes */
+.modal-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-4);
+}
+
+.modal-icon.success {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.modal-icon.warning {
+  background-color: var(--color-warning);
+  color: white;
+}
+
+.modal-icon.error {
+  background-color: var(--color-error);
+  color: white;
+}
+
+.modal-icon.info {
+  background-color: var(--color-info);
+  color: white;
+}
+
+/* Modales de confirmation */
+.modal-confirm {
+  text-align: center;
+  max-width: 400px;
+}
+
+.modal-confirm .modal-body {
+  padding: var(--spacing-8);
+}
+
+.modal-confirm .modal-footer {
+  justify-content: center;
+}
+
+/* Modales avec formulaire */
+.modal-form .modal-body {
+  padding: var(--spacing-6);
+}
+
+.modal-form .form-group {
+  margin-bottom: var(--spacing-4);
+}
+
+/* Modales avec contenu personnalisé */
+.modal-content {
+  padding: var(--spacing-6);
+}
+
+/* Modales avec onglets */
+.modal-tabs {
+  display: flex;
+  border-bottom: var(--border-width) solid var(--color-gray-200);
+  background-color: var(--color-gray-50);
+}
+
+.modal-tab {
+  padding: var(--spacing-4) var(--spacing-6);
+  border: none;
+  background: none;
+  color: var(--color-gray-600);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-bottom: 2px solid transparent;
+}
+
+.modal-tab:hover {
+  color: var(--color-gray-900);
+  background-color: var(--color-gray-100);
+}
+
+.modal-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  background-color: white;
+}
+
+.modal-tab-content {
+  display: none;
+  padding: var(--spacing-6);
+}
+
+.modal-tab-content.active {
+  display: block;
+}
+
+/* Modales avec chargement */
+.modal-loading {
+  text-align: center;
+  padding: var(--spacing-12);
+}
+
+.modal-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-gray-200);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto var(--spacing-4);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Modales avec vidéo */
+.modal-video {
+  width: 90vw;
+  max-width: 1000px;
+}
+
+.modal-video .modal-body {
+  padding: 0;
+  background: black;
+}
+
+.modal-video video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Modales avec image */
+.modal-image {
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.modal-image .modal-body {
+  padding: 0;
+  text-align: center;
+}
+
+.modal-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Modales empilées */
+.modal-stack {
+  position: relative;
+}
+
+.modal-stack .modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+.modal-stack .modal:nth-child(2) {
+  transform: translate(-50%, -50%) scale(0.85);
+  z-index: calc(var(--z-modal) - 1);
+}
+
+.modal-stack .modal:nth-child(3) {
+  transform: translate(-50%, -50%) scale(0.8);
+  z-index: calc(var(--z-modal) - 2);
+}
+
+/* Animations d'entrée/sortie */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes modalSlideOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+}
+
+.modal.slide-in {
+  animation: modalSlideIn var(--transition-normal) ease-out;
+}
+
+.modal.slide-out {
+  animation: modalSlideOut var(--transition-normal) ease-in;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: var(--spacing-2);
+  }
+  
+  .modal {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: var(--border-radius-lg);
+  }
+  
+  .modal-header {
+    padding: var(--spacing-4);
+  }
+  
+  .modal-body {
+    padding: var(--spacing-4);
+    max-height: calc(100vh - 150px);
+  }
+  
+  .modal-footer {
+    padding: var(--spacing-4);
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .modal-footer .btn {
+    width: 100%;
+  }
+  
+  .modal-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .modal-tab {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+  }
+}
+
+/* Accessibilité */
+.modal[role="dialog"] {
+  outline: none;
+}
+
+.modal:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+  .modal {
+    background-color: var(--color-gray-800);
+    color: white;
+  }
+  
+  .modal-header {
+    background-color: var(--color-gray-700);
+    border-bottom-color: var(--color-gray-600);
+  }
+  
+  .modal-footer {
+    background-color: var(--color-gray-700);
+    border-top-color: var(--color-gray-600);
+  }
+  
+  .modal-title {
+    color: white;
+  }
+  
+  .modal-close {
+    background-color: var(--color-gray-600);
+    color: var(--color-gray-300);
+  }
+  
+  .modal-close:hover {
+    background-color: var(--color-gray-500);
+    color: white;
+  }
+} 

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Paiements - ManohPressing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --background-color: #f8fafc;
+            --surface-color: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --gradient-primary: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--surface-color);
+            border-right: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--background-color);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+        }
+
+        .page-header {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+
+        .stat-icon.success {
+            background: var(--success-color);
+        }
+
+        .stat-icon.warning {
+            background: var(--warning-color);
+        }
+
+        .stat-icon.primary {
+            background: var(--primary-color);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .filters {
+            background: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .filter-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: white;
+            color: var(--text-primary);
+        }
+
+        .payments-table {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .table-body {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--background-color);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        tr:hover {
+            background: var(--background-color);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .status-paid {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-unpaid {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            justify-content: center;
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--background-color);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                justify-content: space-between;
+            }
+
+            .table-body {
+                font-size: 0.875rem;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>👔 Gérant</h2>
+                <p>Interface de Gestion</p>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item">
+                    <a href="manager-dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Tableau de Bord
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="orders.html" class="nav-link">
+                        <i class="fas fa-box"></i>
+                        Commandes
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="customers.html" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        Clients
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="manager-payments.html" class="nav-link active">
+                        <i class="fas fa-credit-card"></i>
+                        Paiements
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="reports.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        Rapports
+                    </a>
+                </div>
+                <div class="nav-item" style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+                    <a href="/" class="nav-link" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Déconnexion
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="fas fa-credit-card"></i>
+                    Gestion des Paiements
+                </h1>
+                <p class="page-subtitle">Gérez les statuts de paiement des commandes livrées</p>
+            </div>
+
+            <!-- Statistiques -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-value" id="paidCount">0</div>
+                    <div class="stat-label">Commandes Payées</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon warning">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-value" id="unpaidCount">0</div>
+                    <div class="stat-label">En Attente de Paiement</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon primary">
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <div class="stat-value" id="totalRevenue">0€</div>
+                    <div class="stat-label">Chiffre d'Affaires</div>
+                </div>
+            </div>
+
+            <!-- Filtres -->
+            <div class="filters">
+                <div class="filter-group">
+                    <label class="filter-label">Statut:</label>
+                    <select class="filter-select" id="statusFilter" onchange="filterPayments()">
+                        <option value="all">Tous</option>
+                        <option value="paid">Payées</option>
+                        <option value="unpaid">Non payées</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Période:</label>
+                    <select class="filter-select" id="periodFilter" onchange="filterPayments()">
+                        <option value="all">Toutes</option>
+                        <option value="today">Aujourd'hui</option>
+                        <option value="week">Cette semaine</option>
+                        <option value="month">Ce mois</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <button class="btn btn-outline" onclick="refreshPayments()">
+                        <i class="fas fa-refresh"></i>
+                        Actualiser
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tableau des paiements -->
+            <div class="payments-table">
+                <div class="table-header">
+                    <h3 class="table-title">Liste des Paiements</h3>
+                    <div>
+                        <button class="btn btn-outline btn-sm" onclick="exportPayments()">
+                            <i class="fas fa-download"></i>
+                            Exporter
+                        </button>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Commande</th>
+                                <th>Client</th>
+                                <th>Montant</th>
+                                <th>Date Livraison</th>
+                                <th>Statut</th>
+                                <th>Méthode</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentsTableBody">
+                            <!-- Les paiements seront chargés ici -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/modules/data-init.js"></script>
+    <script src="assets/js/modules/data-manager.js"></script>
+    <script src="assets/js/modules/toast-notifications.js"></script>
+    <script>
+        let currentUser = null;
+        let allPayments = [];
+        let filteredPayments = [];
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            loadPayments();
+        });
+
+        function initializeApp() {
+            // Vérifier l'authentification
+            let userData = localStorage.getItem('user');
+
+            // Si pas d'utilisateur, créer un utilisateur gérant de test
+            if (!userData) {
+                const testUser = {
+                    id: 100,
+                    name: 'Gérant Principal',
+                    email: 'gerant@manohpressing.com',
+                    phone: '69999999',
+                    role: 'manager'
+                };
+                localStorage.setItem('user', JSON.stringify(testUser));
+                userData = JSON.stringify(testUser);
+            }
+
+            try {
+                currentUser = JSON.parse(userData);
+                if (currentUser.role !== 'manager') {
+                    // Créer un utilisateur gérant si ce n'est pas le bon rôle
+                    currentUser = {
+                        id: 100,
+                        name: 'Gérant Principal',
+                        email: 'gerant@manohpressing.com',
+                        phone: '69999999',
+                        role: 'manager'
+                    };
+                    localStorage.setItem('user', JSON.stringify(currentUser));
+                }
+            } catch (error) {
+                console.error('Erreur parsing user data:', error);
+                // Créer un utilisateur par défaut
+                currentUser = {
+                    id: 100,
+                    name: 'Gérant Principal',
+                    email: 'gerant@manohpressing.com',
+                    phone: '69999999',
+                    role: 'manager'
+                };
+                localStorage.setItem('user', JSON.stringify(currentUser));
+            }
+        }
+
+        function loadPayments() {
+            let orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            let customers = JSON.parse(localStorage.getItem('manohpressing_customers') || '[]');
+
+            // Ajouter des données de test si nécessaire
+            if (orders.length === 0) {
+                customers = [
+                    { id: 1, name: 'Jean Dupont', phone: '65123456', email: 'jean@example.com' },
+                    { id: 2, name: 'Marie Martin', phone: '67234567', email: 'marie@example.com' },
+                    { id: 3, name: 'Paul Durand', phone: '68345678', email: 'paul@example.com' }
+                ];
+
+                orders = [
+                    {
+                        id: 1,
+                        orderNumber: 'CMD001',
+                        customerId: 1,
+                        status: 'delivered',
+                        paymentStatus: 'unpaid',
+                        total: 25,
+                        services: [
+                            { name: 'Nettoyage à sec - Costume', price: 15 },
+                            { name: 'Repassage - Chemise', price: 10 }
+                        ],
+                        createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+                        deliveredAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString()
+                    },
+                    {
+                        id: 2,
+                        orderNumber: 'CMD002',
+                        customerId: 2,
+                        status: 'delivered',
+                        paymentStatus: 'paid',
+                        paymentMethod: 'orange_money',
+                        total: 18,
+                        services: [
+                            { name: 'Lavage - Pantalon', price: 8 },
+                            { name: 'Repassage - Robe', price: 10 }
+                        ],
+                        createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+                        deliveredAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+                        paidAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
+                    },
+                    {
+                        id: 3,
+                        orderNumber: 'CMD003',
+                        customerId: 3,
+                        status: 'delivered',
+                        paymentStatus: 'unpaid',
+                        total: 32,
+                        services: [
+                            { name: 'Nettoyage à sec - Robe de soirée', price: 25 },
+                            { name: 'Repassage - Veste', price: 7 }
+                        ],
+                        createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+                        deliveredAt: new Date().toISOString()
+                    }
+                ];
+
+                localStorage.setItem('manohpressing_orders', JSON.stringify(orders));
+                localStorage.setItem('manohpressing_customers', JSON.stringify(customers));
+            }
+
+            // Filtrer les commandes livrées
+            const deliveredOrders = orders.filter(order => order.status === 'delivered');
+            
+            allPayments = deliveredOrders.map(order => {
+                const customer = customers.find(c => c.id === order.customerId) || 
+                    { name: 'Client inconnu', phone: 'N/A' };
+                
+                return {
+                    ...order,
+                    customerName: customer.name,
+                    customerPhone: customer.phone
+                };
+            });
+
+            filteredPayments = [...allPayments];
+            updateStatistics();
+            renderPaymentsTable();
+        }
+
+        function updateStatistics() {
+            const paidOrders = filteredPayments.filter(p => p.paymentStatus === 'paid');
+            const unpaidOrders = filteredPayments.filter(p => p.paymentStatus !== 'paid');
+            const totalRevenue = paidOrders.reduce((sum, order) => sum + (order.total || 0), 0);
+
+            document.getElementById('paidCount').textContent = paidOrders.length;
+            document.getElementById('unpaidCount').textContent = unpaidOrders.length;
+            document.getElementById('totalRevenue').textContent = totalRevenue + '€';
+        }
+
+        function renderPaymentsTable() {
+            const tbody = document.getElementById('paymentsTableBody');
+            
+            if (filteredPayments.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <i class="fas fa-credit-card"></i>
+                                <h3>Aucun paiement trouvé</h3>
+                                <p>Aucune commande livrée ne correspond aux critères sélectionnés.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filteredPayments.map(payment => `
+                <tr>
+                    <td>
+                        <strong>#${payment.orderNumber}</strong><br>
+                        <small style="color: var(--text-secondary);">${formatDate(payment.createdAt)}</small>
+                    </td>
+                    <td>
+                        <strong>${payment.customerName}</strong><br>
+                        <small style="color: var(--text-secondary);">${payment.customerPhone}</small>
+                    </td>
+                    <td>
+                        <strong>${payment.total}€</strong>
+                    </td>
+                    <td>
+                        ${formatDate(payment.deliveredAt || payment.createdAt)}
+                    </td>
+                    <td>
+                        <span class="status-badge ${payment.paymentStatus === 'paid' ? 'status-paid' : 'status-unpaid'}">
+                            ${payment.paymentStatus === 'paid' ? 'Payé' : 'Non payé'}
+                        </span>
+                    </td>
+                    <td>
+                        ${payment.paymentMethod ? 
+                            (payment.paymentMethod === 'orange_money' ? 'Orange Money' : 'MTN Money') : 
+                            '-'
+                        }
+                    </td>
+                    <td>
+                        ${payment.paymentStatus === 'paid' ? 
+                            `<button class="btn btn-warning btn-sm" onclick="markAsUnpaid(${payment.id})">
+                                <i class="fas fa-undo"></i> Annuler
+                            </button>` :
+                            `<button class="btn btn-success btn-sm" onclick="markAsPaid(${payment.id})">
+                                <i class="fas fa-check"></i> Marquer payé
+                            </button>`
+                        }
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function markAsPaid(orderId) {
+            if (!confirm('Marquer cette commande comme payée ?')) return;
+
+            const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            const updatedOrders = orders.map(order => {
+                if (order.id === orderId) {
+                    return {
+                        ...order,
+                        paymentStatus: 'paid',
+                        paymentMethod: 'manual', // Paiement manuel par le gérant
+                        paidAt: new Date().toISOString()
+                    };
+                }
+                return order;
+            });
+
+            localStorage.setItem('manohpressing_orders', JSON.stringify(updatedOrders));
+            showToast('Commande marquée comme payée', 'success');
+            loadPayments();
+        }
+
+        function markAsUnpaid(orderId) {
+            if (!confirm('Annuler le paiement de cette commande ?')) return;
+
+            const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            const updatedOrders = orders.map(order => {
+                if (order.id === orderId) {
+                    const { paymentStatus, paymentMethod, paidAt, ...orderWithoutPayment } = order;
+                    return {
+                        ...orderWithoutPayment,
+                        paymentStatus: 'unpaid'
+                    };
+                }
+                return order;
+            });
+
+            localStorage.setItem('manohpressing_orders', JSON.stringify(updatedOrders));
+            showToast('Paiement annulé', 'warning');
+            loadPayments();
+        }
+
+        function filterPayments() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const periodFilter = document.getElementById('periodFilter').value;
+
+            filteredPayments = allPayments.filter(payment => {
+                // Filtre par statut
+                if (statusFilter === 'paid' && payment.paymentStatus !== 'paid') return false;
+                if (statusFilter === 'unpaid' && payment.paymentStatus === 'paid') return false;
+
+                // Filtre par période
+                if (periodFilter !== 'all') {
+                    const paymentDate = new Date(payment.deliveredAt || payment.createdAt);
+                    const now = new Date();
+                    
+                    switch (periodFilter) {
+                        case 'today':
+                            if (paymentDate.toDateString() !== now.toDateString()) return false;
+                            break;
+                        case 'week':
+                            const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                            if (paymentDate < weekAgo) return false;
+                            break;
+                        case 'month':
+                            const monthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+                            if (paymentDate < monthAgo) return false;
+                            break;
+                    }
+                }
+
+                return true;
+            });
+
+            updateStatistics();
+            renderPaymentsTable();
+        }
+
+        function refreshPayments() {
+            loadPayments();
+            showToast('Données actualisées', 'success');
+        }
+
+        function exportPayments() {
+            const csvContent = [
+                ['Commande', 'Client', 'Téléphone', 'Montant', 'Date Livraison', 'Statut', 'Méthode', 'Date Paiement'].join(','),
+                ...filteredPayments.map(payment => [
+                    payment.orderNumber,
+                    payment.customerName,
+                    payment.customerPhone,
+                    payment.total,
+                    formatDate(payment.deliveredAt || payment.createdAt),
+                    payment.paymentStatus === 'paid' ? 'Payé' : 'Non payé',
+                    payment.paymentMethod || '-',
+                    payment.paidAt ? formatDate(payment.paidAt) : '-'
+                ].join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `paiements_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+
+            showToast('Export réalisé avec succès', 'success');
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = '/';
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-color)' : type === 'error' ? 'var(--error-color)' : type === 'warning' ? 'var(--warning-color)' : 'var(--primary-color)'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: var(--radius-md);
+                box-shadow: var(--shadow-lg);
+                z-index: 10000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200">
+  <title>Diagramme de classes - ManohPressing</title>
+
+  <!-- Styles -->
+  <defs>
+    <style>
+      .entity { fill: #e8f4fd; stroke: #1976d2; stroke-width: 2; }
+      .manager { fill: #f0f9ff; stroke: #0369a1; stroke-width: 2; }
+      .enum { fill: #fef3c7; stroke: #d97706; stroke-width: 2; }
+      .text { font-family: Arial, sans-serif; font-size: 10px; }
+      .title { font-size: 18px; font-weight: bold; text-anchor: middle; }
+      .class-name { font-size: 12px; font-weight: bold; text-anchor: middle; }
+      .section-title { font-size: 14px; font-weight: bold; text-anchor: middle; fill: #374151; }
+      .line { stroke: #374151; stroke-width: 1; fill: none; }
+      .composition { stroke: #dc2626; stroke-width: 2; marker-end: url(#diamond); }
+      .association { stroke: #059669; stroke-width: 1.5; marker-end: url(#arrow); }
+      .dependency { stroke: #7c3aed; stroke-width: 1; stroke-dasharray: 5,5; marker-end: url(#arrow); }
+      .inheritance { stroke: #ea580c; stroke-width: 2; marker-end: url(#triangle); }
+    </style>
+
+    <!-- Marqueurs pour les flèches -->
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+
+    <marker id="diamond" markerWidth="12" markerHeight="8" refX="12" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 4, 6 0, 12 4, 6 8" fill="#dc2626"/>
+    </marker>
+
+    <marker id="triangle" markerWidth="12" markerHeight="10" refX="12" refY="5" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 12 5, 0 10" fill="none" stroke="#ea580c" stroke-width="2"/>
+    </marker>
+  </defs>
+
+  <!-- Titre -->
+  <text x="800" y="30" class="title">Diagramme de classes - ManohPressing</text>
+
+  <!-- Section Entités Métier -->
+  <text x="400" y="70" class="section-title">📦 ENTITÉS MÉTIER</text>
+
+  <!-- Classe User -->
+  <g id="user-class">
+    <rect x="50" y="90" width="180" height="200" class="entity"/>
+    <text x="140" y="110" class="class-name">User</text>
+    <line x1="50" y1="120" x2="230" y2="120" class="line"/>
+
+    <!-- Attributs -->
+    <text x="60" y="135" class="text">+ id: int</text>
+    <text x="60" y="148" class="text">+ username: string</text>
+    <text x="60" y="161" class="text">+ password: string</text>
+    <text x="60" y="174" class="text">+ role: string</text>
+    <text x="60" y="187" class="text">+ firstName: string</text>
+    <text x="60" y="200" class="text">+ lastName: string</text>
+    <text x="60" y="213" class="text">+ email: string</text>
+    <text x="60" y="226" class="text">+ phone: string</text>
+
+    <line x1="50" y1="240" x2="230" y2="240" class="line"/>
+
+    <!-- Méthodes -->
+    <text x="60" y="255" class="text">+ login(): boolean</text>
+    <text x="60" y="268" class="text">+ logout(): void</text>
+    <text x="60" y="281" class="text">+ updateProfile(): void</text>
+  </g>
+
+  <!-- Classe Order -->
+  <g id="order-class">
+    <rect x="280" y="90" width="180" height="200" class="entity"/>
+    <text x="370" y="110" class="class-name">Order</text>
+    <line x1="280" y1="120" x2="460" y2="120" class="line"/>
+
+    <!-- Attributs -->
+    <text x="290" y="135" class="text">+ id: int</text>
+    <text x="290" y="148" class="text">+ orderNumber: string</text>
+    <text x="290" y="161" class="text">+ customerId: int</text>
+    <text x="290" y="174" class="text">+ managerId: int</text>
+    <text x="290" y="187" class="text">+ total: float</text>
+    <text x="290" y="200" class="text">+ status: OrderStatus</text>
+    <text x="290" y="213" class="text">+ paymentStatus: string</text>
+    <text x="290" y="226" class="text">+ createdAt: datetime</text>
+
+    <line x1="280" y1="240" x2="460" y2="240" class="line"/>
+
+    <!-- Méthodes -->
+    <text x="290" y="255" class="text">+ updateStatus(): void</text>
+    <text x="290" y="268" class="text">+ calculateTotal(): float</text>
+    <text x="290" y="281" class="text">+ addService(): void</text>
+  </g>
+
+  <!-- Classe Service -->
+  <g id="service-class">
+    <rect x="510" y="90" width="180" height="160" class="entity"/>
+    <text x="600" y="110" class="class-name">Service</text>
+    <line x1="510" y1="120" x2="690" y2="120" class="line"/>
+
+    <!-- Attributs -->
+    <text x="520" y="135" class="text">+ id: int</text>
+    <text x="520" y="148" class="text">+ name: string</text>
+    <text x="520" y="161" class="text">+ price: float</text>
+    <text x="520" y="174" class="text">+ quantity: int</text>
+    <text x="520" y="187" class="text">+ orderId: int</text>
+
+    <line x1="510" y1="200" x2="690" y2="200" class="line"/>
+
+    <!-- Méthodes -->
+    <text x="520" y="215" class="text">+ calculateSubTotal(): float</text>
+    <text x="520" y="228" class="text">+ updateQuantity(): void</text>
+    <text x="520" y="241" class="text">+ getDescription(): string</text>
+  </g>
+
+  <!-- Classe DepositCoupon -->
+  <g id="coupon-class">
+    <rect x="50" y="340" width="180" height="220" class="entity"/>
+    <text x="140" y="360" class="class-name">DepositCoupon</text>
+    <line x1="50" y1="370" x2="230" y2="370" class="line"/>
+
+    <!-- Attributs -->
+    <text x="60" y="385" class="text">+ id: int</text>
+    <text x="60" y="398" class="text">+ code: string</text>
+    <text x="60" y="411" class="text">+ customerId: int</text>
+    <text x="60" y="424" class="text">+ orderId: int</text>
+    <text x="60" y="437" class="text">+ status: CouponStatus</text>
+    <text x="60" y="450" class="text">+ validUntil: datetime</text>
+    <text x="60" y="463" class="text">+ itemsCount: int</text>
+    <text x="60" y="476" class="text">+ createdAt: datetime</text>
+    <text x="60" y="489" class="text">+ collectedAt: datetime</text>
+
+    <line x1="50" y1="505" x2="230" y2="505" class="line"/>
+
+    <!-- Méthodes -->
+    <text x="60" y="520" class="text">+ generateCode(): string</text>
+    <text x="60" y="533" class="text">+ validate(): boolean</text>
+    <text x="60" y="546" class="text">+ isExpired(): boolean</text>
+    <text x="60" y="559" class="text">+ collect(): void</text>
+  </g>
+
+  <!-- Classe MobilePayment -->
+  <g id="payment-class">
+    <rect x="280" y="340" width="180" height="220" class="entity"/>
+    <text x="370" y="360" class="class-name">MobilePayment</text>
+    <line x1="280" y1="370" x2="460" y2="370" class="line"/>
+
+    <!-- Attributs -->
+    <text x="290" y="385" class="text">+ id: int</text>
+    <text x="290" y="398" class="text">+ transactionId: string</text>
+    <text x="290" y="411" class="text">+ orderId: int</text>
+    <text x="290" y="424" class="text">+ amount: float</text>
+    <text x="290" y="437" class="text">+ fees: float</text>
+    <text x="290" y="450" class="text">+ phoneNumber: string</text>
+    <text x="290" y="463" class="text">+ paymentMethod: PaymentMethod</text>
+    <text x="290" y="476" class="text">+ status: PaymentStatus</text>
+    <text x="290" y="489" class="text">+ createdAt: datetime</text>
+
+    <line x1="280" y1="505" x2="460" y2="505" class="line"/>
+
+    <!-- Méthodes -->
+    <text x="290" y="520" class="text">+ initiate(): boolean</text>
+    <text x="290" y="533" class="text">+ process(): boolean</text>
+    <text x="290" y="546" class="text">+ calculateFees(): float</text>
+    <text x="290" y="559" class="text">+ validatePhone(): boolean</text>
+  </g>
+
+  <!-- Section Gestionnaires -->
+  <text x="900" y="70" class="section-title">⚙️ GESTIONNAIRES</text>
+
+  <!-- DataManager -->
+  <g id="data-manager">
+    <rect x="800" y="90" width="200" height="160" class="manager"/>
+    <text x="900" y="110" class="class-name">DataManager</text>
+    <line x1="800" y1="120" x2="1000" y2="120" class="line"/>
+    <text x="810" y="135" class="text">+ createUser(user): User</text>
+    <text x="810" y="148" class="text">+ getUserById(id): User</text>
+    <text x="810" y="161" class="text">+ createOrder(order): Order</text>
+    <text x="810" y="174" class="text">+ updateOrder(order): void</text>
+    <text x="810" y="187" class="text">+ deleteOrder(id): void</text>
+    <text x="810" y="200" class="text">+ getAllOrders(): Order[]</text>
+    <text x="810" y="213" class="text">+ exportData(): string</text>
+    <text x="810" y="226" class="text">+ importData(data): void</text>
+    <text x="810" y="239" class="text">+ backupData(): void</text>
+  </g>
+
+  <!-- MobilePaymentManager -->
+  <g id="payment-manager">
+    <rect x="800" y="280" width="200" height="160" class="manager"/>
+    <text x="900" y="300" class="class-name">MobilePaymentManager</text>
+    <line x1="800" y1="310" x2="1000" y2="310" class="line"/>
+    <text x="810" y="325" class="text">+ initiatePayment(): Payment</text>
+    <text x="810" y="338" class="text">+ processPayment(): boolean</text>
+    <text x="810" y="351" class="text">+ validatePhone(): boolean</text>
+    <text x="810" y="364" class="text">+ calculateFees(): float</text>
+    <text x="810" y="377" class="text">+ checkStatus(): string</text>
+    <text x="810" y="390" class="text">+ getPaymentStats(): object</text>
+    <text x="810" y="403" class="text">+ simulateOperator(): boolean</text>
+    <text x="810" y="416" class="text">+ sendNotification(): void</text>
+    <text x="810" y="429" class="text">+ generateTransactionId(): string</text>
+  </g>
+
+  <!-- DepositCouponManager -->
+  <g id="coupon-manager">
+    <rect x="800" y="470" width="200" height="160" class="manager"/>
+    <text x="900" y="490" class="class-name">DepositCouponManager</text>
+    <line x1="800" y1="500" x2="1000" y2="500" class="line"/>
+    <text x="810" y="515" class="text">+ generateCoupon(): Coupon</text>
+    <text x="810" y="528" class="text">+ validateCoupon(): boolean</text>
+    <text x="810" y="541" class="text">+ checkExpiration(): void</text>
+    <text x="810" y="554" class="text">+ getCustomerCoupons(): Coupon[]</text>
+    <text x="810" y="567" class="text">+ collectCoupon(): void</text>
+    <text x="810" y="580" class="text">+ generateCode(): string</text>
+    <text x="810" y="593" class="text">+ sendToCustomer(): void</text>
+    <text x="810" y="606" class="text">+ getExpiringCoupons(): Coupon[]</text>
+    <text x="810" y="619" class="text">+ getCouponStats(): object</text>
+  </g>
+
+  <!-- Section Énumérations -->
+  <text x="1300" y="70" class="section-title">📋 ÉNUMÉRATIONS</text>
+
+  <!-- OrderStatus -->
+  <g id="order-status-enum">
+    <rect x="1200" y="90" width="150" height="120" class="enum"/>
+    <text x="1275" y="110" class="class-name">OrderStatus</text>
+    <text x="1275" y="125" class="text" style="font-style: italic; font-size: 9px;">&lt;&lt;enumeration&gt;&gt;</text>
+    <line x1="1200" y1="135" x2="1350" y2="135" class="line"/>
+    <text x="1210" y="150" class="text">PENDING</text>
+    <text x="1210" y="163" class="text">IN_PROGRESS</text>
+    <text x="1210" y="176" class="text">READY</text>
+    <text x="1210" y="189" class="text">DELIVERED</text>
+    <text x="1210" y="202" class="text">CANCELLED</text>
+  </g>
+
+  <!-- PaymentMethod -->
+  <g id="payment-method-enum">
+    <rect x="1200" y="240" width="150" height="100" class="enum"/>
+    <text x="1275" y="260" class="class-name">PaymentMethod</text>
+    <text x="1275" y="275" class="text" style="font-style: italic; font-size: 9px;">&lt;&lt;enumeration&gt;&gt;</text>
+    <line x1="1200" y1="285" x2="1350" y2="285" class="line"/>
+    <text x="1210" y="300" class="text">ORANGE_MONEY</text>
+    <text x="1210" y="313" class="text">MTN_MONEY</text>
+    <text x="1210" y="326" class="text">CASH</text>
+  </g>
+
+  <!-- PaymentStatus -->
+  <g id="payment-status-enum">
+    <rect x="1200" y="370" width="150" height="120" class="enum"/>
+    <text x="1275" y="390" class="class-name">PaymentStatus</text>
+    <text x="1275" y="405" class="text" style="font-style: italic; font-size: 9px;">&lt;&lt;enumeration&gt;&gt;</text>
+    <line x1="1200" y1="415" x2="1350" y2="415" class="line"/>
+    <text x="1210" y="430" class="text">PENDING</text>
+    <text x="1210" y="443" class="text">PROCESSING</text>
+    <text x="1210" y="456" class="text">COMPLETED</text>
+    <text x="1210" y="469" class="text">FAILED</text>
+    <text x="1210" y="482" class="text">CANCELLED</text>
+  </g>
+
+  <!-- CouponStatus -->
+  <g id="coupon-status-enum">
+    <rect x="1200" y="520" width="150" height="110" class="enum"/>
+    <text x="1275" y="540" class="class-name">CouponStatus</text>
+    <text x="1275" y="555" class="text" style="font-style: italic; font-size: 9px;">&lt;&lt;enumeration&gt;&gt;</text>
+    <line x1="1200" y1="565" x2="1350" y2="565" class="line"/>
+    <text x="1210" y="580" class="text">PENDING_VALIDATION</text>
+    <text x="1210" y="593" class="text">ACTIVE</text>
+    <text x="1210" y="606" class="text">COLLECTED</text>
+    <text x="1210" y="619" class="text">EXPIRED</text>
+  </g>
+
+  <!-- Relations -->
+  <g id="relations">
+    <!-- Relations de composition (losange plein) -->
+
+    <!-- User compose Order (1 User -> 0..* Orders) -->
+    <line x1="230" y1="190" x2="280" y2="190" class="composition"/>
+    <text x="240" y="185" class="text" style="font-size: 9px; fill: #dc2626;">1</text>
+    <text x="270" y="185" class="text" style="font-size: 9px; fill: #dc2626;">0..*</text>
+    <text x="255" y="205" class="text" style="font-size: 8px; fill: #dc2626;">crée</text>
+
+    <!-- Order compose Service (1 Order -> 1..* Services) -->
+    <line x1="460" y1="190" x2="510" y2="190" class="composition"/>
+    <text x="470" y="185" class="text" style="font-size: 9px; fill: #dc2626;">1</text>
+    <text x="500" y="185" class="text" style="font-size: 9px; fill: #dc2626;">1..*</text>
+    <text x="485" y="205" class="text" style="font-size: 8px; fill: #dc2626;">contient</text>
+
+    <!-- Relations d'association (flèche simple) -->
+
+    <!-- Order -> DepositCoupon (1 Order -> 0..1 Coupon) -->
+    <line x1="320" y1="290" x2="200" y2="340" class="association"/>
+    <text x="280" y="310" class="text" style="font-size: 9px; fill: #059669;">1</text>
+    <text x="210" y="335" class="text" style="font-size: 9px; fill: #059669;">0..1</text>
+    <text x="250" y="325" class="text" style="font-size: 8px; fill: #059669;">génère</text>
+
+    <!-- Order -> MobilePayment (1 Order -> 0..1 Payment) -->
+    <line x1="370" y1="290" x2="370" y2="340" class="association"/>
+    <text x="375" y="305" class="text" style="font-size: 9px; fill: #059669;">1</text>
+    <text x="375" y="335" class="text" style="font-size: 9px; fill: #059669;">0..1</text>
+    <text x="380" y="315" class="text" style="font-size: 8px; fill: #059669;">payé par</text>
+
+    <!-- Relations de dépendance (flèche pointillée) -->
+
+    <!-- DataManager -> User -->
+    <line x1="800" y1="150" x2="230" y2="150" class="dependency"/>
+    <text x="500" y="145" class="text" style="font-size: 8px; fill: #7c3aed;">gère</text>
+
+    <!-- DataManager -> Order -->
+    <line x1="800" y1="170" x2="460" y2="170" class="dependency"/>
+    <text x="620" y="165" class="text" style="font-size: 8px; fill: #7c3aed;">gère</text>
+
+    <!-- MobilePaymentManager -> MobilePayment -->
+    <line x1="800" y1="360" x2="460" y2="450" class="dependency"/>
+    <text x="620" y="400" class="text" style="font-size: 8px; fill: #7c3aed;">traite</text>
+
+    <!-- DepositCouponManager -> DepositCoupon -->
+    <line x1="800" y1="550" x2="230" y2="450" class="dependency"/>
+    <text x="500" y="500" class="text" style="font-size: 8px; fill: #7c3aed;">gère</text>
+
+    <!-- Relations vers les énumérations -->
+
+    <!-- Order -> OrderStatus -->
+    <line x1="460" y1="200" x2="1200" y2="150" class="dependency"/>
+    <text x="800" y="170" class="text" style="font-size: 8px; fill: #7c3aed;">utilise</text>
+
+    <!-- MobilePayment -> PaymentMethod -->
+    <line x1="460" y1="463" x2="1200" y2="290" class="dependency"/>
+    <text x="800" y="370" class="text" style="font-size: 8px; fill: #7c3aed;">utilise</text>
+
+    <!-- MobilePayment -> PaymentStatus -->
+    <line x1="460" y1="476" x2="1200" y2="430" class="dependency"/>
+    <text x="800" y="450" class="text" style="font-size: 8px; fill: #7c3aed;">utilise</text>
+
+    <!-- DepositCoupon -> CouponStatus -->
+    <line x1="230" y1="437" x2="1200" y2="575" class="dependency"/>
+    <text x="700" y="500" class="text" style="font-size: 8px; fill: #7c3aed;">utilise</text>
+  </g>
+
+  <!-- Légende -->
+  <g id="legend">
+    <rect x="50" y="680" width="500" height="200" fill="white" stroke="#374151" stroke-width="2" rx="10"/>
+    <text x="60" y="705" class="text" style="font-weight: bold; font-size: 14px;">📋 LÉGENDE</text>
+
+    <!-- Types de classes -->
+    <text x="60" y="730" class="text" style="font-weight: bold;">Types de classes :</text>
+
+    <rect x="60" y="740" width="80" height="20" class="entity"/>
+    <text x="150" y="755" class="text">📦 Entités métier</text>
+
+    <rect x="60" y="770" width="80" height="20" class="manager"/>
+    <text x="150" y="785" class="text">⚙️ Gestionnaires</text>
+
+    <rect x="60" y="800" width="80" height="20" class="enum"/>
+    <text x="150" y="815" class="text">📋 Énumérations</text>
+
+    <!-- Types de relations -->
+    <text x="280" y="730" class="text" style="font-weight: bold;">Relations :</text>
+
+    <line x1="280" y1="745" x2="340" y2="745" class="composition"/>
+    <text x="350" y="750" class="text">Composition (contient)</text>
+
+    <line x1="280" y1="765" x2="340" y2="765" class="association"/>
+    <text x="350" y="770" class="text">Association (utilise)</text>
+
+    <line x1="280" y1="785" x2="340" y2="785" class="dependency"/>
+    <text x="350" y="790" class="text">Dépendance (gère)</text>
+
+    <!-- Cardinalités -->
+    <text x="60" y="840" class="text" style="font-weight: bold;">Cardinalités :</text>
+    <text x="60" y="855" class="text" style="font-size: 9px;">1 = exactement un | 0..1 = zéro ou un | 1..* = un ou plusieurs | 0..* = zéro ou plusieurs</text>
+
+    <!-- Description -->
+    <text x="60" y="875" class="text" style="font-size: 9px; font-style: italic;">
+      Ce diagramme représente l'architecture des classes du système ManohPressing avec leurs relations.
+    </text>
+  </g>
+
+  <!-- Informations du diagramme -->
+  <g id="diagram-info">
+    <text x="1400" y="1180" class="text" style="font-size: 10px; text-anchor: end;">ManohPressing v1.0 - Diagramme de classes</text>
+    <text x="1400" y="1195" class="text" style="font-size: 9px; text-anchor: end; fill: #6b7280;">Généré le 15 janvier 2025</text>
+  </g>
+</svg>

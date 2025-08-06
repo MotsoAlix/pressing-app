@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients - Pressing Management System</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/base/variables.css">
+    <link rel="stylesheet" href="assets/css/base/reset.css">
+    <link rel="stylesheet" href="assets/css/base/typography.css">
+    <link rel="stylesheet" href="assets/css/layouts/grid.css">
+    <link rel="stylesheet" href="assets/css/layouts/responsive.css">
+    <link rel="stylesheet" href="assets/css/layouts/sidebar.css">
+    <link rel="stylesheet" href="assets/css/components/buttons.css">
+    <link rel="stylesheet" href="assets/css/components/cards.css">
+    <link rel="stylesheet" href="assets/css/components/forms.css">
+    <link rel="stylesheet" href="assets/css/components/modals.css">
+    <link rel="stylesheet" href="assets/css/components/tables.css">
+    <link rel="stylesheet" href="assets/css/components/toast.css">
+    <link rel="stylesheet" href="assets/css/pages/customers.css">
+</head>
+<body>
+    <!-- Overlay pour mobile -->
+    <div class="sidebar-overlay" data-action="close-sidebar"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon">👔</div>
+                <h1 class="sidebar-logo-text">Pressing Pro</h1>
+            </div>
+            <button class="sidebar-close" data-action="close-sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-nav-section">
+                <h3 class="sidebar-nav-title">Menu Principal</h3>
+                <ul class="sidebar-nav-list">
+                    <li class="sidebar-nav-item">
+                        <a href="/dashboard" class="sidebar-nav-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/orders" class="sidebar-nav-link">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>Commandes</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/customers" class="sidebar-nav-link is-active">
+                            <i class="fas fa-users"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/tracking" class="sidebar-nav-link">
+                            <i class="fas fa-search"></i>
+                            <span>Suivi</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-nav-section">
+                <h3 class="sidebar-nav-title">Gestion</h3>
+                <ul class="sidebar-nav-list">
+                    <li class="sidebar-nav-item">
+                        <a href="/payments" class="sidebar-nav-link">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/reports" class="sidebar-nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Rapports</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-nav-item">
+                        <a href="/admin" class="sidebar-nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Administration</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user" data-action="toggle-user-menu">
+                <div class="sidebar-user-avatar">A</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name">Admin User</div>
+                    <div class="sidebar-user-role">Administrateur</div>
+                </div>
+                <div class="sidebar-user-menu">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            
+            <div class="sidebar-user-dropdown">
+                <a href="#" class="sidebar-user-dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profil</span>
+                </a>
+                <a href="#" class="sidebar-user-dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Paramètres</span>
+                </a>
+                <a href="/logout" class="sidebar-user-dropdown-item danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="header-toggle" data-action="toggle-sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="header-title">Gestion des Clients</h1>
+            </div>
+            
+            <div class="header-right">
+                <div class="header-actions">
+                    <button class="btn btn-primary" data-action="new-customer">
+                        <i class="fas fa-plus"></i>
+                        <span>Nouveau client</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-header-content">
+                    <h1 class="page-title">Clients</h1>
+                    <p class="page-subtitle">Gestion de la base de données clients</p>
+                </div>
+                <div class="page-header-actions">
+                    <button class="btn btn-secondary" data-action="export-customers">
+                        <i class="fas fa-download"></i>
+                        <span>Exporter</span>
+                    </button>
+                    <button class="btn btn-primary" data-action="new-customer">
+                        <i class="fas fa-plus"></i>
+                        <span>Nouveau client</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-icon stat-card-icon--primary">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-value" id="totalCustomers">0</div>
+                        <div class="stat-card-label">Clients totaux</div>
+                        <div class="stat-card-change stat-card-change--positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span id="customersChange">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-icon stat-card-icon--success">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-value" id="activeCustomers">0</div>
+                        <div class="stat-card-label">Clients actifs</div>
+                        <div class="stat-card-change stat-card-change--positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span id="activeChange">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-icon stat-card-icon--info">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-value" id="avgOrdersPerCustomer">0</div>
+                        <div class="stat-card-label">Moyenne commandes/client</div>
+                        <div class="stat-card-change stat-card-change--positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span id="avgChange">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-icon stat-card-icon--warning">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-value" id="newCustomersThisMonth">0</div>
+                        <div class="stat-card-label">Nouveaux ce mois</div>
+                        <div class="stat-card-change stat-card-change--positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span id="newChange">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-section">
+                <div class="filters-row">
+                    <div class="filters-group">
+                        <label class="filter-label">Statut</label>
+                        <select class="form-select" id="statusFilter">
+                            <option value="">Tous les statuts</option>
+                            <option value="active">Actif</option>
+                            <option value="inactive">Inactif</option>
+                            <option value="vip">VIP</option>
+                        </select>
+                    </div>
+
+                    <div class="filters-group">
+                        <label class="filter-label">Ville</label>
+                        <select class="form-select" id="cityFilter">
+                            <option value="">Toutes les villes</option>
+                            <option value="paris">Paris</option>
+                            <option value="lyon">Lyon</option>
+                            <option value="marseille">Marseille</option>
+                        </select>
+                    </div>
+
+                    <div class="filters-group">
+                        <label class="filter-label">Date d'inscription</label>
+                        <select class="form-select" id="dateFilter">
+                            <option value="">Toutes les dates</option>
+                            <option value="this_month">Ce mois</option>
+                            <option value="last_month">Mois dernier</option>
+                            <option value="this_year">Cette année</option>
+                        </select>
+                    </div>
+
+                    <div class="filters-group">
+                        <label class="filter-label">Tri</label>
+                        <select class="form-select" id="sortFilter">
+                            <option value="name_asc">Nom A-Z</option>
+                            <option value="name_desc">Nom Z-A</option>
+                            <option value="created_at_desc">Plus récent</option>
+                            <option value="created_at_asc">Plus ancien</option>
+                            <option value="orders_desc">Plus de commandes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="filters-actions">
+                    <button class="btn btn-secondary btn-sm" data-action="clear-filters">
+                        <i class="fas fa-times"></i>
+                        <span>Effacer les filtres</span>
+                    </button>
+                    <button class="btn btn-primary btn-sm" data-action="apply-filters">
+                        <i class="fas fa-filter"></i>
+                        <span>Appliquer</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Customers Table -->
+            <div class="content-card">
+                <div class="content-card-header">
+                    <div class="content-card-title-group">
+                        <h2 class="content-card-title">Liste des clients</h2>
+                        <span class="content-card-subtitle" id="customersCount">0 client(s)</span>
+                    </div>
+                    <div class="content-card-actions">
+                        <button class="btn btn-secondary btn-sm" data-action="refresh-customers">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Actualiser</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="content-card-body">
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <label class="table-checkbox">
+                                            <input type="checkbox" id="selectAll">
+                                            <span class="table-checkbox-mark"></span>
+                                        </label>
+                                    </th>
+                                    <th>Client</th>
+                                    <th>Contact</th>
+                                    <th>Adresse</th>
+                                    <th>Statut</th>
+                                    <th>Commandes</th>
+                                    <th>Dernière visite</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customersTableBody">
+                                <tr>
+                                    <td colspan="8" class="table-empty">
+                                        <div class="table-empty-content">
+                                            <i class="fas fa-users"></i>
+                                            <p>Aucun client trouvé</p>
+                                            <button class="btn btn-primary btn-sm" data-action="new-customer">
+                                                Ajouter un client
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination" style="display: none;">
+                        <div class="pagination-info">
+                            <span id="paginationInfo">Affichage de 1 à 10 sur 0 résultats</span>
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="btn btn-secondary btn-sm" data-action="prev-page" disabled>
+                                <i class="fas fa-chevron-left"></i>
+                                <span>Précédent</span>
+                            </button>
+                            <div class="pagination-pages" id="paginationPages"></div>
+                            <button class="btn btn-secondary btn-sm" data-action="next-page" disabled>
+                                <span>Suivant</span>
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Nouveau Client -->
+    <div class="modal" id="newCustomerModal">
+        <div class="modal-overlay" data-action="close-modal"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Nouveau client</h2>
+                <button class="modal-close" data-action="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="newCustomerForm" class="form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label required">Prénom</label>
+                            <input type="text" id="firstName" name="first_name" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="form-label required">Nom</label>
+                            <input type="text" id="lastName" name="last_name" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" class="form-label required">Email</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label required">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address" class="form-label">Adresse</label>
+                        <textarea id="address" name="address" class="form-textarea" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city" class="form-label">Ville</label>
+                            <input type="text" id="city" name="city" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="postalCode" class="form-label">Code postal</label>
+                            <input type="text" id="postalCode" name="postal_code" class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea id="notes" name="notes" class="form-textarea" rows="3" placeholder="Informations supplémentaires..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-action="close-modal">Annuler</button>
+                <button class="btn btn-primary" data-action="save-customer">
+                    <span class="btn-text">Créer le client</span>
+                    <span class="btn-loading" style="display: none;">Création...</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Détails Client -->
+    <div class="modal" id="customerDetailsModal">
+        <div class="modal-overlay" data-action="close-modal"></div>
+        <div class="modal-container modal-container--large">
+            <div class="modal-header">
+                <h2 class="modal-title">Détails du client</h2>
+                <button class="modal-close" data-action="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="customerDetailsContent">
+                    <!-- Le contenu sera chargé dynamiquement -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-action="close-modal">Fermer</button>
+                <button class="btn btn-primary" data-action="edit-customer">
+                    <i class="fas fa-edit"></i>
+                    <span>Modifier</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- JavaScript -->
+    <script type="module" src="assets/js/core/api.js"></script>
+    <script type="module" src="assets/js/core/router.js"></script>
+    <script type="module" src="assets/js/components/toast.js"></script>
+    <script type="module" src="assets/js/components/modal.js"></script>
+    <script type="module" src="assets/js/modules/auth.js"></script>
+    <script type="module" src="assets/js/modules/customers.js"></script>
+    <script type="module" src="assets/js/core/app.js"></script>
+</body>
+</html> 

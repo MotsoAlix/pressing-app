@@ -1,0 +1,686 @@
+/* Cartes modernes - Pressing Pro */
+
+/* Cartes de base avec design moderne */
+.card {
+  background: var(--color-pure);
+  border-radius: var(--border-radius-2xl);
+  box-shadow: var(--shadow-sm);
+  border: var(--border-width) solid var(--color-gray-200);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  color: var(--color-gray-900);
+  position: relative;
+  backdrop-filter: blur(8px);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: var(--color-gray-300);
+}
+
+.card:focus-within {
+  box-shadow: var(--focus-ring);
+}
+
+/* Effet de glassmorphism pour certaines cartes */
+.card-glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-backdrop);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.card-header {
+  padding: var(--spacing-6);
+  border-bottom: var(--border-width) solid var(--color-gray-200);
+  background: var(--color-gray-50);
+  position: relative;
+}
+
+.card-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: var(--spacing-6);
+  right: var(--spacing-6);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gray-300), transparent);
+}
+
+.card-title {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  margin: 0;
+  line-height: var(--line-height-tight);
+}
+
+.card-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin-top: var(--spacing-1);
+  font-weight: var(--font-weight-medium);
+}
+
+.card-body {
+  padding: var(--spacing-6);
+  color: var(--color-gray-900);
+}
+
+.card-body p {
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-3);
+  line-height: var(--line-height-relaxed);
+}
+
+.card-body h1,
+.card-body h2,
+.card-body h3,
+.card-body h4,
+.card-body h5,
+.card-body h6 {
+  color: var(--color-gray-900);
+  margin-bottom: var(--spacing-2);
+  font-family: var(--font-family-display);
+}
+
+.card-body ul,
+.card-body ol {
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-3);
+  padding-left: var(--spacing-4);
+}
+
+.card-body li {
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-1);
+  line-height: var(--line-height-relaxed);
+}
+
+.card-footer {
+  padding: var(--spacing-4) var(--spacing-6);
+  border-top: var(--border-width) solid var(--color-gray-200);
+  background: var(--color-gray-50);
+  color: var(--color-gray-900);
+  position: relative;
+}
+
+.card-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--spacing-6);
+  right: var(--spacing-6);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gray-300), transparent);
+}
+
+/* Cartes de statistiques modernes */
+.stat-card {
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-6);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  pointer-events: none;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.stat-card.secondary {
+  background: var(--gradient-secondary);
+}
+
+.stat-card.accent {
+  background: var(--gradient-accent);
+}
+
+.stat-card.success {
+  background: var(--gradient-secondary);
+}
+
+.stat-card .card-body {
+  padding: 0;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-card .card-title {
+  color: white;
+}
+
+.stat-card .card-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.stat-card-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--font-size-2xl);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.stat-card-icon--primary {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card-icon--success {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card-icon--info {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card-icon--warning {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card-content {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-value {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  margin-bottom: var(--spacing-2);
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  opacity: 0.9;
+  margin-bottom: var(--spacing-3);
+  color: white;
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-change {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.stat-change.positive {
+  color: #a7f3d0;
+}
+
+.stat-change.negative {
+  color: #fecaca;
+}
+
+.stat-card-change {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.stat-card-change--positive {
+  color: #a7f3d0;
+}
+
+.stat-card-change--negative {
+  color: #fecaca;
+}
+
+/* Cartes de commande modernes */
+.order-card {
+  border-left: var(--border-width-4) solid var(--color-primary);
+  transition: all var(--transition-normal);
+  color: var(--color-gray-900);
+  position: relative;
+}
+
+.order-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--color-primary);
+  transition: all var(--transition-normal);
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.order-card:hover::before {
+  width: 6px;
+  background: var(--color-primary-dark);
+}
+
+.order-card.status-received::before {
+  background: var(--color-status-received);
+}
+
+.order-card.status-in-progress::before {
+  background: var(--color-status-in-progress);
+}
+
+.order-card.status-ready::before {
+  background: var(--color-status-ready);
+}
+
+.order-card.status-delivered::before {
+  background: var(--color-status-delivered);
+}
+
+.order-card.status-cancelled::before {
+  background: var(--color-status-cancelled);
+}
+
+.order-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+}
+
+.order-tracking {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  background: var(--color-gray-100);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-md);
+  font-weight: var(--font-weight-medium);
+}
+
+.order-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--shadow-sm);
+}
+
+.order-status.status-received {
+  background: var(--color-status-received);
+  color: white;
+}
+
+.order-status.status-in-progress {
+  background: var(--color-status-in-progress);
+  color: white;
+}
+
+.order-status.status-ready {
+  background: var(--color-status-ready);
+  color: white;
+}
+
+.order-status.status-delivered {
+  background: var(--color-status-delivered);
+  color: white;
+}
+
+.order-status.status-cancelled {
+  background: var(--color-status-cancelled);
+  color: white;
+}
+
+.order-customer {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  margin-bottom: var(--spacing-2);
+  font-family: var(--font-family-display);
+}
+
+.order-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.order-detail {
+  text-align: center;
+  padding: var(--spacing-3);
+  background: var(--color-gray-50);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.order-detail-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-1);
+  font-weight: var(--font-weight-medium);
+}
+
+.order-detail-value {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  font-family: var(--font-family-display);
+}
+
+.order-amount {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  font-family: var(--font-family-display);
+}
+
+.order-actions {
+  display: flex;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-4);
+}
+
+/* Cartes de client modernes */
+.customer-card {
+  text-align: center;
+  padding: var(--spacing-6);
+  color: var(--color-gray-900);
+  position: relative;
+  overflow: hidden;
+}
+
+.customer-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.customer-avatar {
+  width: 72px;
+  height: 72px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 auto var(--spacing-4);
+  box-shadow: var(--shadow-md);
+  border: 3px solid white;
+  position: relative;
+}
+
+.customer-avatar::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.customer-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  margin-bottom: var(--spacing-2);
+  font-family: var(--font-family-display);
+}
+
+.customer-email {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin-bottom: var(--spacing-3);
+  font-weight: var(--font-weight-medium);
+}
+
+.customer-loyalty {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--gradient-secondary);
+  color: white;
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Cartes de service modernes */
+.service-card {
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  color: var(--color-gray-900);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  z-index: 0;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.service-card:hover::before {
+  opacity: 0.05;
+}
+
+.service-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--gradient-primary);
+  border-radius: var(--border-radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--font-size-xl);
+  margin: 0 auto var(--spacing-4);
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--shadow-md);
+}
+
+.service-name {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  margin-bottom: var(--spacing-2);
+  font-family: var(--font-family-display);
+  position: relative;
+  z-index: 1;
+}
+
+.service-price {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-2);
+  font-family: var(--font-family-display);
+  position: relative;
+  z-index: 1;
+}
+
+.service-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  line-height: var(--line-height-relaxed);
+  position: relative;
+  z-index: 1;
+}
+
+/* Grille de cartes moderne */
+.cards-grid {
+  display: grid;
+  gap: var(--spacing-6);
+}
+
+.cards-grid.cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.cards-grid.cols-2 {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.cards-grid.cols-3 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.cards-grid.cols-4 {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* Animations d'entrée */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-animate-in {
+  animation: cardFadeIn 0.4s ease-out;
+}
+
+.card-animate-in:nth-child(1) { animation-delay: 0.1s; }
+.card-animate-in:nth-child(2) { animation-delay: 0.2s; }
+.card-animate-in:nth-child(3) { animation-delay: 0.3s; }
+.card-animate-in:nth-child(4) { animation-delay: 0.4s; }
+
+/* Responsive moderne */
+@media (max-width: 768px) {
+  .card-header,
+  .card-body,
+  .card-footer {
+    padding: var(--spacing-4);
+  }
+  
+  .stat-card {
+    padding: var(--spacing-4);
+  }
+  
+  .stat-value {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .order-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cards-grid.cols-2,
+  .cards-grid.cols-3,
+  .cards-grid.cols-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .customer-avatar {
+    width: 64px;
+    height: 64px;
+    font-size: var(--font-size-xl);
+  }
+  
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Support du mode sombre */
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    color: var(--color-gray-100);
+  }
+  
+  .card-header,
+  .card-footer {
+    background: var(--color-gray-900);
+    border-color: var(--color-gray-700);
+  }
+  
+  .card-body p,
+  .card-body li {
+    color: var(--color-gray-300);
+  }
+  
+  .order-detail {
+    background: var(--color-gray-900);
+    border-color: var(--color-gray-700);
+  }
+  
+  .order-detail-value {
+    color: var(--color-gray-100);
+  }
+} 

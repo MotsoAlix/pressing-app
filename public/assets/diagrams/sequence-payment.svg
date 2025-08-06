@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <title>Diagramme de séquence - Processus de paiement mobile</title>
+  
+  <!-- Styles -->
+  <defs>
+    <style>
+      .actor { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .lifeline { stroke: #666; stroke-width: 2; stroke-dasharray: 5,5; }
+      .message { stroke: #333; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+      .return { stroke: #666; stroke-width: 1; stroke-dasharray: 3,3; marker-end: url(#arrowhead); }
+      .text { font-family: Arial, sans-serif; font-size: 11px; }
+      .title { font-size: 16px; font-weight: bold; text-anchor: middle; }
+      .actor-name { font-size: 12px; font-weight: bold; text-anchor: middle; }
+      .note { fill: #fff9c4; stroke: #f57f17; stroke-width: 1; }
+    </style>
+    
+    <!-- Flèche pour les messages -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+  
+  <!-- Titre -->
+  <text x="600" y="30" class="title">Diagramme de séquence - Processus de paiement mobile</text>
+  
+  <!-- Acteurs -->
+  <g id="actors">
+    <!-- Client -->
+    <rect x="50" y="60" width="80" height="40" class="actor"/>
+    <text x="90" y="85" class="actor-name">Client</text>
+    
+    <!-- Interface -->
+    <rect x="200" y="60" width="80" height="40" class="actor"/>
+    <text x="240" y="85" class="actor-name">Interface</text>
+    
+    <!-- PaymentManager -->
+    <rect x="350" y="60" width="100" height="40" class="actor"/>
+    <text x="400" y="85" class="actor-name">PaymentManager</text>
+    
+    <!-- OrderManager -->
+    <rect x="520" y="60" width="100" height="40" class="actor"/>
+    <text x="570" y="85" class="actor-name">OrderManager</text>
+    
+    <!-- NotificationSystem -->
+    <rect x="690" y="60" width="120" height="40" class="actor"/>
+    <text x="750" y="85" class="actor-name">NotificationSystem</text>
+    
+    <!-- Gérant -->
+    <rect x="880" y="60" width="80" height="40" class="actor"/>
+    <text x="920" y="85" class="actor-name">Gérant</text>
+  </g>
+  
+  <!-- Lignes de vie -->
+  <g id="lifelines">
+    <line x1="90" y1="100" x2="90" y2="750" class="lifeline"/>
+    <line x1="240" y1="100" x2="240" y2="750" class="lifeline"/>
+    <line x1="400" y1="100" x2="400" y2="750" class="lifeline"/>
+    <line x1="570" y1="100" x2="570" y2="750" class="lifeline"/>
+    <line x1="750" y1="100" x2="750" y2="750" class="lifeline"/>
+    <line x1="920" y1="100" x2="920" y2="750" class="lifeline"/>
+  </g>
+  
+  <!-- Messages -->
+  <g id="messages">
+    <!-- 1. Client clique sur Payer -->
+    <line x1="90" y1="130" x2="240" y2="130" class="message"/>
+    <text x="165" y="125" class="text">1. Clic "Payer"</text>
+    
+    <!-- 2. Afficher modal -->
+    <rect x="220" y="145" width="40" height="15" fill="#f0f0f0" stroke="#ccc"/>
+    <text x="240" y="157" class="text" style="font-size: 10px;">modal</text>
+    
+    <!-- 3. Sélection méthode -->
+    <line x1="240" y1="180" x2="90" y2="180" class="return"/>
+    <text x="165" y="175" class="text">2. Demander méthode</text>
+    
+    <line x1="90" y1="200" x2="240" y2="200" class="message"/>
+    <text x="165" y="195" class="text">3. Orange/MTN + numéro</text>
+    
+    <!-- 4. Validation -->
+    <rect x="220" y="215" width="40" height="15" fill="#f0f0f0" stroke="#ccc"/>
+    <text x="240" y="227" class="text" style="font-size: 10px;">validation</text>
+    
+    <!-- 5. Confirmer paiement -->
+    <line x1="90" y1="250" x2="240" y2="250" class="message"/>
+    <text x="165" y="245" class="text">4. Confirmer paiement</text>
+    
+    <!-- 6. Initier paiement -->
+    <line x1="240" y1="270" x2="400" y2="270" class="message"/>
+    <text x="320" y="265" class="text">5. initiatePayment()</text>
+    
+    <!-- 7. Traitement interne -->
+    <rect x="380" y="285" width="40" height="60" fill="#f0f0f0" stroke="#ccc"/>
+    <text x="400" y="300" class="text" style="font-size: 10px;">Créer</text>
+    <text x="400" y="315" class="text" style="font-size: 10px;">transaction</text>
+    <text x="400" y="330" class="text" style="font-size: 10px;">Simuler</text>
+    <text x="400" y="345" class="text" style="font-size: 10px;">opérateur</text>
+    
+    <!-- Note sur la simulation -->
+    <rect x="450" y="285" width="100" height="40" class="note"/>
+    <text x="500" y="300" class="text" style="font-size: 10px;">Simulation:</text>
+    <text x="500" y="315" class="text" style="font-size: 10px;">85% succès, 15% échec</text>
+    
+    <!-- 8a. Cas succès -->
+    <line x1="400" y1="370" x2="570" y2="370" class="message"/>
+    <text x="485" y="365" class="text">6a. updateOrderStatus()</text>
+    
+    <line x1="400" y1="390" x2="750" y2="390" class="message"/>
+    <text x="575" y="385" class="text">7a. notifyManager()</text>
+    
+    <line x1="750" y1="410" x2="920" y2="410" class="message"/>
+    <text x="835" y="405" class="text">8a. 💳 Paiement reçu</text>
+    
+    <line x1="400" y1="430" x2="240" y2="430" class="return"/>
+    <text x="320" y="425" class="text">9a. Succès + code</text>
+    
+    <line x1="240" y1="450" x2="90" y2="450" class="return"/>
+    <text x="165" y="445" class="text">10a. ✅ Confirmé</text>
+    
+    <!-- 8b. Cas échec -->
+    <line x1="400" y1="490" x2="240" y2="490" class="return"/>
+    <text x="320" y="485" class="text">6b. Échec</text>
+    
+    <line x1="240" y1="510" x2="90" y2="510" class="return"/>
+    <text x="165" y="505" class="text">7b. ❌ Erreur</text>
+    
+    <!-- 9. Suivi temps réel -->
+    <rect x="50" y="540" width="300" height="80" fill="none" stroke="#666" stroke-dasharray="5,5"/>
+    <text x="60" y="560" class="text" style="font-weight: bold;">Boucle: Suivi temps réel (max 1 minute)</text>
+    
+    <line x1="240" y1="580" x2="400" y2="580" class="message"/>
+    <text x="320" y="575" class="text">checkStatus()</text>
+    
+    <line x1="400" y1="600" x2="240" y2="600" class="return"/>
+    <text x="320" y="595" class="text">Statut actuel</text>
+  </g>
+  
+  <!-- Légende -->
+  <g id="legend">
+    <rect x="50" y="650" width="400" height="80" fill="none" stroke="#ccc" stroke-width="1"/>
+    <text x="60" y="670" class="text" style="font-weight: bold;">Légende:</text>
+    
+    <line x1="60" y1="685" x2="100" y2="685" class="message"/>
+    <text x="110" y="690" class="text">Message synchrone</text>
+    
+    <line x1="60" y1="700" x2="100" y2="700" class="return"/>
+    <text x="110" y="705" class="text">Message de retour</text>
+    
+    <rect x="250" y="680" width="40" height="15" fill="#f0f0f0" stroke="#ccc"/>
+    <text x="300" y="690" class="text">Activation</text>
+    
+    <rect x="250" y="700" width="40" height="15" class="note"/>
+    <text x="300" y="710" class="text">Note explicative</text>
+  </g>
+</svg>

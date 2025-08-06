@@ -1,0 +1,3798 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Gérant - ManohPressing</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chat Styles -->
+    <link rel="stylesheet" href="assets/css/messenger-chat.css">
+
+    <!-- Performance Styles -->
+    <link rel="stylesheet" href="assets/css/performance.css">
+
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-light: #eff6ff;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --background-color: #f8fafc;
+            --surface-color: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --gradient-primary: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --gradient-secondary: linear-gradient(135deg, #64748b 0%, #475569 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--surface-color);
+            border-right: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-header p {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .sidebar-nav {
+            padding: 1.5rem 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-link i {
+            width: 20px;
+            margin-right: 0.75rem;
+            font-size: 1.125rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .nav-link-text {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+            min-height: 100vh;
+            background: var(--background-color);
+            transition: margin-left 0.3s ease;
+            box-sizing: border-box;
+            width: calc(100vw - 280px);
+            max-width: calc(100vw - 280px);
+            overflow-x: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: var(--surface-color);
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .header-title h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .header-title p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            position: relative;
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--background-color);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--error-color);
+            color: white;
+            border-radius: 50%;
+            min-width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            padding: 0 4px;
+            box-sizing: border-box;
+            white-space: nowrap;
+            z-index: 10;
+            border: 2px solid var(--surface-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .stat-icon.blue { background: var(--primary-color); }
+        .stat-icon.green { background: var(--success-color); }
+        .stat-icon.yellow { background: var(--warning-color); }
+        .stat-icon.red { background: var(--error-color); }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .orders-column {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .column-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .column-header.pending { background: #fef3c7; color: #92400e; }
+        .column-header.progress { background: #dbeafe; color: #1e40af; }
+        .column-header.ready { background: #dcfce7; color: #166534; }
+        .column-header.delivered { background: #f3f4f6; color: #374151; }
+
+        .column-body {
+            padding: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .order-card {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .order-card:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-number {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .order-date {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .order-client {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .order-items {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .order-total {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--background-color);
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .chat-panel {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: var(--surface-color);
+            border-left: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            transition: right 0.3s ease;
+            z-index: 1001;
+        }
+
+        .chat-panel.active {
+            right: 0;
+        }
+
+        .chat-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .chat-messages {
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .chat-input {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--surface-color);
+        }
+
+        .chat-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-form input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+
+
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .orders-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .chat-panel {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .customers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .customer-card {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .customer-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .customer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .customer-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .customer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .customer-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+
+        .customer-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .notifications-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .notification-item {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .notification-item:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .notification-type {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .notification-type.order_ready {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .notification-type.order_progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .notification-type.general {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .stock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stock-item {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .stock-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stock-item.low-stock {
+            border-color: var(--warning-color);
+            background: #fefbf3;
+        }
+
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stock-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .stock-quantity {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stock-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stock-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .report-card {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .report-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .report-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .report-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Styles pour les demandes de réapprovisionnement */
+        .restock-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .restock-table th,
+        .restock-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .restock-table th {
+            background: var(--background-color);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .restock-row.pending {
+            background: #fefbf3;
+        }
+
+        .restock-row.approved {
+            background: #f0fdf4;
+        }
+
+        .restock-row.rejected {
+            background: #fef2f2;
+        }
+
+        .quantity-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .quantity-badge.low {
+            background: #fef2f2;
+            color: var(--error-color);
+        }
+
+        .quantity-badge.requested {
+            background: #f0fdf4;
+            color: var(--success-color);
+        }
+
+        .urgency-badge,
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        /* Styles pour les coupons de dépôt */
+        .coupon-preview {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 3px dashed rgba(255,255,255,0.3);
+        }
+
+        .coupon-preview::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            animation: couponShine 3s linear infinite;
+        }
+
+        @keyframes couponShine {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        .coupon-code {
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            margin: 1rem 0;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: var(--radius-md);
+            border: 2px dashed rgba(255,255,255,0.5);
+        }
+
+        .coupon-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .coupon-detail {
+            background: rgba(255,255,255,0.1);
+            padding: 0.75rem;
+            border-radius: var(--radius-md);
+        }
+
+        .coupon-detail-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+        }
+
+        .coupon-detail-value {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-user-tie"></i> Gérant</h1>
+                <p>Gestion Opérationnelle</p>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item">
+                    <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span class="nav-link-text">Tableau de Bord</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#orders" class="nav-link" data-section="orders">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="nav-link-text">Gestion Commandes</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#customers" class="nav-link" data-section="customers">
+                        <i class="fas fa-users"></i>
+                        <span class="nav-link-text">Clients</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="manager-payments.html" class="nav-link">
+                        <i class="fas fa-credit-card"></i>
+                        <span class="nav-link-text">Paiements</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#notifications" class="nav-link" data-section="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="nav-link-text">Notifications</span>
+                        <span class="notification-badge" id="nav-notification-count">2</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#chat" class="nav-link" data-section="chat">
+                        <i class="fas fa-comments"></i>
+                        <span class="nav-link-text">Chat Clients</span>
+                        <span class="notification-badge" id="nav-chat-count">1</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#stock" class="nav-link" data-section="stock">
+                        <i class="fas fa-boxes"></i>
+                        <span class="nav-link-text">Gestion Stock</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#reports" class="nav-link" data-section="reports">
+                        <i class="fas fa-chart-bar"></i>
+                        <span class="nav-link-text">Rapports</span>
+                    </a>
+                </div>
+                <div class="nav-item" style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+                    <a href="/" class="nav-link" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="nav-link-text">Déconnexion</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-title">
+                    <h1>Dashboard Gérant</h1>
+                    <p>Gestion opérationnelle du pressing ManohPressing Centre</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="header-notification-count">2</span>
+                    </button>
+                    <button class="btn btn-outline" onclick="toggleChat()">
+                        <i class="fas fa-comments"></i>
+                        <span class="notification-badge" id="header-chat-count">1</span>
+                    </button>
+                    <button class="btn btn-primary" onclick="showNewOrderModal()">
+                        <i class="fas fa-plus"></i>
+                        Nouvelle Commande
+                    </button>
+                    <div class="user-menu">
+                        <div class="user-avatar" onclick="showUserMenu()">G</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div id="dashboard-content" class="content-section active">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="pending-orders-count">8</div>
+                                <div class="stat-label">En Attente</div>
+                            </div>
+                            <div class="stat-icon yellow">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="progress-orders-count">12</div>
+                                <div class="stat-label">En Cours</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="ready-orders-count">5</div>
+                                <div class="stat-label">Prêtes</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="today-revenue">€1,245</div>
+                                <div class="stat-label">CA Aujourd'hui</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-euro-sign"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Management Grid -->
+                <div class="orders-grid">
+                    <!-- En Attente -->
+                    <div class="orders-column">
+                        <div class="column-header pending">
+                            <span><i class="fas fa-clock"></i> En Attente</span>
+                            <span class="badge" id="pending-badge">8</span>
+                        </div>
+                        <div class="column-body" id="pending-orders">
+                            <!-- Les commandes seront chargées dynamiquement -->
+                        </div>
+                    </div>
+
+                    <!-- En Cours -->
+                    <div class="orders-column">
+                        <div class="column-header progress">
+                            <span><i class="fas fa-cog"></i> En Cours</span>
+                            <span class="badge" id="progress-badge">12</span>
+                        </div>
+                        <div class="column-body" id="progress-orders">
+                            <!-- Les commandes seront chargées dynamiquement -->
+                        </div>
+                    </div>
+
+                    <!-- Prêtes -->
+                    <div class="orders-column">
+                        <div class="column-header ready">
+                            <span><i class="fas fa-check-circle"></i> Prêtes</span>
+                            <span class="badge" id="ready-badge">5</span>
+                        </div>
+                        <div class="column-body" id="ready-orders">
+                            <!-- Les commandes seront chargées dynamiquement -->
+                        </div>
+                    </div>
+
+                    <!-- Livrées -->
+                    <div class="orders-column">
+                        <div class="column-header delivered">
+                            <span><i class="fas fa-truck"></i> Livrées</span>
+                            <span class="badge" id="delivered-badge">23</span>
+                        </div>
+                        <div class="column-body" id="delivered-orders">
+                            <!-- Les commandes seront chargées dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Actions Rapides</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <button class="btn btn-primary btn-block" onclick="showNewOrderModal()">
+                                <i class="fas fa-plus"></i>
+                                Nouvelle Commande
+                            </button>
+                            <button class="btn btn-success btn-block" onclick="showNotifyClientModal()">
+                                <i class="fas fa-bell"></i>
+                                Notifier Client
+                            </button>
+                            <button class="btn btn-secondary btn-block" onclick="showStockAlert()">
+                                <i class="fas fa-boxes"></i>
+                                Vérifier Stock
+                            </button>
+                            <button class="btn btn-outline btn-block" onclick="generateDailyReport()">
+                                <i class="fas fa-file-alt"></i>
+                                Rapport Journalier
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Management Section -->
+            <div id="orders-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-shopping-bag"></i>
+                        Gestion des Commandes
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline" onclick="exportOrdersData()">
+                            <i class="fas fa-download"></i> Exporter
+                        </button>
+                        <button class="btn btn-primary" onclick="showNewOrderModal()">
+                            <i class="fas fa-plus"></i> Nouvelle Commande
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Orders Kanban Board -->
+                <div class="orders-grid">
+                    <!-- En Attente -->
+                    <div class="orders-column">
+                        <div class="column-header pending">
+                            <span><i class="fas fa-clock"></i> En Attente</span>
+                            <span class="badge" id="pending-badge-section">0</span>
+                        </div>
+                        <div class="column-body" id="pending-orders-section">
+                            <!-- Les commandes seront chargées dynamiquement -->
+                        </div>
+                    </div>
+
+                    <!-- En Cours -->
+                    <div class="orders-column">
+                        <div class="column-header progress">
+                            <span><i class="fas fa-cog"></i> En Cours</span>
+                            <span class="badge" id="progress-badge-section">0</span>
+                        </div>
+                        <div class="column-body" id="progress-orders-section">
+                            <!-- Les commandes seront chargées dynamiquement -->
+                        </div>
+                    </div>
+
+                    <!-- Prêtes -->
+                    <div class="orders-column">
+                        <div class="column-header ready">
+                            <span><i class="fas fa-check-circle"></i> Prêtes</span>
+                            <span class="badge" id="ready-badge-section">0</span>
+                        </div>
+                        <div class="column-body" id="ready-orders-section">
+                            <!-- Les commandes seront chargées dynamiquement -->
+                        </div>
+                    </div>
+
+                    <!-- Livrées -->
+                    <div class="orders-column">
+                        <div class="column-header delivered">
+                            <span><i class="fas fa-truck"></i> Livrées</span>
+                            <span class="badge" id="delivered-badge-section">0</span>
+                        </div>
+                        <div class="column-body" id="delivered-orders-section">
+                            <!-- Les commandes seront chargées dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customers Section -->
+            <div id="customers-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-users"></i>
+                        Gestion des Clients
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" onclick="showNewClientModal()">
+                            <i class="fas fa-plus"></i> Nouveau Client
+                        </button>
+                        <input type="text" placeholder="Rechercher un client..." class="form-input" style="width: 250px;" onkeyup="filterCustomers(this.value)">
+                        <button class="btn btn-outline" onclick="exportCustomersData()">
+                            <i class="fas fa-download"></i> Exporter
+                        </button>
+                    </div>
+                </div>
+
+                <div class="customers-grid" id="customers-grid">
+                    <!-- Les clients seront chargés dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Notifications Section -->
+            <div id="notifications-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-bell"></i>
+                        Notifications
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline" onclick="markAllNotificationsRead()">
+                            <i class="fas fa-check"></i> Tout marquer comme lu
+                        </button>
+                        <button class="btn btn-primary" onclick="showNotifyClientModal()">
+                            <i class="fas fa-plus"></i> Nouvelle Notification
+                        </button>
+                    </div>
+                </div>
+
+                <div class="notifications-list" id="notifications-list">
+                    <!-- Les notifications seront chargées dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Chat Section -->
+            <div id="chat-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-comments"></i>
+                        Chat avec les Clients
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" onclick="chatManager.toggleChat()">
+                            <i class="fas fa-expand"></i> Ouvrir Chat
+                        </button>
+                        <button class="btn btn-outline" onclick="refreshChatList()">
+                            <i class="fas fa-refresh"></i> Actualiser
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chat-container" style="height: 600px; border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; display: flex;">
+                    <!-- Liste des conversations -->
+                    <div class="conversations-list" style="width: 300px;">
+                        <div style="padding: 1rem; border-bottom: 1px solid #dadde1; background: #f8f9fa;">
+                            <h4 style="margin: 0; color: #050505;">Conversations</h4>
+                        </div>
+                        <div id="conversations-list">
+                            <!-- Les conversations seront chargées ici -->
+                        </div>
+                    </div>
+
+                    <!-- Zone de messages -->
+                    <div class="chat-messages-container" style="flex: 1; display: flex; flex-direction: column;">
+                        <div class="chat-header" style="padding: 1rem; border-bottom: 1px solid #dadde1; background: white;">
+                            <h4 id="chat-conversation-title" style="margin: 0; color: #050505;">Sélectionnez une conversation</h4>
+                        </div>
+
+                        <div class="chat-messages" id="chat-messages" style="flex: 1;">
+                            <div class="no-conversation-selected">
+                                <i class="fas fa-comments"></i>
+                                <p>Sélectionnez une conversation pour commencer</p>
+                            </div>
+                        </div>
+
+                        <div class="chat-input" id="chat-input-container" style="display: none;">
+                            <form class="chat-form" id="chat-form">
+                                <input type="text" id="chat-input-main" placeholder="Tapez votre message..." autocomplete="off">
+                                <button type="submit">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stock Management Section -->
+            <div id="stock-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-boxes"></i>
+                        Gestion du Stock
+                    </h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline" onclick="exportStockData()">
+                            <i class="fas fa-download"></i> Exporter
+                        </button>
+                        <button class="btn btn-primary" onclick="showAddStockModal()">
+                            <i class="fas fa-plus"></i> Ajouter Article
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stock Alerts -->
+                <div class="card" style="margin-bottom: 2rem;">
+                    <div class="card-header">
+                        <h3 class="card-title">Alertes Stock</h3>
+                        <span class="badge" style="background: var(--warning-color); color: white;" id="low-stock-count">0</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="stock-alerts">
+                            <!-- Les alertes seront chargées dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stock Grid -->
+                <div class="stock-grid" id="stock-grid">
+                    <!-- Les articles de stock seront chargés dynamiquement -->
+                </div>
+
+                <!-- Demandes de réapprovisionnement -->
+                <div class="card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <h3 class="card-title">Mes demandes de réapprovisionnement</h3>
+                        <button class="btn btn-outline" onclick="restockManager.refreshDisplay()">
+                            <i class="fas fa-refresh"></i> Actualiser
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="restock-requests-table">
+                            <!-- Les demandes seront chargées dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Section -->
+            <div id="reports-content" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Rapports
+                    </h2>
+                    <div class="section-actions">
+                        <select class="form-select" onchange="updateReportsPeriod(this.value)">
+                            <option value="today">Aujourd'hui</option>
+                            <option value="week" selected>Cette semaine</option>
+                            <option value="month">Ce mois</option>
+                            <option value="quarter">Ce trimestre</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="generateManagerReport()">
+                            <i class="fas fa-plus"></i> Générer Rapport
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Reports Grid -->
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-header">
+                            <h3 class="report-title">Rapport Journalier</h3>
+                            <i class="fas fa-calendar-day" style="color: var(--primary-color);"></i>
+                        </div>
+                        <p class="report-description">Résumé des activités et performances du jour</p>
+                        <button class="btn btn-outline btn-block" onclick="generateReport('daily')">
+                            <i class="fas fa-file-alt"></i> Générer
+                        </button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-header">
+                            <h3 class="report-title">Rapport Hebdomadaire</h3>
+                            <i class="fas fa-calendar-week" style="color: var(--primary-color);"></i>
+                        </div>
+                        <p class="report-description">Analyse des performances de la semaine</p>
+                        <button class="btn btn-outline btn-block" onclick="generateReport('weekly')">
+                            <i class="fas fa-file-alt"></i> Générer
+                        </button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-header">
+                            <h3 class="report-title">Rapport Mensuel</h3>
+                            <i class="fas fa-calendar-alt" style="color: var(--primary-color);"></i>
+                        </div>
+                        <p class="report-description">Bilan complet du mois écoulé</p>
+                        <button class="btn btn-outline btn-block" onclick="generateReport('monthly')">
+                            <i class="fas fa-file-alt"></i> Générer
+                        </button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-header">
+                            <h3 class="report-title">Rapport Clients</h3>
+                            <i class="fas fa-users" style="color: var(--primary-color);"></i>
+                        </div>
+                        <p class="report-description">Analyse de la clientèle et fidélisation</p>
+                        <button class="btn btn-outline btn-block" onclick="generateReport('customers')">
+                            <i class="fas fa-file-alt"></i> Générer
+                        </button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-header">
+                            <h3 class="report-title">Rapport Stock</h3>
+                            <i class="fas fa-boxes" style="color: var(--primary-color);"></i>
+                        </div>
+                        <p class="report-description">État des stocks et consommations</p>
+                        <button class="btn btn-outline btn-block" onclick="generateReport('stock')">
+                            <i class="fas fa-file-alt"></i> Générer
+                        </button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-header">
+                            <h3 class="report-title">Rapport Financier</h3>
+                            <i class="fas fa-euro-sign" style="color: var(--primary-color);"></i>
+                        </div>
+                        <p class="report-description">Analyse financière et chiffre d'affaires</p>
+                        <button class="btn btn-outline btn-block" onclick="generateReport('financial')">
+                            <i class="fas fa-file-alt"></i> Générer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Reports -->
+                <div class="card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <h3 class="card-title">Rapports Récents</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="recent-reports-manager">
+                            <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                                <i class="fas fa-file-alt" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                                <p>Aucun rapport généré récemment</p>
+                                <button class="btn btn-primary" onclick="generateReport('daily')" style="margin-top: 1rem;">
+                                    Générer un rapport
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chat Panel -->
+    <div id="chat-panel" class="chat-panel">
+        <div class="chat-header">
+            <h3>Chat avec les Clients</h3>
+            <button class="btn btn-sm btn-outline" onclick="toggleChat()" style="color: white; border-color: rgba(255,255,255,0.3);">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages seront chargés dynamiquement -->
+        </div>
+        <div class="chat-input">
+            <form class="chat-form" onsubmit="sendMessage(event)">
+                <input type="text" placeholder="Tapez votre message..." id="chat-input-panel" required>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nouvelle Commande -->
+    <div id="newOrderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nouvelle Commande</h3>
+                <button class="modal-close" onclick="closeModal('newOrderModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="newOrderForm">
+                    <div class="form-group">
+                        <label class="form-label">Client</label>
+                        <select class="form-select" name="customerId" required>
+                            <option value="">Sélectionner un client</option>
+                            <option value="4">Pierre Martin</option>
+                            <option value="5">Sophie Dubois</option>
+                            <option value="6">Marc Lefebvre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Type de Service</label>
+                        <select class="form-select" name="serviceType" required>
+                            <option value="">Sélectionner un service</option>
+                            <option value="nettoyage-sec">Nettoyage à sec</option>
+                            <option value="lavage">Lavage</option>
+                            <option value="repassage">Repassage</option>
+                            <option value="detachage">Détachage</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Articles</label>
+                        <textarea class="form-textarea" name="items" required placeholder="Ex: 2 chemises, 1 pantalon, 1 veste"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Prix Total (€)</label>
+                        <input type="number" class="form-input" name="total" step="0.01" required placeholder="25.50">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date de Livraison Prévue</label>
+                        <input type="date" class="form-input" name="expectedDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Notes Spéciales</label>
+                        <textarea class="form-textarea" name="notes" placeholder="Instructions particulières..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newOrderModal')">Annuler</button>
+                <button class="btn btn-primary" onclick="createOrder()">
+                    <i class="fas fa-plus"></i> Créer la Commande
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nouveau Client -->
+    <div id="newClientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nouveau Client</h3>
+                <button class="modal-close" onclick="closeModal('newClientModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="newClientForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Prénom *</label>
+                            <input type="text" class="form-input" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nom *</label>
+                            <input type="text" class="form-input" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Email *</label>
+                            <input type="email" class="form-input" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Téléphone</label>
+                            <input type="tel" class="form-input" name="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Adresse</label>
+                        <textarea class="form-textarea" name="address" rows="3" placeholder="Adresse complète..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nom d'utilisateur *</label>
+                            <input type="text" class="form-input" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Mot de passe *</label>
+                            <input type="password" class="form-input" name="password" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-textarea" name="notes" rows="2" placeholder="Notes sur le client..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newClientModal')">Annuler</button>
+                <button class="btn btn-primary" onclick="createClient()">
+                    <i class="fas fa-plus"></i> Créer le Client
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Notification Client -->
+    <div id="notifyClientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Notifier un Client</h3>
+                <button class="modal-close" onclick="closeModal('notifyClientModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="notifyClientForm">
+                    <div class="form-group">
+                        <label class="form-label">Client</label>
+                        <select class="form-select" name="clientId" required>
+                            <option value="">Sélectionner un client</option>
+                            <option value="4">Pierre Martin</option>
+                            <option value="5">Sophie Dubois</option>
+                            <option value="6">Marc Lefebvre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Type de Notification</label>
+                        <select class="form-select" name="notificationType" required>
+                            <option value="">Sélectionner un type</option>
+                            <option value="order_ready">Commande prête</option>
+                            <option value="order_progress">Commande en cours</option>
+                            <option value="order_delay">Retard de livraison</option>
+                            <option value="general">Information générale</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Titre</label>
+                        <input type="text" class="form-input" name="title" required placeholder="Titre de la notification">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-textarea" name="message" required placeholder="Votre message au client..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('notifyClientModal')">Annuler</button>
+                <button class="btn btn-primary" onclick="sendNotification()">
+                    <i class="fas fa-bell"></i> Envoyer Notification
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour modifier une commande -->
+    <div id="editOrderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Modifier la Commande</h3>
+                <button class="modal-close" onclick="closeModal('editOrderModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editOrderForm">
+                    <input type="hidden" id="editOrderId" name="orderId">
+                    <div class="form-group">
+                        <label class="form-label">Numéro de commande</label>
+                        <input type="text" class="form-input" id="editOrderNumber" name="orderNumber" readonly style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Client</label>
+                        <input type="text" class="form-input" id="editOrderCustomer" name="customerName" readonly style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Statut</label>
+                        <select class="form-select" id="editOrderStatus" name="status" required>
+                            <option value="pending">En attente</option>
+                            <option value="processing">En cours</option>
+                            <option value="ready">Prêt</option>
+                            <option value="completed">Terminé</option>
+                            <option value="cancelled">Annulé</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Total (€)</label>
+                        <input type="number" class="form-input" id="editOrderTotal" name="total" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date de livraison</label>
+                        <input type="date" class="form-input" id="editOrderDeliveryDate" name="deliveryDate">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-input" id="editOrderNotes" name="notes" rows="3" placeholder="Notes sur la commande..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('editOrderModal')">Annuler</button>
+                <button class="btn btn-primary" onclick="updateOrder()">
+                    <i class="fas fa-save"></i> Modifier la commande
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Validation Coupon de Dépôt -->
+    <div id="depositCouponValidationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🎫 Validation du Reçu de Dépôt</h3>
+                <button class="modal-close" onclick="closeModal('depositCouponValidationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="coupon-preview" id="depositCouponPreview">
+                    <!-- Le contenu du coupon sera généré dynamiquement -->
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Confirmer l'envoi du reçu de dépôt au client ?</label>
+                    <p class="form-help">Le client recevra une notification avec le code de vérification pour récupérer ses vêtements.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('depositCouponValidationModal')">Annuler</button>
+                <button class="btn btn-primary" onclick="validateAndSendDepositCoupon()" id="validateDepositCouponBtn">
+                    <i class="fas fa-paper-plane"></i> Envoyer le Reçu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/modules/data-init.js"></script>
+    <script src="assets/js/modules/data-manager.js"></script>
+    <script src="assets/js/modules/toast-notifications.js"></script>
+    <script src="assets/js/modules/details-display.js"></script>
+    <script src="assets/js/modules/notifications.js"></script>
+    <script src="assets/js/modules/chat.js"></script>
+    <script src="assets/js/modules/manager-features.js"></script>
+    <script src="assets/js/modules/pdf-generator.js"></script>
+    <script src="assets/js/modules/restock-manager.js"></script>
+    <script src="assets/js/modules/reports-manager.js"></script>
+    <script src="assets/js/modules/performance-optimizer.js"></script>
+    <script src="assets/js/modules/coupon-manager.js"></script>
+    <script src="assets/js/modules/mobile-payment.js"></script>
+    <script>
+        // Variables globales
+        let currentUser = null;
+        let ordersData = [];
+        let customersData = [];
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            setupEventListeners();
+
+            // Délai pour s'assurer que tous les modules sont chargés
+            setTimeout(() => {
+                // Forcer l'initialisation des données si nécessaire
+                const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+                if (orders.length === 0 && window.dataInit) {
+                    console.log('🔄 Initialisation forcée des données...');
+                    window.dataInit.init();
+                }
+
+                loadDashboardData();
+            }, 200);
+        });
+
+        function initializeApp() {
+            // Vérifier l'authentification
+            const userData = localStorage.getItem('user');
+            if (!userData) {
+                window.location.href = '/';
+                return;
+            }
+            
+            currentUser = JSON.parse(userData);
+            if (currentUser.role !== 'manager') {
+                window.location.href = '/';
+                return;
+            }
+
+            // Mettre à jour l'avatar utilisateur
+            const userAvatar = document.querySelector('.user-avatar');
+            if (userAvatar && currentUser.firstName) {
+                userAvatar.textContent = currentUser.firstName.charAt(0).toUpperCase();
+            }
+
+            // Vérifier et initialiser les données si nécessaire
+            const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            if (orders.length === 0) {
+                console.log('🔄 Aucune donnée trouvée, initialisation...');
+                if (window.dataInit) {
+                    window.dataInit.init();
+                }
+            }
+        }
+
+        function setupEventListeners() {
+            // Navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.dataset.section;
+                    if (section) {
+                        switchSection(section);
+                    }
+                });
+            });
+
+            // Fermeture des modals en cliquant à l'extérieur
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        async function loadDashboardData() {
+            console.log('🚀 Chargement du dashboard...');
+
+            // Forcer l'initialisation des données si elles sont vides
+            const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            if (orders.length === 0) {
+                console.log('🔄 Aucune donnée trouvée, initialisation forcée...');
+                if (window.dataInit) {
+                    window.dataInit.init();
+                }
+            }
+
+            try {
+                // Charger les données depuis les APIs
+                await Promise.all([
+                    loadOrdersData(),
+                    loadCustomersData(),
+                    updateStatistics()
+                ]);
+
+                // Charger les notifications de paiement
+                if (window.mobilePaymentManager) {
+                    loadPaymentNotifications();
+                }
+
+                console.log('✅ Dashboard chargé avec succès');
+            } catch (error) {
+                console.error('❌ Erreur lors du chargement des données:', error);
+                showToast('Erreur lors du chargement des données', 'error');
+            }
+        }
+
+        async function loadOrdersData() {
+            try {
+                // Charger depuis localStorage au lieu de l'API
+                const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+                console.log('📦 Commandes chargées depuis localStorage:', orders.length, 'commandes');
+                console.log('👤 Utilisateur actuel:', currentUser);
+
+                // Debug: afficher toutes les commandes avec leurs managerId
+                orders.forEach(order => {
+                    console.log(`📋 Commande ${order.orderNumber}: managerId=${order.managerId}, customerId=${order.customerId}, status=${order.status}`);
+                });
+
+                // Pour les gérants, filtrer par managerId, pour les admins, afficher toutes
+                if (currentUser && currentUser.role === 'manager' && currentUser.id) {
+                    ordersData = orders.filter(order => order.managerId === parseInt(currentUser.id));
+                    console.log('🔍 Commandes filtrées pour le gérant', currentUser.id, ':', ordersData.length, 'commandes');
+
+                    // Debug: afficher les commandes filtrées
+                    ordersData.forEach(order => {
+                        console.log(`✅ Commande assignée: ${order.orderNumber} (${order.status})`);
+                    });
+                } else {
+                    // Admin ou pas de filtrage
+                    ordersData = orders;
+                    console.log('📋 Toutes les commandes affichées:', ordersData.length, 'commandes');
+                }
+
+                renderOrdersColumns();
+            } catch (error) {
+                console.error('Erreur lors du chargement des commandes:', error);
+                ordersData = [];
+                renderOrdersColumns();
+            }
+        }
+
+        function generateDemoOrders() {
+            return [
+                {
+                    id: 1,
+                    orderNumber: 'CMD-001',
+                    customerId: 4,
+                    customerName: 'Pierre Martin',
+                    status: 'pending',
+                    items: [{ name: 'Chemise', service: 'Nettoyage à sec', price: 15 }],
+                    total: 15,
+                    createdAt: '2025-08-05',
+                    expectedDate: '2025-08-07'
+                },
+                {
+                    id: 2,
+                    orderNumber: 'CMD-002',
+                    customerId: 5,
+                    customerName: 'Sophie Dubois',
+                    status: 'in_progress',
+                    items: [{ name: 'Costume', service: 'Nettoyage à sec', price: 35 }],
+                    total: 35,
+                    createdAt: '2025-08-04',
+                    expectedDate: '2025-08-06'
+                },
+                {
+                    id: 3,
+                    orderNumber: 'CMD-003',
+                    customerId: 6,
+                    customerName: 'Marc Lefebvre',
+                    status: 'ready',
+                    items: [{ name: 'Pantalon', service: 'Repassage', price: 8 }],
+                    total: 8,
+                    createdAt: '2025-08-03',
+                    expectedDate: '2025-08-05'
+                }
+            ];
+        }
+
+        async function loadCustomersData() {
+            try {
+                // Essayer d'abord avec dataManager
+                const result = await dataManager.getUserByRole('client');
+                if (result.success && result.data.length > 0) {
+                    customersData = result.data;
+                    console.log('👥 Clients chargés via dataManager:', customersData.length);
+                } else {
+                    // Fallback: charger directement depuis localStorage
+                    console.log('🔄 Chargement direct des clients depuis localStorage...');
+                    const users = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+                    customersData = users.filter(user => user.role === 'client');
+                    console.log('👥 Clients chargés depuis localStorage:', customersData.length);
+                }
+
+                // Rendre la grille des clients
+                renderCustomersGrid();
+
+            } catch (error) {
+                console.error('❌ Erreur lors du chargement des clients:', error);
+                customersData = [];
+                renderCustomersGrid();
+            }
+        }
+
+        function renderCustomersGrid() {
+            const container = document.getElementById('customers-grid');
+            if (!container) {
+                console.error('❌ Container customers-grid non trouvé');
+                return;
+            }
+
+            console.log('👥 Rendu de la grille clients:', customersData.length, 'clients');
+
+            if (customersData && customersData.length > 0) {
+                container.innerHTML = customersData.map(customer => `
+                    <div class="customer-card">
+                        <div class="customer-header">
+                            <div class="customer-name">${customer.firstName} ${customer.lastName}</div>
+                            <div class="user-avatar" style="width: 32px; height: 32px; font-size: 0.875rem;">
+                                ${customer.firstName.charAt(0)}
+                            </div>
+                        </div>
+                        <div class="customer-info">
+                            <div class="customer-detail">
+                                <i class="fas fa-envelope"></i>
+                                <span>${customer.email}</span>
+                            </div>
+                            ${customer.phone ? `
+                                <div class="customer-detail">
+                                    <i class="fas fa-phone"></i>
+                                    <span>${customer.phone}</span>
+                                </div>
+                            ` : ''}
+                            <div class="customer-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span>Client depuis ${formatDate(customer.createdAt)}</span>
+                            </div>
+                        </div>
+                        <div class="customer-actions">
+                            <button class="btn btn-sm btn-primary" onclick="viewCustomerDetails(${customer.id})">
+                                <i class="fas fa-eye"></i> Voir
+                            </button>
+                            <button class="btn btn-sm btn-outline" onclick="contactCustomer(${customer.id})">
+                                <i class="fas fa-comments"></i> Contacter
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 4rem; color: var(--text-secondary); grid-column: 1 / -1;">
+                        <i class="fas fa-users" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <h3>Aucun client trouvé</h3>
+                        <p>Les clients que vous créez apparaîtront ici</p>
+                        <button class="btn btn-primary" onclick="showNewClientModal()" style="margin-top: 1rem;">
+                            <i class="fas fa-plus"></i> Créer un Client
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function renderOrdersColumns() {
+            const statuses = ['pending', 'in_progress', 'ready', 'delivered'];
+
+            // Mapping des statuts vers les IDs des containers
+            const containerIds = {
+                'pending': 'pending-orders-section',
+                'in_progress': 'progress-orders-section',
+                'ready': 'ready-orders-section',
+                'delivered': 'delivered-orders-section'
+            };
+
+            // Vérifier que ordersData est défini et est un tableau
+            if (!Array.isArray(ordersData)) {
+                console.error('ordersData n\'est pas un tableau:', ordersData);
+                ordersData = [];
+            }
+
+            console.log('🎨 Rendu des colonnes de commandes, total:', ordersData.length);
+
+            statuses.forEach(status => {
+                const containerId = containerIds[status];
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    console.warn('⚠️ Container non trouvé pour le statut:', status, 'ID cherché:', containerId);
+                    return;
+                }
+
+                const statusOrders = ordersData.filter(order => order && order.status === status);
+                console.log(`📊 Statut ${status}:`, statusOrders.length, 'commandes');
+
+                // Debug: afficher les commandes de ce statut
+                statusOrders.forEach(order => {
+                    console.log(`  ✅ ${order.orderNumber} - ${order.customerName} - ${order.status}`);
+                });
+
+                const html = statusOrders.map(order => `
+                    <div class="order-card fade-in">
+                        <div class="order-header">
+                            <div class="order-number">#${order.orderNumber}</div>
+                            <div class="order-date">${formatDate(order.createdAt)}</div>
+                        </div>
+                        <div class="order-client">
+                            <i class="fas fa-user"></i>
+                            ${order.customerName}
+                        </div>
+                        <div class="order-items">
+                            <i class="fas fa-tshirt"></i>
+                            ${order.services ? order.services.length : 0} article(s)
+                        </div>
+                        <div class="order-total">
+                            <strong>€${order.total}</strong>
+                        </div>
+                        <div class="order-actions">
+                            ${getOrderActions(order, status)}
+                        </div>
+                    </div>
+                `).join('');
+
+                console.log(`🎨 HTML généré pour ${status}:`, html.length, 'caractères');
+                container.innerHTML = html;
+
+                // Mettre à jour le badge de comptage
+                const badgeId = `${status.replace('_', '-')}-badge-section`;
+                const badge = document.getElementById(badgeId);
+                if (badge) {
+                    badge.textContent = statusOrders.length;
+                }
+            });
+        }
+
+        function getOrderActions(order, currentStatus) {
+            const actions = [];
+
+            // Boutons communs à tous les statuts
+            actions.push(`
+                <button class="btn btn-outline btn-sm" onclick="viewOrderDetails(${order.id})" title="Voir détails">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-outline btn-sm" onclick="editOrder(${order.id})" title="Modifier">
+                    <i class="fas fa-edit"></i>
+                </button>
+            `);
+
+            // Boutons spécifiques selon le statut
+            switch (currentStatus) {
+                case 'pending':
+                    actions.push(`
+                        <button class="btn btn-primary btn-sm" onclick="updateOrderStatus(${order.id}, 'in_progress')">
+                            <i class="fas fa-play"></i> Commencer
+                        </button>
+                    `);
+                    break;
+
+                case 'in_progress':
+                    actions.push(`
+                        <button class="btn btn-success btn-sm" onclick="updateOrderStatus(${order.id}, 'ready')">
+                            <i class="fas fa-check"></i> Terminer
+                        </button>
+                    `);
+                    break;
+
+                case 'ready':
+                    actions.push(`
+                        <button class="btn btn-warning btn-sm" onclick="notifyOrderReady(${order.id})">
+                            <i class="fas fa-bell"></i> Notifier
+                        </button>
+                        <button class="btn btn-success btn-sm" onclick="updateOrderStatus(${order.id}, 'delivered')">
+                            <i class="fas fa-truck"></i> Livrer
+                        </button>
+                    `);
+                    break;
+            }
+
+            return actions.join('');
+        }
+
+        async function updateOrderStatus(orderId, newStatus) {
+            console.log('🔄 Changement de statut demandé:', orderId, '->', newStatus);
+
+            try {
+                // Vérifier que ordersData est défini
+                if (!Array.isArray(ordersData)) {
+                    console.error('ordersData n\'est pas défini, rechargement des données...');
+                    await loadOrdersData();
+                }
+
+                // Trouver la commande dans ordersData
+                const orderIndex = ordersData.findIndex(o => o.id === parseInt(orderId));
+                if (orderIndex === -1) {
+                    console.error('Commande non trouvée:', orderId);
+                    showToast('Commande non trouvée', 'error');
+                    return;
+                }
+
+                const order = ordersData[orderIndex];
+                console.log('📦 Commande trouvée:', order.orderNumber, 'statut actuel:', order.status);
+
+                // Mettre à jour le statut
+                order.status = newStatus;
+                order.lastStatusChange = new Date().toISOString();
+
+                // Ajouter des timestamps selon le statut
+                if (newStatus === 'in_progress') {
+                    order.startedAt = new Date().toISOString();
+                } else if (newStatus === 'ready') {
+                    order.completedAt = new Date().toISOString();
+                } else if (newStatus === 'delivered') {
+                    order.deliveredAt = new Date().toISOString();
+                }
+
+                // Sauvegarder dans localStorage
+                const allOrders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+                const globalOrderIndex = allOrders.findIndex(o => o.id === parseInt(orderId));
+                if (globalOrderIndex !== -1) {
+                    allOrders[globalOrderIndex] = order;
+                    localStorage.setItem('manohpressing_orders', JSON.stringify(allOrders));
+                    console.log('💾 Commande sauvegardée dans localStorage');
+                }
+
+                // Notifier automatiquement le client
+                try {
+                    await autoNotifyStatusChange(order, newStatus);
+                } catch (notifError) {
+                    console.warn('Erreur notification:', notifError);
+                }
+
+                // Générer un coupon de dépôt si la commande est livrée
+                if (newStatus === 'delivered' && window.couponManager) {
+                    try {
+                        const coupon = await window.couponManager.generateDepositCoupon(
+                            order.id,
+                            order.customerId,
+                            currentUser.id
+                        );
+                        console.log('🎫 Coupon de dépôt généré:', coupon.code);
+                        showToast(`Coupon de dépôt généré ! Code: ${coupon.code}`, 'info');
+
+                        // Afficher le modal de validation du coupon de dépôt
+                        showDepositCouponValidationModal(coupon);
+                    } catch (couponError) {
+                        console.warn('Erreur génération coupon de dépôt:', couponError);
+                    }
+                }
+
+                // Mettre à jour l'affichage
+                renderOrdersColumns();
+                updateStatistics();
+                showToast(`Commande ${order.orderNumber} passée à "${getStatusLabel(newStatus)}"`, 'success');
+
+            } catch (error) {
+                console.error('❌ Erreur lors de la mise à jour du statut:', error);
+                showToast('Erreur lors de la mise à jour du statut', 'error');
+            }
+        }
+
+        async function autoNotifyStatusChange(order, newStatus) {
+            // Vérifier que l'objet order est valide
+            if (!order || !order.customerId) {
+                console.warn('Impossible de notifier: commande invalide', order);
+                return;
+            }
+
+            const messages = {
+                'in_progress': 'Votre commande est maintenant en cours de traitement',
+                'ready': 'Votre commande est prête à être récupérée !',
+                'delivered': 'Votre commande a été livrée avec succès'
+            };
+
+            const types = {
+                'in_progress': 'order_progress',
+                'ready': 'order_ready',
+                'delivered': 'order_delivered'
+            };
+
+            if (messages[newStatus] && window.notificationManager) {
+                try {
+                    await window.notificationManager.sendNotification(
+                        order.customerId,
+                        types[newStatus],
+                        'Mise à jour commande',
+                        messages[newStatus],
+                        { orderId: order.id, orderNumber: order.orderNumber }
+                    );
+                } catch (error) {
+                    console.error('Erreur lors de l\'envoi de notification:', error);
+                }
+            }
+        }
+
+        function getStatusLabel(status) {
+            const labels = {
+                'pending': 'En attente',
+                'in_progress': 'En cours',
+                'ready': 'Prête',
+                'delivered': 'Livrée',
+                'cancelled': 'Annulée'
+            };
+            return labels[status] || status;
+        }
+
+        async function notifyOrderReady(orderId) {
+            if (!Array.isArray(ordersData)) {
+                console.error('ordersData n\'est pas défini ou n\'est pas un tableau');
+                return;
+            }
+
+            const order = ordersData.find(o => o.id === orderId);
+            if (!order) {
+                console.warn('Commande non trouvée:', orderId);
+                return;
+            }
+
+            if (window.notificationManager) {
+                const success = await window.notificationManager.notifyOrderReady(
+                    order.customerId,
+                    order.orderNumber
+                );
+                
+                if (success) {
+                    showToast('Client notifié avec succès', 'success');
+                }
+            }
+        }
+
+        function updateStatistics() {
+            // Vérifier que ordersData est défini
+            if (!Array.isArray(ordersData)) {
+                console.warn('⚠️ ordersData n\'est pas un tableau, initialisation...');
+                ordersData = [];
+            }
+
+            console.log('📊 Mise à jour des statistiques avec', ordersData.length, 'commandes');
+
+            const stats = {
+                pending: ordersData.filter(o => o.status === 'pending').length,
+                inProgress: ordersData.filter(o => o.status === 'in_progress').length,
+                ready: ordersData.filter(o => o.status === 'ready').length,
+                delivered: ordersData.filter(o => o.status === 'delivered').length
+            };
+
+            console.log('📈 Statistiques calculées:', stats);
+
+            // Mettre à jour les compteurs (avec vérification d'existence)
+            const pendingCount = document.getElementById('pending-orders-count');
+            const progressCount = document.getElementById('progress-orders-count');
+            const readyCount = document.getElementById('ready-orders-count');
+
+            if (pendingCount) pendingCount.textContent = stats.pending;
+            if (progressCount) progressCount.textContent = stats.inProgress;
+            if (readyCount) readyCount.textContent = stats.ready;
+
+            // Mettre à jour les badges
+            const pendingBadge = document.getElementById('pending-badge');
+            const progressBadge = document.getElementById('progress-badge');
+            const readyBadge = document.getElementById('ready-badge');
+            const deliveredBadge = document.getElementById('delivered-badge');
+
+            if (pendingBadge) pendingBadge.textContent = stats.pending;
+            if (progressBadge) progressBadge.textContent = stats.inProgress;
+            if (readyBadge) readyBadge.textContent = stats.ready;
+            if (deliveredBadge) deliveredBadge.textContent = stats.delivered;
+
+            // Calculer le CA du jour
+            const today = new Date().toISOString().split('T')[0];
+            const todayOrders = ordersData.filter(o => o.createdAt === today);
+            const todayRevenue = todayOrders.reduce((sum, order) => sum + parseFloat(order.total), 0);
+            document.getElementById('today-revenue').textContent = `€${todayRevenue.toFixed(0)}`;
+        }
+
+        function switchSection(section) {
+            // Mettre à jour la navigation active
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${section}"]`).classList.add('active');
+
+            // Masquer toutes les sections
+            document.querySelectorAll('.content-section').forEach(contentSection => {
+                contentSection.classList.remove('active');
+            });
+
+            // Afficher la section demandée
+            const targetSection = document.getElementById(`${section}-content`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+
+                // Charger le contenu spécifique selon la section
+                switch(section) {
+                    case 'dashboard':
+                        loadDashboardData();
+                        break;
+                    case 'orders':
+                        loadOrdersSection();
+                        break;
+                    case 'customers':
+                        loadCustomersSection();
+                        break;
+                    case 'notifications':
+                        loadNotificationsSection();
+                        break;
+                    case 'chat':
+                        loadChatSection();
+                        break;
+                    case 'stock':
+                        loadStockSection();
+                        break;
+                    case 'reports':
+                        loadReportsSection();
+                        break;
+                }
+            }
+
+            console.log('Switched to section:', section);
+        }
+
+        // Fonctions pour charger le contenu des sections
+        async function loadOrdersSection() {
+            try {
+                const result = await dataManager.read('orders');
+                if (result.success) {
+                    const orders = result.data;
+
+                    // Organiser les commandes par statut
+                    const statuses = ['pending', 'in_progress', 'ready', 'delivered'];
+
+                    statuses.forEach(status => {
+                        const statusOrders = orders.filter(order => order.status === status);
+                        const containerId = `${status.replace('_', '-')}-orders-section`;
+                        const badgeId = `${status.replace('_', '-')}-badge-section`;
+                        const container = document.getElementById(containerId);
+                        const badge = document.getElementById(badgeId);
+
+                        if (container && badge) {
+                            badge.textContent = statusOrders.length;
+
+                            if (statusOrders.length > 0) {
+                                container.innerHTML = statusOrders.map(order => `
+                                    <div class="order-card fade-in">
+                                        <div class="order-header">
+                                            <div class="order-number">#${order.orderNumber}</div>
+                                            <div class="order-date">${formatDate(order.createdAt)}</div>
+                                        </div>
+                                        <div class="order-client">
+                                            <i class="fas fa-user"></i>
+                                            ${order.customerName}
+                                        </div>
+                                        <div class="order-items">
+                                            <i class="fas fa-tshirt"></i>
+                                            ${order.services ? order.services.length : 0} article(s)
+                                        </div>
+                                        <div class="order-total">
+                                            <strong>€${order.total}</strong>
+                                        </div>
+                                        <div class="order-actions">
+                                            ${getOrderActions(order, status)}
+                                            <button class="btn btn-outline btn-sm" onclick="printReceipt('${order.orderNumber}')">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                `).join('');
+                            } else {
+                                container.innerHTML = `
+                                    <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                                        <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                                        <p>Aucune commande</p>
+                                    </div>
+                                `;
+                            }
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des commandes:', error);
+            }
+        }
+
+        async function loadCustomersSection() {
+            try {
+                const result = await dataManager.getUserByRole('client');
+                const container = document.getElementById('customers-grid');
+
+                if (result.success && result.data.length > 0) {
+                    container.innerHTML = result.data.map(customer => `
+                        <div class="customer-card">
+                            <div class="customer-header">
+                                <div class="customer-name">${customer.firstName} ${customer.lastName}</div>
+                                <div class="user-avatar" style="width: 32px; height: 32px; font-size: 0.875rem;">
+                                    ${customer.firstName.charAt(0)}
+                                </div>
+                            </div>
+                            <div class="customer-info">
+                                <div class="customer-stat">
+                                    <span><i class="fas fa-envelope"></i> Email:</span>
+                                    <span>${customer.email}</span>
+                                </div>
+                                <div class="customer-stat">
+                                    <span><i class="fas fa-phone"></i> Téléphone:</span>
+                                    <span>${customer.phone || 'Non renseigné'}</span>
+                                </div>
+                                <div class="customer-stat">
+                                    <span><i class="fas fa-star"></i> Points:</span>
+                                    <span>${customer.loyaltyPoints || 0} pts</span>
+                                </div>
+                                <div class="customer-stat">
+                                    <span><i class="fas fa-euro-sign"></i> Total dépensé:</span>
+                                    <span>€${customer.totalSpent || 0}</span>
+                                </div>
+                            </div>
+                            <div class="customer-actions">
+                                <button class="btn btn-outline btn-sm" onclick="viewCustomerOrders(${customer.id})">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </button>
+                                <button class="btn btn-outline btn-sm" onclick="contactCustomer(${customer.id})">
+                                    <i class="fas fa-comments"></i>
+                                </button>
+                                <button class="btn btn-outline btn-sm" onclick="notifyCustomer(${customer.id})">
+                                    <i class="fas fa-bell"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 4rem; color: var(--text-secondary); grid-column: 1 / -1;">
+                            <i class="fas fa-users" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                            <h3>Aucun client trouvé</h3>
+                            <p>Les clients apparaîtront ici une fois qu'ils auront passé des commandes</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des clients:', error);
+            }
+        }
+
+        async function loadNotificationsSection() {
+            const container = document.getElementById('notifications-list');
+
+            // Simuler des notifications
+            const notifications = [
+                {
+                    id: 1,
+                    type: 'order_ready',
+                    title: 'Commande CMD-003 prête',
+                    message: 'La commande de Pierre Martin est prête à être récupérée',
+                    time: 'Il y a 2 heures',
+                    isRead: false
+                },
+                {
+                    id: 2,
+                    type: 'order_progress',
+                    title: 'Nouvelle commande reçue',
+                    message: 'Commande CMD-004 de Sophie Dubois en attente de traitement',
+                    time: 'Il y a 4 heures',
+                    isRead: true
+                },
+                {
+                    id: 3,
+                    type: 'general',
+                    title: 'Stock faible',
+                    message: 'Le détergent Premium est en rupture de stock',
+                    time: 'Il y a 1 jour',
+                    isRead: false
+                }
+            ];
+
+            if (notifications.length > 0) {
+                container.innerHTML = notifications.map(notification => `
+                    <div class="notification-item ${notification.isRead ? 'read' : 'unread'}">
+                        <div class="notification-header">
+                            <div>
+                                <span class="notification-type ${notification.type}">${notification.type.replace('_', ' ')}</span>
+                                <span style="font-size: 0.875rem; color: var(--text-secondary); margin-left: 1rem;">${notification.time}</span>
+                            </div>
+                            ${!notification.isRead ? `
+                                <button class="btn btn-outline btn-sm" onclick="markNotificationRead(${notification.id})">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            ` : ''}
+                        </div>
+                        <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">${notification.title}</h4>
+                        <p style="color: var(--text-secondary); margin: 0;">${notification.message}</p>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 4rem; color: var(--text-secondary);">
+                        <i class="fas fa-bell-slash" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <h3>Aucune notification</h3>
+                        <p>Les notifications apparaîtront ici</p>
+                    </div>
+                `;
+            }
+        }
+
+        function loadChatSection() {
+            // Initialiser le chat et mettre à jour l'interface
+            if (window.chatManager) {
+                chatManager.updateChatInterface();
+
+                // Afficher le conteneur d'input si une conversation est sélectionnée
+                const inputContainer = document.getElementById('chat-input-container');
+                const conversationTitle = document.getElementById('chat-conversation-title');
+
+                if (chatManager.currentConversation) {
+                    inputContainer.style.display = 'block';
+                    const conversation = chatManager.conversations.get(chatManager.currentConversation);
+                    if (conversation) {
+                        conversationTitle.textContent = conversation.userName;
+                    }
+                } else {
+                    inputContainer.style.display = 'none';
+                    conversationTitle.textContent = 'Sélectionnez une conversation';
+                }
+
+                showToast('Chat initialisé avec succès', 'success');
+            } else {
+                showToast('Erreur: Module de chat non disponible', 'error');
+            }
+        }
+
+        function refreshChatList() {
+            if (window.chatManager) {
+                chatManager.updateChatInterface();
+                showToast('Liste des conversations actualisée', 'success');
+            }
+        }
+
+        async function loadStockSection() {
+            try {
+                const result = await dataManager.read('stock');
+                const container = document.getElementById('stock-grid');
+                const alertsContainer = document.getElementById('stock-alerts');
+                const lowStockCount = document.getElementById('low-stock-count');
+
+                if (result.success && result.data.length > 0) {
+                    const stockItems = result.data;
+                    const lowStockItems = stockItems.filter(item => item.quantity <= item.minQuantity);
+
+                    // Mettre à jour le compteur d'alertes
+                    lowStockCount.textContent = lowStockItems.length;
+
+                    // Afficher les alertes
+                    if (lowStockItems.length > 0) {
+                        alertsContainer.innerHTML = lowStockItems.map(item => `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #fef3c7; border: 1px solid #f59e0b; border-radius: var(--radius-md); margin-bottom: 0.5rem;">
+                                <div>
+                                    <strong>${item.name}</strong> - Stock faible: ${item.quantity} ${item.unit}
+                                </div>
+                                <button class="btn btn-warning btn-sm" onclick="reorderStock(${item.id})">
+                                    <i class="fas fa-shopping-cart"></i> Réapprovisionner
+                                </button>
+                            </div>
+                        `).join('');
+                    } else {
+                        alertsContainer.innerHTML = `
+                            <div style="text-align: center; padding: 1rem; color: var(--success-color);">
+                                <i class="fas fa-check-circle"></i> Tous les stocks sont suffisants
+                            </div>
+                        `;
+                    }
+
+                    // Afficher tous les articles de stock
+                    container.innerHTML = stockItems.map(item => `
+                        <div class="stock-item ${item.quantity <= item.minQuantity ? 'low-stock' : ''}">
+                            <div class="stock-header">
+                                <div class="stock-name">${item.name}</div>
+                                <div class="stock-quantity">${item.quantity}</div>
+                            </div>
+                            <div class="stock-info">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Unité:</span>
+                                    <span>${item.unit}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Stock min:</span>
+                                    <span>${item.minQuantity}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Prix unitaire:</span>
+                                    <span>€${item.unitPrice}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Fournisseur:</span>
+                                    <span>${item.supplier}</span>
+                                </div>
+                            </div>
+                            <div class="stock-actions">
+                                <button class="btn btn-outline btn-sm" onclick="editStock(${item.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-primary btn-sm" onclick="updateStock(${item.id})">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                ${item.quantity <= item.minQuantity ? `
+                                    <button class="btn btn-warning btn-sm" onclick="requestRestock(${item.id})">
+                                        <i class="fas fa-exclamation-triangle"></i> Demander
+                                    </button>
+                                ` : ''}
+                                <button class="btn btn-primary btn-sm" onclick="requestRestock(${item.id})">
+                                    <i class="fas fa-plus"></i> Réappro
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 4rem; color: var(--text-secondary); grid-column: 1 / -1;">
+                            <i class="fas fa-boxes" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                            <h3>Aucun article en stock</h3>
+                            <p>Commencez par ajouter des articles à votre inventaire</p>
+                            <button class="btn btn-primary" onclick="showAddStockModal()" style="margin-top: 1rem;">
+                                <i class="fas fa-plus"></i> Ajouter un article
+                            </button>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement du stock:', error);
+            }
+
+            // Charger aussi les demandes de réapprovisionnement
+            restockManager.renderRequestsTable('restock-requests-table', false);
+        }
+
+        function loadReportsSection() {
+            // Charger la liste des rapports récents
+            const recentReports = JSON.parse(localStorage.getItem('manohpressing_manager_reports') || '[]');
+            const container = document.getElementById('recent-reports-manager');
+
+            if (recentReports.length > 0) {
+                container.innerHTML = recentReports.map(report => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 0.5rem;">
+                        <div>
+                            <div style="font-weight: 600;">${report.name}</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">${report.date}</div>
+                        </div>
+                        <div>
+                            <button class="btn btn-outline btn-sm" onclick="downloadManagerReport('${report.id}')">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <i class="fas fa-file-alt" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <p>Aucun rapport généré récemment</p>
+                        <button class="btn btn-primary" onclick="generateReport('daily')" style="margin-top: 1rem;">
+                            Générer un rapport
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Fonctions utilitaires pour les sections
+        function filterCustomers(query) {
+            const cards = document.querySelectorAll('.customer-card');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(query.toLowerCase()) ? 'block' : 'none';
+            });
+        }
+
+        function viewCustomerOrders(customerId) {
+            showToast('Affichage des commandes du client', 'info');
+            switchSection('orders');
+        }
+
+        function contactCustomer(customerId) {
+            showToast('Ouverture du chat avec le client', 'info');
+            toggleChat();
+        }
+
+        function notifyCustomer(customerId) {
+            showToast('Notification du client', 'info');
+            showNotifyClientModal();
+        }
+
+        function markNotificationRead(notificationId) {
+            showToast('Notification marquée comme lue', 'success');
+            loadNotificationsSection();
+        }
+
+        function editStock(stockId) {
+            const stockResult = JSON.parse(localStorage.getItem('manohpressing_stock') || '[]');
+            const stockItem = stockResult.find(item => item.id == stockId);
+
+            if (stockItem) {
+                const newName = prompt('Nouveau nom de l\'article:', stockItem.name);
+                const newQuantity = prompt('Nouvelle quantité:', stockItem.quantity);
+                const newMinQuantity = prompt('Quantité minimum:', stockItem.minQuantity);
+                const newUnitPrice = prompt('Prix unitaire:', stockItem.unitPrice);
+
+                if (newName && newQuantity && newMinQuantity && newUnitPrice) {
+                    stockItem.name = newName;
+                    stockItem.quantity = parseInt(newQuantity);
+                    stockItem.minQuantity = parseInt(newMinQuantity);
+                    stockItem.unitPrice = parseFloat(newUnitPrice);
+
+                    localStorage.setItem('manohpressing_stock', JSON.stringify(stockResult));
+                    loadStockSection();
+                    showToast('Article modifié avec succès', 'success');
+                }
+            }
+        }
+
+        function updateStock(stockId) {
+            const stockResult = JSON.parse(localStorage.getItem('manohpressing_stock') || '[]');
+            const stockItem = stockResult.find(item => item.id == stockId);
+
+            if (stockItem) {
+                const additionalQuantity = prompt(`Ajouter du stock pour "${stockItem.name}".\nStock actuel: ${stockItem.quantity}\n\nQuantité à ajouter:`);
+
+                if (additionalQuantity && !isNaN(additionalQuantity)) {
+                    stockItem.quantity += parseInt(additionalQuantity);
+                    localStorage.setItem('manohpressing_stock', JSON.stringify(stockResult));
+                    loadStockSection();
+                    showToast(`Stock mis à jour: +${additionalQuantity} ${stockItem.unit}`, 'success');
+                }
+            }
+        }
+
+        function requestRestock(stockId) {
+            // Récupérer l'article de stock
+            const stockResult = JSON.parse(localStorage.getItem('manohpressing_stock') || '[]');
+            const stockItem = stockResult.find(item => item.id == stockId);
+
+            if (stockItem) {
+                restockManager.showCreateRequestModal(stockItem);
+            } else {
+                showToast('Article non trouvé', 'error');
+            }
+        }
+
+        function showAddStockModal() {
+            const name = prompt('Nom de l\'article:');
+            const quantity = prompt('Quantité initiale:');
+            const unit = prompt('Unité (ex: kg, L, pièces):');
+            const minQuantity = prompt('Quantité minimum:');
+            const unitPrice = prompt('Prix unitaire:');
+            const supplier = prompt('Fournisseur:');
+
+            if (name && quantity && unit && minQuantity && unitPrice && supplier) {
+                const stockResult = JSON.parse(localStorage.getItem('manohpressing_stock') || '[]');
+
+                const newItem = {
+                    id: Date.now(),
+                    name: name,
+                    quantity: parseInt(quantity),
+                    unit: unit,
+                    minQuantity: parseInt(minQuantity),
+                    unitPrice: parseFloat(unitPrice),
+                    supplier: supplier,
+                    createdAt: new Date().toISOString()
+                };
+
+                stockResult.push(newItem);
+                localStorage.setItem('manohpressing_stock', JSON.stringify(stockResult));
+                loadStockSection();
+                showToast('Article ajouté avec succès', 'success');
+            }
+        }
+
+        function exportOrdersData() {
+            dataManager.exportData('orders');
+            showToast('Export des commandes réussi', 'success');
+        }
+
+        function exportCustomersData() {
+            dataManager.exportData('users');
+            showToast('Export des clients réussi', 'success');
+        }
+
+        function exportStockData() {
+            dataManager.exportData('stock');
+            showToast('Export du stock réussi', 'success');
+        }
+
+        function updateReportsPeriod(period) {
+            showToast(`Période mise à jour : ${period}`, 'info');
+        }
+
+        function generateManagerReport() {
+            showToast('Génération du rapport personnalisé', 'info');
+        }
+
+        function downloadManagerReport(reportId) {
+            showToast('Téléchargement du rapport...', 'info');
+        }
+
+        function refreshChatList() {
+            showToast('Liste des conversations actualisée', 'info');
+        }
+
+        // Fonctions PDF et impression
+        async function printReceipt(orderNumber) {
+            try {
+                const order = ordersData.find(o => o.orderNumber === orderNumber);
+                if (!order) {
+                    showToast('Commande non trouvée', 'error');
+                    return;
+                }
+
+                // Récupérer les informations du client
+                const customerResult = await dataManager.getUserById(order.customerId);
+                const customer = customerResult.success ? customerResult.data : {
+                    firstName: 'Client',
+                    lastName: 'Inconnu',
+                    email: 'non-renseigne@email.com',
+                    phone: 'Non renseigné'
+                };
+
+                showToast('Génération du reçu PDF...', 'info');
+
+                const doc = await pdfGenerator.generateReceipt(order, customer);
+                pdfGenerator.printPDF(doc);
+
+                showToast('Reçu généré et envoyé à l\'impression !', 'success');
+            } catch (error) {
+                console.error('Erreur lors de la génération du reçu:', error);
+                showToast('Erreur lors de la génération du reçu', 'error');
+            }
+        }
+
+        async function downloadReceipt(orderNumber) {
+            try {
+                const order = ordersData.find(o => o.orderNumber === orderNumber);
+                if (!order) {
+                    showToast('Commande non trouvée', 'error');
+                    return;
+                }
+
+                const customerResult = await dataManager.getUserById(order.customerId);
+                const customer = customerResult.success ? customerResult.data : {
+                    firstName: 'Client',
+                    lastName: 'Inconnu',
+                    email: 'non-renseigne@email.com',
+                    phone: 'Non renseigné'
+                };
+
+                showToast('Génération du reçu PDF...', 'info');
+
+                const doc = await pdfGenerator.generateReceipt(order, customer);
+                pdfGenerator.downloadPDF(doc, `recu_${orderNumber}_${new Date().toISOString().split('T')[0]}.pdf`);
+
+                showToast('Reçu téléchargé avec succès !', 'success');
+            } catch (error) {
+                console.error('Erreur lors du téléchargement du reçu:', error);
+                showToast('Erreur lors du téléchargement du reçu', 'error');
+            }
+        }
+
+        // Redéfinir les fonctions d'export pour utiliser PDF
+        async function exportOrdersData() {
+            try {
+                showToast('Génération de l\'export PDF...', 'info');
+
+                const result = await dataManager.read('orders');
+                const orders = result.success ? result.data : [];
+
+                const doc = await pdfGenerator.generateDataExport(orders, 'Export des Commandes - ManohPressing');
+                pdfGenerator.downloadPDF(doc, `export_commandes_${new Date().toISOString().split('T')[0]}.pdf`);
+
+                showToast('Export des commandes réussi !', 'success');
+            } catch (error) {
+                console.error('Erreur lors de l\'export:', error);
+                showToast('Erreur lors de l\'export', 'error');
+            }
+        }
+
+        async function exportCustomersData() {
+            try {
+                showToast('Génération de l\'export PDF...', 'info');
+
+                const result = await dataManager.getUserByRole('client');
+                const customers = result.success ? result.data : [];
+
+                const doc = await pdfGenerator.generateDataExport(customers, 'Export des Clients - ManohPressing');
+                pdfGenerator.downloadPDF(doc, `export_clients_${new Date().toISOString().split('T')[0]}.pdf`);
+
+                showToast('Export des clients réussi !', 'success');
+            } catch (error) {
+                console.error('Erreur lors de l\'export:', error);
+                showToast('Erreur lors de l\'export', 'error');
+            }
+        }
+
+        async function exportStockData() {
+            try {
+                showToast('Génération de l\'export PDF...', 'info');
+
+                const result = await dataManager.read('stock');
+                const stock = result.success ? result.data : [];
+
+                const doc = await pdfGenerator.generateDataExport(stock, 'Export du Stock - ManohPressing');
+                pdfGenerator.downloadPDF(doc, `export_stock_${new Date().toISOString().split('T')[0]}.pdf`);
+
+                showToast('Export du stock réussi !', 'success');
+            } catch (error) {
+                console.error('Erreur lors de l\'export:', error);
+                showToast('Erreur lors de l\'export', 'error');
+            }
+        }
+
+        // Redéfinir la génération de rapports pour PDF
+        async function generateReport(type) {
+            try {
+                showToast('Génération du rapport PDF...', 'info');
+
+                // Simuler des données de rapport
+                const reportData = await generateReportData(type);
+
+                const doc = await pdfGenerator.generateReport(reportData, type);
+                pdfGenerator.downloadPDF(doc, `rapport_${type}_${new Date().toISOString().split('T')[0]}.pdf`);
+
+                // Sauvegarder dans les rapports récents
+                const recentReports = JSON.parse(localStorage.getItem('manohpressing_manager_reports') || '[]');
+                recentReports.unshift({
+                    id: Date.now().toString(),
+                    name: `Rapport ${type} - ${new Date().toLocaleDateString('fr-FR')}`,
+                    type: type,
+                    date: new Date().toLocaleDateString('fr-FR')
+                });
+
+                if (recentReports.length > 10) {
+                    recentReports.splice(10);
+                }
+
+                localStorage.setItem('manohpressing_manager_reports', JSON.stringify(recentReports));
+
+                showToast('Rapport généré avec succès !', 'success');
+                loadReportsSection();
+            } catch (error) {
+                console.error('Erreur lors de la génération du rapport:', error);
+                showToast('Erreur lors de la génération du rapport', 'error');
+            }
+        }
+
+        async function generateReportData(type) {
+            // Générer des données de rapport selon le type
+            const ordersResult = await dataManager.read('orders');
+            const orders = ordersResult.success ? ordersResult.data : [];
+
+            const customersResult = await dataManager.getUserByRole('client');
+            const customers = customersResult.success ? customersResult.data : [];
+
+            const stockResult = await dataManager.read('stock');
+            const stock = stockResult.success ? stockResult.data : [];
+
+            switch (type) {
+                case 'daily':
+                case 'weekly':
+                case 'monthly':
+                    return {
+                        ordersCount: orders.length,
+                        revenue: orders.reduce((sum, order) => sum + order.total, 0),
+                        customersCount: customers.length,
+                        averageOrder: orders.length > 0 ? orders.reduce((sum, order) => sum + order.total, 0) / orders.length : 0
+                    };
+                case 'customers':
+                    return { customers };
+                case 'stock':
+                    return { stockItems: stock };
+                case 'financial':
+                    const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);
+                    return {
+                        totalRevenue,
+                        transactionCount: orders.length,
+                        averageTicket: orders.length > 0 ? totalRevenue / orders.length : 0,
+                        growth: Math.floor(Math.random() * 20) - 5 // Simulation
+                    };
+                default:
+                    return { orders, customers, stock };
+            }
+        }
+
+        function getStatusLabel(status) {
+            const labels = {
+                'pending': 'En attente',
+                'in_progress': 'En cours',
+                'ready': 'Prête',
+                'delivered': 'Livrée'
+            };
+            return labels[status] || status;
+        }
+
+        // Variables globales pour les coupons de dépôt
+        let currentDepositCouponForValidation = null;
+
+        // Fonctions de gestion des coupons de dépôt
+        function showDepositCouponValidationModal(coupon) {
+            currentDepositCouponForValidation = coupon;
+
+            const preview = document.getElementById('depositCouponPreview');
+            preview.innerHTML = `
+                <div class="coupon-preview">
+                    <h3>🎫 Reçu de Dépôt de Vêtements</h3>
+                    <div class="coupon-code">${coupon.code}</div>
+                    <div class="coupon-details">
+                        <div class="coupon-detail">
+                            <div class="coupon-detail-label">Articles</div>
+                            <div class="coupon-detail-value">
+                                ${coupon.itemsCount} article(s)
+                            </div>
+                        </div>
+                        <div class="coupon-detail">
+                            <div class="coupon-detail-label">À récupérer avant le</div>
+                            <div class="coupon-detail-value">
+                                ${new Date(coupon.validUntil).toLocaleDateString('fr-FR')}
+                            </div>
+                        </div>
+                        <div class="coupon-detail">
+                            <div class="coupon-detail-label">Client</div>
+                            <div class="coupon-detail-value">${coupon.customerName}</div>
+                        </div>
+                        <div class="coupon-detail">
+                            <div class="coupon-detail-label">Commande</div>
+                            <div class="coupon-detail-value">${coupon.orderNumber}</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
+                        <strong>Articles:</strong> ${coupon.itemsDescription}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('depositCouponValidationModal').classList.add('active');
+        }
+
+        async function validateAndSendDepositCoupon() {
+            if (!currentDepositCouponForValidation) {
+                showToast('Aucun reçu de dépôt à valider', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('validateDepositCouponBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+
+            try {
+                await window.couponManager.validateAndSendDepositCoupon(
+                    currentDepositCouponForValidation.id,
+                    currentUser.id
+                );
+
+                closeModal('depositCouponValidationModal');
+                showToast(`Reçu de dépôt ${currentDepositCouponForValidation.code} envoyé au client !`, 'success');
+                currentDepositCouponForValidation = null;
+
+            } catch (error) {
+                console.error('Erreur validation reçu de dépôt:', error);
+                showToast('Erreur lors de l\'envoi du reçu', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer le Reçu';
+            }
+        }
+
+        // Fonctions de gestion des paiements mobiles
+        function loadPaymentNotifications() {
+            if (!window.mobilePaymentManager) return;
+
+            const payments = window.mobilePaymentManager.getManagerPayments(currentUser.id, 'completed');
+            console.log('💳 Paiements reçus:', payments.length);
+
+            // Mettre à jour le badge de notifications
+            const badge = document.getElementById('nav-notification-count');
+            if (badge) {
+                const currentCount = parseInt(badge.textContent) || 0;
+                badge.textContent = currentCount + payments.filter(p => {
+                    // Nouveaux paiements des dernières 24h
+                    const paymentDate = new Date(p.completedAt);
+                    const now = new Date();
+                    const diffHours = (now - paymentDate) / (1000 * 60 * 60);
+                    return diffHours <= 24;
+                }).length;
+            }
+        }
+
+        function showPaymentStats() {
+            if (!window.mobilePaymentManager) return;
+
+            const stats = window.mobilePaymentManager.getPaymentStats(currentUser.id);
+
+            const message = `📊 Statistiques des paiements mobiles:
+
+💰 Total des paiements: ${stats.totalAmount}€
+📱 Paiements réussis: ${stats.completed}
+⏳ En attente: ${stats.pending}
+❌ Échoués: ${stats.failed}
+
+🟠 Orange Money: ${stats.orangeMoney}
+🟡 MTN Money: ${stats.mtnMoney}
+
+💸 Frais collectés: ${stats.totalFees}€`;
+
+            alert(message);
+        }
+
+        // Fonctions utilitaires pour les clients
+        function viewCustomerDetails(customerId) {
+            const customer = customersData.find(c => c.id === customerId);
+            if (customer) {
+                alert(`Détails du client:\n\nNom: ${customer.firstName} ${customer.lastName}\nEmail: ${customer.email}\nTéléphone: ${customer.phone || 'Non renseigné'}\nAdresse: ${customer.address || 'Non renseignée'}`);
+            }
+        }
+
+        function contactCustomer(customerId) {
+            // Ouvrir le chat avec ce client
+            const customer = customersData.find(c => c.id === customerId);
+            if (customer) {
+                showToast(`Ouverture du chat avec ${customer.firstName} ${customer.lastName}`, 'info');
+                // Ici on pourrait ouvrir le panneau de chat avec ce client sélectionné
+            }
+        }
+
+        function filterCustomers(searchTerm) {
+            const filteredCustomers = customersData.filter(customer =>
+                customer.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                customer.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                customer.email.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            // Temporairement remplacer customersData pour le rendu
+            const originalData = customersData;
+            customersData = filteredCustomers;
+            renderCustomersGrid();
+            customersData = originalData;
+        }
+
+        // Fonctions pour les modals
+        function showNewOrderModal() {
+            // Charger la liste des clients
+            loadClientsInOrderForm();
+            document.getElementById('newOrderModal').classList.add('active');
+        }
+
+        function showNewClientModal() {
+            document.getElementById('newClientModal').classList.add('active');
+        }
+
+        function loadClientsInOrderForm() {
+            const users = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+            const clients = users.filter(u => u.role === 'client');
+
+            const select = document.querySelector('#newOrderForm select[name="customerId"]');
+            if (select) {
+                select.innerHTML = '<option value="">Sélectionner un client</option>';
+                clients.forEach(client => {
+                    const option = document.createElement('option');
+                    option.value = client.id;
+                    option.textContent = `${client.firstName} ${client.lastName}`;
+                    select.appendChild(option);
+                });
+            }
+        }
+
+        function showNotifyClientModal() {
+            document.getElementById('notifyClientModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        async function createOrder() {
+            const form = document.getElementById('newOrderForm');
+            const formData = new FormData(form);
+
+            // Validation des données
+            const customerId = formData.get('customerId');
+            const serviceType = formData.get('serviceType');
+            const items = formData.get('items');
+            const total = formData.get('total');
+            const expectedDate = formData.get('expectedDate');
+
+            if (!customerId || !serviceType || !items || !total) {
+                showToast('Veuillez remplir tous les champs obligatoires', 'error');
+                return;
+            }
+
+            const orderData = {
+                customerId: parseInt(customerId),
+                serviceType: serviceType,
+                items: items,
+                total: parseFloat(total),
+                expectedDate: expectedDate,
+                notes: formData.get('notes') || ''
+            };
+
+            try {
+                // Récupérer les données des clients
+                const users = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+                const customer = users.find(c => c.id === orderData.customerId);
+
+                if (!customer) {
+                    showToast('Client non trouvé', 'error');
+                    return;
+                }
+
+                // Récupérer les commandes existantes
+                const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+
+                // Valider et formater la date de livraison
+                let deliveryDate = null;
+                if (orderData.expectedDate) {
+                    const date = new Date(orderData.expectedDate);
+                    if (!isNaN(date.getTime())) {
+                        deliveryDate = date.toISOString();
+                    }
+                }
+
+                const newOrder = {
+                    id: Date.now(),
+                    orderNumber: `CMD-${String(orders.length + 1).padStart(3, '0')}`,
+                    customerId: orderData.customerId,
+                    customerName: `${customer.firstName} ${customer.lastName}`,
+                    managerId: currentUser ? currentUser.id : null,
+                    status: 'pending',
+                    services: [{ name: orderData.items, service: orderData.serviceType, price: parseFloat(orderData.total), quantity: 1 }],
+                    total: parseFloat(orderData.total),
+                    createdAt: new Date().toISOString(),
+                    deliveryDate: deliveryDate,
+                    notes: orderData.notes || ''
+                };
+
+                console.log('📦 Nouvelle commande créée:', newOrder);
+
+                // Sauvegarder la nouvelle commande
+                orders.push(newOrder);
+                localStorage.setItem('manohpressing_orders', JSON.stringify(orders));
+                console.log('💾 Commande sauvegardée dans localStorage');
+
+                // Mettre à jour l'interface
+                // Mettre à jour la variable globale avec les commandes du gérant actuel
+                if (currentUser && currentUser.id) {
+                    ordersData = orders.filter(order => order.managerId === currentUser.id);
+                    console.log('🔍 Commandes filtrées pour le gérant:', ordersData.length);
+                } else {
+                    ordersData = orders;
+                    console.log('📋 Toutes les commandes chargées:', ordersData.length);
+                }
+
+                renderOrdersColumns();
+                updateStatistics();
+
+                closeModal('newOrderModal');
+                form.reset();
+                showToast(`Commande ${newOrder.orderNumber} créée avec succès !`, 'success');
+            } catch (error) {
+                console.error('Erreur lors de la création de la commande:', error);
+                showToast('Erreur lors de la création de la commande', 'error');
+            }
+        }
+
+        async function createClient() {
+            const form = document.getElementById('newClientForm');
+            const formData = new FormData(form);
+
+            // Validation des champs requis
+            const requiredFields = ['firstName', 'lastName', 'email', 'username', 'password'];
+            for (const field of requiredFields) {
+                if (!formData.get(field)) {
+                    showToast(`Le champ ${field} est requis`, 'error');
+                    return;
+                }
+            }
+
+            // Vérifier que l'email et le nom d'utilisateur sont uniques
+            const users = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+            const email = formData.get('email');
+            const username = formData.get('username');
+
+            if (users.some(u => u.email === email)) {
+                showToast('Cette adresse email est déjà utilisée', 'error');
+                return;
+            }
+
+            if (users.some(u => u.username === username)) {
+                showToast('Ce nom d\'utilisateur est déjà utilisé', 'error');
+                return;
+            }
+
+            try {
+                // Créer les données utilisateur
+                const userData = {
+                    id: Date.now(),
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone') || '',
+                    address: formData.get('address') || '',
+                    username: formData.get('username'),
+                    password: formData.get('password'),
+                    role: 'client',
+                    isActive: true,
+                    createdAt: new Date().toISOString(),
+                    createdBy: currentUser.id,
+                    siteId: currentUser.siteId || null,
+                    notes: formData.get('notes') || ''
+                };
+
+                // Sauvegarder dans localStorage
+                users.push(userData);
+                localStorage.setItem('manohpressing_users', JSON.stringify(users));
+
+                // Recharger la liste des clients
+                await loadCustomersData();
+                renderCustomersGrid();
+
+                // Fermer le modal et réinitialiser le formulaire
+                closeModal('newClientModal');
+                form.reset();
+
+                showToast(`Client ${userData.firstName} ${userData.lastName} créé avec succès !`, 'success');
+
+                console.log('✅ Client créé:', userData);
+
+            } catch (error) {
+                console.error('Erreur lors de la création du client:', error);
+                showToast('Erreur lors de la création du client', 'error');
+            }
+        }
+
+        async function sendNotification() {
+            const form = document.getElementById('notifyClientForm');
+            const formData = new FormData(form);
+            
+            const notificationData = {
+                clientId: parseInt(formData.get('clientId')),
+                type: formData.get('notificationType'),
+                title: formData.get('title'),
+                message: formData.get('message')
+            };
+
+            try {
+                if (window.notificationManager) {
+                    const success = await window.notificationManager.sendNotification(
+                        notificationData.clientId,
+                        notificationData.type,
+                        notificationData.title,
+                        notificationData.message
+                    );
+                    
+                    if (success) {
+                        closeModal('notifyClientModal');
+                        form.reset();
+                        showToast('Notification envoyée avec succès !', 'success');
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur lors de l\'envoi de la notification:', error);
+                showToast('Erreur lors de l\'envoi de la notification', 'error');
+            }
+        }
+
+        function toggleChat() {
+            const chatPanel = document.getElementById('chat-panel');
+            chatPanel.classList.toggle('active');
+        }
+
+        function toggleNotifications() {
+            showToast('Panneau de notifications ouvert', 'info');
+        }
+
+        function showStockAlert() {
+            showToast('Vérification du stock...', 'info');
+        }
+
+        function generateDailyReport() {
+            showToast('Génération du rapport journalier...', 'info');
+            setTimeout(() => {
+                showToast('Rapport journalier généré avec succès !', 'success');
+            }, 2000);
+        }
+
+        function sendMessage(event) {
+            event.preventDefault();
+            const input = document.getElementById('chat-input-panel');
+            const message = input.value.trim();
+
+            if (message) {
+                console.log('Sending message:', message);
+                input.value = '';
+                showToast('Message envoyé', 'success');
+            }
+        }
+
+        function showUserMenu() {
+            showToast('Menu utilisateur', 'info');
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = '/';
+        }
+
+        // Fonctions utilitaires
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR');
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-color)' : type === 'error' ? 'var(--error-color)' : 'var(--primary-color)'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: var(--radius-md);
+                box-shadow: var(--shadow-lg);
+                z-index: 10000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+
+        function debugData() {
+            console.log('=== DEBUG DES DONNÉES ===');
+            console.log('👤 currentUser:', currentUser);
+            console.log('📦 ordersData:', ordersData);
+
+            const allOrders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            console.log('🗄️ localStorage orders:', allOrders);
+
+            const allUsers = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+            console.log('👥 localStorage users:', allUsers);
+
+            // Afficher un résumé
+            alert(`Debug Info:
+- Utilisateur actuel: ${currentUser ? currentUser.username + ' (ID: ' + currentUser.id + ')' : 'Non connecté'}
+- Commandes affichées: ${ordersData ? ordersData.length : 0}
+- Commandes en localStorage: ${allOrders.length}
+- Utilisateurs en localStorage: ${allUsers.length}
+
+Voir la console pour plus de détails.`);
+        }
+
+        function resetData() {
+            if (confirm('Voulez-vous vraiment réinitialiser toutes les données ? Cette action est irréversible.')) {
+                // Vider localStorage
+                localStorage.removeItem('manohpressing_orders');
+                localStorage.removeItem('manohpressing_users');
+                localStorage.removeItem('manohpressing_sites');
+                localStorage.removeItem('manohpressing_managers');
+                localStorage.removeItem('manohpressing_stock');
+
+                // Réinitialiser avec les nouvelles données
+                if (window.dataInit) {
+                    window.dataInit.resetData();
+                }
+
+                // Recharger les données
+                setTimeout(() => {
+                    loadOrdersData();
+                    showToast('Données réinitialisées avec succès', 'success');
+                }, 500);
+            }
+        }
+
+        function forceReloadData() {
+            console.log('🔄 Rechargement forcé des données...');
+
+            // Vérifier si les données existent
+            const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            if (orders.length === 0) {
+                console.log('⚠️ Aucune commande trouvée, initialisation des données...');
+                if (window.dataInit) {
+                    window.dataInit.init();
+                }
+            }
+
+            // Recharger
+            loadOrdersData();
+        }
+
+        function showAllOrders() {
+            console.log('👁️ Affichage de TOUTES les commandes (sans filtrage)...');
+
+            // Charger toutes les commandes sans filtrage
+            const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            console.log('📦 Total commandes en localStorage:', orders.length);
+
+            // Forcer l'affichage de toutes les commandes
+            ordersData = orders;
+            console.log('🎯 ordersData forcé à:', ordersData.length, 'commandes');
+
+            // Afficher chaque commande
+            ordersData.forEach(order => {
+                console.log(`📋 ${order.orderNumber}: status=${order.status}, managerId=${order.managerId}, customerId=${order.customerId}`);
+            });
+
+            // Rendre les colonnes
+            renderOrdersColumns();
+            updateStatistics();
+
+            showToast(`Affichage forcé de ${ordersData.length} commandes`, 'info');
+        }
+
+        // Fonctions d'affichage des détails
+        function viewOrderDetails(orderId) {
+            window.open(`details.html?type=order&id=${orderId}`, '_blank');
+        }
+
+        function viewClientDetails(clientId) {
+            window.open(`details.html?type=client&id=${clientId}`, '_blank');
+        }
+
+        function editOrder(orderId) {
+            const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            const order = orders.find(o => o.id === parseInt(orderId));
+
+            if (order) {
+                // Remplir le modal de modification
+                document.getElementById('editOrderId').value = order.id;
+                document.getElementById('editOrderNumber').value = order.orderNumber;
+                document.getElementById('editOrderCustomer').value = order.customerName;
+                document.getElementById('editOrderStatus').value = order.status;
+                document.getElementById('editOrderTotal').value = order.total;
+                document.getElementById('editOrderDeliveryDate').value = order.deliveryDate ? order.deliveryDate.split('T')[0] : '';
+                document.getElementById('editOrderNotes').value = order.notes || '';
+
+                // Afficher le modal
+                document.getElementById('editOrderModal').classList.add('active');
+            } else {
+                showToast('Commande non trouvée', 'error');
+            }
+        }
+
+        async function updateOrder() {
+            const form = document.getElementById('editOrderForm');
+            const formData = new FormData(form);
+            const orderId = parseInt(formData.get('orderId'));
+
+            try {
+                const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+                const orderIndex = orders.findIndex(o => o.id === orderId);
+
+                if (orderIndex !== -1) {
+                    orders[orderIndex] = {
+                        ...orders[orderIndex],
+                        status: formData.get('status'),
+                        total: parseFloat(formData.get('total')),
+                        deliveryDate: formData.get('deliveryDate') ? new Date(formData.get('deliveryDate')).toISOString() : null,
+                        notes: formData.get('notes'),
+                        updatedAt: new Date().toISOString()
+                    };
+
+                    localStorage.setItem('manohpressing_orders', JSON.stringify(orders));
+
+                    // Mettre à jour la variable globale avec les commandes du gérant actuel
+                    if (currentUser && currentUser.id) {
+                        ordersData = orders.filter(order => order.managerId === currentUser.id);
+                    } else {
+                        ordersData = orders;
+                    }
+
+                    renderOrdersColumns();
+                    closeModal('editOrderModal');
+                    showToast('Commande modifiée avec succès', 'success');
+                } else {
+                    showToast('Commande non trouvée', 'error');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la modification:', error);
+                showToast('Erreur lors de la modification de la commande', 'error');
+            }
+        }
+
+        function viewCustomerDetails(customerId) {
+            const users = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+            const customer = users.find(u => u.id == customerId);
+
+            if (customer && window.detailsDisplay) {
+                window.detailsDisplay.showCustomerDetails(customer);
+            } else {
+                showToast('Client non trouvé', 'error');
+            }
+        }
+    </script>
+</body>
+</html>

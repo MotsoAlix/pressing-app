@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails - ManohPressing</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-light: #eff6ff;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --surface-color: #ffffff;
+            --background-color: #f8fafc;
+            --border-color: #e2e8f0;
+            --hover-color: #f1f5f9;
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .details-card {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--primary-light);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .detail-section {
+            background: var(--background-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: right;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-badge.processing {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-badge.ready {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-badge.completed {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-badge.cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .actions-section {
+            background: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .actions-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--surface-color);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: var(--hover-color);
+            border-color: var(--primary-color);
+        }
+
+        .action-btn.primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .action-btn.danger {
+            background: var(--error-color);
+            color: white;
+            border-color: var(--error-color);
+        }
+
+        .action-btn.danger:hover {
+            background: #dc2626;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            color: var(--text-secondary);
+        }
+
+        .error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            color: var(--error-color);
+            text-align: center;
+        }
+
+        .error i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="header-title">
+                <h1 id="page-title">Détails</h1>
+            </div>
+            <a href="#" class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                Retour
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="loading" class="loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span style="margin-left: 1rem;">Chargement des détails...</span>
+        </div>
+
+        <div id="error" class="error" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Erreur de chargement</h3>
+            <p>Impossible de charger les détails demandés.</p>
+        </div>
+
+        <div id="content" style="display: none;">
+            <!-- Le contenu sera généré dynamiquement -->
+        </div>
+    </div>
+
+    <script src="assets/js/modules/data-manager.js"></script>
+    <script src="assets/js/modules/toast-notifications.js"></script>
+    <script>
+        // Variables globales
+        let entityType = '';
+        let entityId = '';
+        let entityData = null;
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            entityType = urlParams.get('type');
+            entityId = urlParams.get('id');
+
+            if (!entityType || !entityId) {
+                showError('Paramètres manquants');
+                return;
+            }
+
+            loadEntityDetails();
+        });
+
+        async function loadEntityDetails() {
+            try {
+                const data = await getEntityData(entityType, entityId);
+                if (data) {
+                    entityData = data;
+                    renderDetails(data);
+                } else {
+                    showError('Entité non trouvée');
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement:', error);
+                showError('Erreur lors du chargement des données');
+            }
+        }
+
+        async function getEntityData(type, id) {
+            const numericId = parseInt(id);
+            
+            switch (type) {
+                case 'order':
+                    const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+                    return orders.find(o => o.id === numericId);
+                
+                case 'client':
+                    const users = JSON.parse(localStorage.getItem('manohpressing_users') || '[]');
+                    return users.find(u => u.id === numericId && u.role === 'client');
+                
+                case 'manager':
+                    const managers = JSON.parse(localStorage.getItem('manohpressing_managers') || '[]');
+                    return managers.find(m => m.id === numericId);
+                
+                case 'site':
+                    const sites = JSON.parse(localStorage.getItem('manohpressing_sites') || '[]');
+                    return sites.find(s => s.id === numericId);
+                
+                default:
+                    return null;
+            }
+        }
+
+        function renderDetails(data) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+
+            const content = document.getElementById('content');
+
+            switch (entityType) {
+                case 'order':
+                    renderOrderDetails(data, content);
+                    break;
+                case 'client':
+                    renderClientDetails(data, content);
+                    break;
+                case 'manager':
+                    renderManagerDetails(data, content);
+                    break;
+                case 'site':
+                    renderSiteDetails(data, content);
+                    break;
+            }
+        }
+
+        function renderOrderDetails(order, container) {
+            document.getElementById('page-title').textContent = `Commande ${order.orderNumber}`;
+
+            container.innerHTML = `
+                <div class="details-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Commande ${order.orderNumber}</h2>
+                        <p class="card-subtitle">Créée le ${formatDate(order.createdAt)}</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="details-grid">
+                            <div class="detail-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-info-circle"></i>
+                                    Informations générales
+                                </h3>
+                                <div class="detail-item">
+                                    <span class="detail-label">Numéro de commande</span>
+                                    <span class="detail-value">${order.orderNumber}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Client</span>
+                                    <span class="detail-value">${order.customerName}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Statut</span>
+                                    <span class="detail-value">
+                                        <span class="status-badge ${order.status}">${getStatusText(order.status)}</span>
+                                    </span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Total</span>
+                                    <span class="detail-value">${order.total} FCFA</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Date de livraison</span>
+                                    <span class="detail-value">${formatDate(order.deliveryDate)}</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-list"></i>
+                                    Services
+                                </h3>
+                                ${order.services ? order.services.map(service => `
+                                    <div class="detail-item">
+                                        <span class="detail-label">${service.name} (x${service.quantity})</span>
+                                        <span class="detail-value">${service.price} FCFA</span>
+                                    </div>
+                                `).join('') : '<p>Aucun service spécifié</p>'}
+                            </div>
+                        </div>
+
+                        ${order.notes ? `
+                            <div class="detail-section" style="margin-top: 2rem;">
+                                <h3 class="section-title">
+                                    <i class="fas fa-sticky-note"></i>
+                                    Notes
+                                </h3>
+                                <p style="color: var(--text-secondary); line-height: 1.6;">${order.notes}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+
+                <div class="actions-section">
+                    <h3 class="actions-title">Actions disponibles</h3>
+                    <div class="actions-grid">
+                        <button class="action-btn primary" onclick="updateOrderStatus()">
+                            <i class="fas fa-edit"></i>
+                            Modifier le statut
+                        </button>
+                        <button class="action-btn" onclick="printOrder()">
+                            <i class="fas fa-print"></i>
+                            Imprimer
+                        </button>
+                        <button class="action-btn" onclick="sendNotification()">
+                            <i class="fas fa-bell"></i>
+                            Notifier le client
+                        </button>
+                        <button class="action-btn danger" onclick="cancelOrder()">
+                            <i class="fas fa-times"></i>
+                            Annuler la commande
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderClientDetails(client, container) {
+            document.getElementById('page-title').textContent = `${client.firstName} ${client.lastName}`;
+
+            // Récupérer les commandes du client
+            const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+            const clientOrders = orders.filter(o => o.customerId === client.id);
+
+            container.innerHTML = `
+                <div class="details-card">
+                    <div class="card-header">
+                        <h2 class="card-title">${client.firstName} ${client.lastName}</h2>
+                        <p class="card-subtitle">Client depuis le ${formatDate(client.createdAt)}</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="details-grid">
+                            <div class="detail-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-user"></i>
+                                    Informations personnelles
+                                </h3>
+                                <div class="detail-item">
+                                    <span class="detail-label">Nom complet</span>
+                                    <span class="detail-value">${client.firstName} ${client.lastName}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Email</span>
+                                    <span class="detail-value">${client.email}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Téléphone</span>
+                                    <span class="detail-value">${client.phone}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Adresse</span>
+                                    <span class="detail-value">${client.address || 'Non renseignée'}</span>
+                                </div>
+                            </div>
+
+                            <div class="detail-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-chart-bar"></i>
+                                    Statistiques
+                                </h3>
+                                <div class="detail-item">
+                                    <span class="detail-label">Nombre de commandes</span>
+                                    <span class="detail-value">${clientOrders.length}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Total dépensé</span>
+                                    <span class="detail-value">${client.totalSpent || 0} €</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Points de fidélité</span>
+                                    <span class="detail-value">${client.loyaltyPoints || 0} points</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Statut</span>
+                                    <span class="detail-value">
+                                        <span class="status-badge ${client.isActive ? 'ready' : 'cancelled'}">
+                                            ${client.isActive ? 'Actif' : 'Inactif'}
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${clientOrders.length > 0 ? `
+                            <div class="detail-section" style="margin-top: 2rem;">
+                                <h3 class="section-title">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    Commandes récentes
+                                </h3>
+                                ${clientOrders.slice(0, 5).map(order => `
+                                    <div class="detail-item">
+                                        <span class="detail-label">
+                                            <a href="details.html?type=order&id=${order.id}" style="color: var(--primary-color); text-decoration: none;">
+                                                ${order.orderNumber}
+                                            </a>
+                                            <small style="display: block; color: var(--text-muted);">${formatDate(order.createdAt)}</small>
+                                        </span>
+                                        <span class="detail-value">
+                                            <span class="status-badge ${order.status}">${getStatusText(order.status)}</span>
+                                        </span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Fonctions utilitaires
+        function formatDate(dateString) {
+            if (!dateString) return 'Non définie';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'pending': 'En attente',
+                'processing': 'En cours',
+                'ready': 'Prêt',
+                'completed': 'Terminé',
+                'cancelled': 'Annulé'
+            };
+            return statusMap[status] || status;
+        }
+
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'flex';
+            document.querySelector('#error p').textContent = message;
+        }
+
+        function goBack() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+
+        // Actions pour les commandes
+        function updateOrderStatus() {
+            const newStatus = prompt('Nouveau statut (pending, processing, ready, completed, cancelled):');
+            if (newStatus && ['pending', 'processing', 'ready', 'completed', 'cancelled'].includes(newStatus)) {
+                // Mettre à jour le statut
+                const orders = JSON.parse(localStorage.getItem('manohpressing_orders') || '[]');
+                const orderIndex = orders.findIndex(o => o.id === entityData.id);
+                if (orderIndex !== -1) {
+                    orders[orderIndex].status = newStatus;
+                    localStorage.setItem('manohpressing_orders', JSON.stringify(orders));
+                    location.reload();
+                }
+            }
+        }
+
+        function printOrder() {
+            window.print();
+        }
+
+        function sendNotification() {
+            alert('Notification envoyée au client !');
+        }
+
+        function cancelOrder() {
+            if (confirm('Êtes-vous sûr de vouloir annuler cette commande ?')) {
+                updateOrderStatus('cancelled');
+            }
+        }
+    </script>
+</body>
+</html>
